@@ -1,0 +1,64 @@
+version: "3"
+
+services:
+  app-db:
+    image: mysql:5.7
+    networks:
+      - app-network
+    volumes:
+      - app_db_volume:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: app-db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+
+  # Dashboard DB Container
+  dashboard:
+    container_name: phpmyadmin2
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "18080:80"
+    depends_on:
+      - app-db
+    environment:
+      - "PMA_HOST=app-db"
+    networks:
+      - app-network
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    tty: true
+    volumes:
+      - ./server:/app
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./client:/app
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - server
+    command: npm run serve
+
+volumes:
+  app_db_volume:
+
+
+networks:
+  app-network:

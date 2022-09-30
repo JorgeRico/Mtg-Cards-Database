@@ -1,0 +1,279 @@
+@import '@/plugins/vuetify/default-preset/preset/variables.scss';
+
+// Write your variable overrides
+a.dashboardLink {
+    text-decoration: none;
+    margin-top: 15px;
+    float: left;
+    color: rgba(94, 86, 105, 0.87);
+}
+
+a.dashboardLink:hover {
+    text-decoration: underline;
+    color: blueviolet
+}
+
+.invisible {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+.blueviolet {
+    color: blueviolet
+}
+
+#spinner {
+    margin: 20px;
+    width: auto;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: #09f;
+
+    animation: spin 1s ease infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right
+}
+
+.w-50px {
+    width: 50px;
+}
+
+.w-150px {
+    width: 150px;
+}
+
+.w-200px {
+    width: 200px;
+}
+
+.w-300px {
+    width: 300px;
+}
+
+.w-400px {
+    width: 400px;
+}
+
+.w-49 {
+    width: 49%;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.h300 {
+    height: 300px;
+}
+
+.h340 {
+    height: 340px;
+}
+
+.pb-20 {
+    padding-bottom: 20px;
+}
+
+.p20 {
+    padding: 20px;
+}
+
+.f12 {
+    font-size: 12px !important;
+}
+
+.mr-25 {
+    margin-right: 25px;
+}
+
+.mr-30 {
+    margin-right: 30px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.f16 {
+    font-size: 16px;
+}
+
+.f18 {
+    font-size: 18px;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.radioButton {
+    height: 20px;
+    width: 20px;
+    margin-top: 3px;
+    position: relative;
+    float: left;
+}
+
+.contamination-box,
+.pathology-box,
+.pathology-box-impact,
+.regionImpacto {
+    padding: 15px;
+    position: relative;
+    float: left;
+    margin-right: 25px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.contamination-box,
+.pathology-box,
+.pathology-box-impact {
+    width: 130px;
+}
+
+.comunity-box {
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.contamination-box {
+    font-size: 16px;
+}
+
+.datepicker input {
+    padding: 15px;
+    border-radius: 5px;
+    width: 300px;
+}
+
+.contamination-box,
+.pathology-box,
+.pathology-box-impact,
+.regionImpacto,
+.comunity-box,
+.datepicker input {
+    border: 2px solid lightgrey;
+}
+
+.regionList td:hover,
+.comunity-box:hover,
+.regionImpacto:hover,
+.pathology-box:hover {
+    background: var(--v-primary-base) !important;
+    color: white !important;
+    border: 2px solid darkviolet;
+}
+
+.selected,
+.selectedContaminant,
+.selectedComunity,
+.selectedRegion,
+.selectedPathology {
+    background: var(--v-primary-base) !important;
+    border: 2px solid darkviolet;
+    color: white;
+}
+
+.datepicker input.selectedDate {
+    border: 2px solid darkviolet;
+}
+
+#inside-map {
+    background: white;
+}
+
+.pathology-box,
+.pathology-box-impact,
+.regionList,
+.regionImpacto,
+.contamination-box,
+.comunity-box {
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.peticion {
+    position: relative;
+    width: 48%;
+    padding: 0 20px;
+}
+
+.table td {
+    border-bottom: 0px solid !important;
+}
+
+.border-grey {
+    border: 1px solid lightgrey;
+}
+
+.border-bottom {
+    border-bottom: thin solid rgba(94, 86, 105, 0.14);
+}
+
+.theme--light.v-data-table td.selected {
+    color: white !important;
+}
+
+.alertPadding {
+    padding: 20px 0 0 0;
+}
+
+.not-allowed {
+    cursor: not-allowed;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+#buttonCost,
+#buttonImpact,
+#alarmButtonButton {
+    padding: 15px 20px;
+    height: auto !important;
+}
+
+.theme--dark .datepicker input,
+.theme--dark .dashboardLink {
+    color: rgba(231, 227, 252, 0.87);
+}
+
+.theme--dark .vdp-datepicker__calendar {
+    color: black;
+}
