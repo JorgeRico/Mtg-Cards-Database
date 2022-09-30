@@ -14,11 +14,11 @@
         <!-- login form -->
         <v-card-text>
           <v-form>
-            <v-text-field v-model="email" outlined label="Email" placeholder="john@example.com" hide-details
+            <v-text-field v-model="email" outlined label="Email" placeholder="admin@admin.com" hide-details
               class="mb-3"></v-text-field>
 
             <v-text-field v-model="password" outlined :type="isPasswordVisible ? 'text' : 'password'" label="Password"
-              placeholder="············" :append-icon="isPasswordVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline"
+              placeholder="123456" :append-icon="isPasswordVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline"
               hide-details @click:append="isPasswordVisible = !isPasswordVisible"></v-text-field>
 
             <div class="d-flex align-center justify-space-between flex-wrap mb-5 mt-3" style="float: right">

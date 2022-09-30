@@ -7,6 +7,11 @@ A project that runs a Express server and Vue-CLI with two separate containers, s
 nom install
 ```
 
+# first time need node_modules on /server
+```
+nom install
+```
+
 # run docker build
 ```
 docker-compose build
@@ -34,6 +39,9 @@ The server is spun up at localhost:3000.
 
 ## Front
 http://localhost:8080/
+
+## API
+http://localhost:3000/
 
 ## PhpMyAdmin
 http://localhost:18080/
