@@ -38,16 +38,47 @@ The server is spun up at localhost:3000.
 
 
 ## Front
-http://localhost:8080/
+```
+http://localhost:8080
+```
 
 ## API
-http://localhost:3000/
+```
+http://localhost:3000
+```
 
+```
 GET http://localhost:3000/sets
-GET http://localhost:3000/sets/1
+```
 
+```
+GET http://localhost:3000/sets/1
+```
+
+```
+PUT http://localhost:3000/sets/1
+{ complete: 1 }
+```
+
+```
 GET http://localhost:3000/setCards/1
+```
+
+```
 GET http://localhost:3000/setCards/1/cards/2
+```
+
+```
+PUT http://localhost:3000/setCards/1/cards/1
+{ own: 1 }
+```
+
+```
+PUT http://localhost:3000/setCards/1/cards
+{ own: 1 }
+```
 
 ## PhpMyAdmin
-http://localhost:18080/
+```
+http://localhost:18080
+```
