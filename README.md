@@ -76,6 +76,8 @@ PUT http://localhost:3000/setCards/1/cards/1
 ```
 PUT http://localhost:3000/setCards/1/cards
 { own: 1 }
+{ own: 1, cards: [1,2,3] }
+
 ```
 
 ## PhpMyAdmin

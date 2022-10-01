@@ -41,7 +41,6 @@ router.put("/:idSet/cards", async function (req, res, next) {
 });
 
 
-
 /* GET Cards function */
 async function getMultipleSetCards(id, page = 1) {
   const offset = helper.getOffset(page, config.listPerPage);
@@ -97,19 +96,40 @@ async function updateCardOwn(id, idSet, value) {
 
 /* UPDATE Card */
 async function updateCardSetOwn(idSet, value) {
-  const result = await db.query(
-    `UPDATE mtgCard 
-      SET own = "${value.own}"
-      WHERE idSet = ${idSet}`
-  );
+  if (typeof value.cards != 'undefined') {
+    var cards = JSON.parse(value.cards);
 
-  let message = "Error in updating programming language";
+    const result = await db.query(
+      `UPDATE mtgCard 
+        SET own = "${value.own}"
+        WHERE id in (${cards}) AND idSet = ${idSet}`
+    );
 
-  if (result.affectedRows) {
-    message = "Updated successfully";
+    let message = "Error in updating programming language";
+
+    if (result.affectedRows) {
+      message = "Updated successfully";
+    }
+
+    return { message };
+
+  } else {
+    const result = await db.query(
+      `UPDATE mtgCard 
+        SET own = "${value.own}"
+        WHERE idSet = ${idSet}`
+    );
+
+    let message = "Error in updating programming language";
+
+    if (result.affectedRows) {
+      message = "Updated successfully";
+    }
+
+    return { message };
   }
 
-  return { message };
+
 }
 
 module.exports = router;
