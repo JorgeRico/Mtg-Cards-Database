@@ -30,6 +30,17 @@ router.put("/:idSet/cards/:idCard", async function (req, res, next) {
   }
 });
 
+/* PUT Card */
+router.put("/:idSet/cards", async function (req, res, next) {
+  try {
+    res.json(await updateCardSetOwn(req.params.idSet, req.body));
+  } catch (err) {
+    console.error(`Error while updating`, err.message);
+    next(err);
+  }
+});
+
+
 
 /* GET Cards function */
 async function getMultipleSetCards(id, page = 1) {
@@ -73,6 +84,23 @@ async function updateCardOwn(id, idSet, value) {
     SET own = "${value.own}"
     WHERE id = ${id}
     AND idSet = ${idSet}`
+  );
+
+  let message = "Error in updating programming language";
+
+  if (result.affectedRows) {
+    message = "Updated successfully";
+  }
+
+  return { message };
+}
+
+/* UPDATE Card */
+async function updateCardSetOwn(idSet, value) {
+  const result = await db.query(
+    `UPDATE mtgCard 
+      SET own = "${value.own}"
+      WHERE idSet = ${idSet}`
   );
 
   let message = "Error in updating programming language";
