@@ -43,5 +43,11 @@ http://localhost:8080/
 ## API
 http://localhost:3000/
 
+GET http://localhost:3000/sets
+GET http://localhost:3000/sets/1
+
+GET http://localhost:3000/setCards/1
+GET http://localhost:3000/setCards/1/cards/2
+
 ## PhpMyAdmin
 http://localhost:18080/
