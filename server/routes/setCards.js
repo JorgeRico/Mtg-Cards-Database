@@ -2,7 +2,6 @@ const db = require('../services/db');
 const helper = require('../helper');
 const config = require('../config');
 
-// module.exports = router;
 var express = require('express');
 var router = express.Router();
 
@@ -21,41 +20,68 @@ router.get('/:id/cards/:idCard', async function (req, res, next) {
   }
 });
 
+/* PUT Card */
+router.put("/:idSet/cards/:idCard", async function (req, res, next) {
+  try {
+    res.json(await updateCardOwn(req.params.idCard, req.params.idSet, req.body));
+  } catch (err) {
+    console.error(`Error while updating`, err.message);
+    next(err);
+  }
+});
 
-/* Get Cards function */
+
+/* GET Cards function */
 async function getMultipleSetCards(id, page = 1) {
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
     `SELECT 
-    id, idSet, cardName, cardJsonLink, cardLink 
+    id, idSet, cardName, cardJsonLink, cardLink, own
     FROM mtgCard 
     WHERE idSet = ${id} 
     LIMIT ${offset},${config.listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };
-  console.log(data);
+
   return {
     data,
     meta,
   };
 }
 
-/* Get Single Card */
+/* GET Single Card */
 async function getSingleCard(id, idCard) {
-  console.log(id)
   const rows = await db.query(
     `SELECT 
-    id, idSet, cardName, cardJsonLink, cardLink 
+    id, idSet, cardName, cardJsonLink, cardLink, own
     FROM mtgCard 
     WHERE idSet = ${id} 
     AND id = ${idCard}`
   );
   const data = helper.emptyOrRows(rows);
-  console.log(data);
+
   return {
     data
   };
+}
+
+/* UPDATE Card */
+async function updateCardOwn(id, idSet, value) {
+  const result = await db.query(
+    `UPDATE mtgCard 
+    SET own = "${value.own}"
+    WHERE id = ${id}
+    AND idSet = ${idSet}`
+  );
+
+  let message = "Error in updating programming language";
+
+  if (result.affectedRows) {
+    message = "Updated successfully";
+  }
+
+  return { message };
 }
 
 module.exports = router;
