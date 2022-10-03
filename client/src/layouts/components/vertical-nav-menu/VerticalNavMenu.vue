@@ -18,18 +18,8 @@
     <v-list expand shaped class="vertical-nav-menu-items pr-5">
       <nav-menu-link title="Dashboard" :to="{ name: 'dashboard' }" :icon="icons.mdiHomeOutline"></nav-menu-link>
       <nav-menu-section-title title="CASOS"></nav-menu-section-title>
-      <nav-menu-group :icon="icons.mdiCardAccountDetailsStar" title="Caso 6">
-        <nav-menu-link title="Anonimización" :to="{ name: 'case-6-anonimize' }"></nav-menu-link>
-        <nav-menu-link title="Tagger" :to="{ name: 'case-6-tagger' }"></nav-menu-link>
-      </nav-menu-group>
-      <nav-menu-group :icon="icons.mdiAccountBoxMultipleOutline" title="Caso 7">
-        <nav-menu-link title="Caso 7" :to="{ name: 'case-7' }"></nav-menu-link>
-        <nav-menu-link title="Render" :to="{ name: 'render' }"></nav-menu-link>
-      </nav-menu-group>
-      <nav-menu-group :icon="icons.mdiWeatherSunnyAlert" title="Caso 8">
-        <nav-menu-link title="Alarmas" :to="{ name: 'case-8-alarm' }"></nav-menu-link>
-        <nav-menu-link title="Impacto" :to="{ name: 'case-8-impact' }"></nav-menu-link>
-        <nav-menu-link title="Gestión de costes" :to="{ name: 'case-8-costs' }"></nav-menu-link>
+      <nav-menu-group :icon="icons.mdiCardAccountDetailsStar" title="Sets">
+        <nav-menu-link title="Sets" :to="{ name: 'setlist' }"></nav-menu-link>
       </nav-menu-group>
     </v-list>
   </v-navigation-drawer>

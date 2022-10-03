@@ -51,40 +51,46 @@ const routes = [
     },
   },
   {
-    path: '/case-6-anonimize',
-    name: 'case-6-anonimize',
-    component: () => import('@/views/pages/case6/Anonimize.vue'),
+    path: '/setlist',
+    name: 'setlist',
+    component: () => import('@/views/pages/setlist/SetList.vue'),
   },
-  {
-    path: '/case-6-tagger',
-    name: 'case-6-tagger',
-    component: () => import('@/views/pages/case6/Tagger.vue'),
-  },
-  {
-    path: '/case-7',
-    name: 'case-7',
-    component: () => import('@/views/pages/case7/Case7.vue'),
-  },
-  {
-    path: '/case-7/render',
-    name: 'render',
-    component: () => import('@/views/pages/case7/Render.vue'),
-  },
-  {
-    path: '/case-8-alarm',
-    name: 'case-8-alarm',
-    component: () => import('@/views/pages/case8/Alarm.vue'),
-  },
-  {
-    path: '/case-8-impact',
-    name: 'case-8-impact',
-    component: () => import('@/views/pages/case8/Impact.vue'),
-  },
-  {
-    path: '/case-8-costs',
-    name: 'case-8-costs',
-    component: () => import('@/views/pages/case8/Costs.vue'),
-  },
+  // {
+  // {
+  //   path: '/case-6-anonimize',
+  //   name: 'case-6-anonimize',
+  //   component: () => import('@/views/pages/case6/Anonimize.vue'),
+  // },
+  // {
+  //   path: '/case-6-tagger',
+  //   name: 'case-6-tagger',
+  //   component: () => import('@/views/pages/case6/Tagger.vue'),
+  // },
+  // {
+  //   path: '/case-7',
+  //   name: 'case-7',
+  //   component: () => import('@/views/pages/case7/Case7.vue'),
+  // },
+  // {
+  //   path: '/case-7/render',
+  //   name: 'render',
+  //   component: () => import('@/views/pages/case7/Render.vue'),
+  // },
+  // {
+  //   path: '/case-8-alarm',
+  //   name: 'case-8-alarm',
+  //   component: () => import('@/views/pages/case8/Alarm.vue'),
+  // },
+  // {
+  //   path: '/case-8-impact',
+  //   name: 'case-8-impact',
+  //   component: () => import('@/views/pages/case8/Impact.vue'),
+  // },
+  // {
+  //   path: '/case-8-costs',
+  //   name: 'case-8-costs',
+  //   component: () => import('@/views/pages/case8/Costs.vue'),
+  // },
   // {
   //   path: '*',
   //   redirect: 'error-404',
