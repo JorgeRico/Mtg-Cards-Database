@@ -12,7 +12,7 @@
 
     <v-card-subtitle class="mb-8 mt-n5">
       <!-- <span class="font-weight-semibold text--primary me-1">Total 48.5% Growth</span> -->
-      <span>😎 Virtual Doctor and medicines</span>
+      <span>😎 MTG</span>
     </v-card-subtitle>
 
     <v-card-text style="padding-bottom:40px;">
@@ -29,7 +29,7 @@
             </h3>
           </div>
         </v-col> -->
-        <v-col cols="6" md="3" class="d-flex align-center">
+        <!-- <v-col cols="6" md="3" class="d-flex align-center">
           <v-avatar size="44" rounded class="elevation-1 v-avatar success">
             <v-icon dark color="white" size="30">
               {{ resolveStatisticsIconVariation ('caso6').icon }}
@@ -100,8 +100,8 @@
             <h3 class="text-xl font-weight-semibold">
               <router-link :to="{ name: 'case-8-costs' }" class="dashboardLink">Caso 8 - Gestión de costes</router-link>
             </h3>
-          </div>
-        </v-col>
+          </div> -->
+        <!-- </v-col> -->
       </v-row>
     </v-card-text>
   </v-card>

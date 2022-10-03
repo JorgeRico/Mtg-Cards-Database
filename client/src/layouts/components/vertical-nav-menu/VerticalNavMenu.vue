@@ -8,7 +8,7 @@
           eager class="app-logo me-3"></v-img>
         <v-slide-x-transition>
           <h2 class="app-title text--primary">
-            Virtual Doctor and Medicines
+            MTG
           </h2>
         </v-slide-x-transition>
       </router-link>

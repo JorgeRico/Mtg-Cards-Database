@@ -29,7 +29,7 @@
       <div class="boxed-container w-full">
         <div class="mx-6 d-flex justify-space-between">
           <span>
-            &copy; 2021 Virtual Doctor and Medicines</span>
+            &copy; 2021 MTG</span>
         </div>
       </div>
     </v-footer>

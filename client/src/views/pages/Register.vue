@@ -6,7 +6,7 @@
         <v-card-title class="d-flex align-center justify-center py-7">
           <router-link to="/" class="d-flex align-center">
             <h2 class="text-2xl font-weight-semibold">
-              Virtual Doctor and Medicines
+              MTG
             </h2>
           </router-link>
         </v-card-title>
