@@ -4,11 +4,17 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const cors = require('cors');
+
 var indexRouter = require('./routes/index');
 var setsRouter = require('./routes/sets');
 var setCardsRouter = require('./routes/setCards');
 
 var app = express();
+
+app.use(cors({
+  origin: '*'
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
