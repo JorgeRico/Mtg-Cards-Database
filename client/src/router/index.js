@@ -55,6 +55,11 @@ const routes = [
     name: 'setlist',
     component: () => import('@/views/pages/setlist/SetList.vue'),
   },
+  {
+    path: '/setcards/:id',
+    name: 'setcards',
+    component: () => import('@/views/pages/setlist/SetCards.vue'),
+  },
   // {
   // {
   //   path: '/case-6-anonimize',

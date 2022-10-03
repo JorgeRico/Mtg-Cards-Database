@@ -3,7 +3,7 @@
         <v-card-text class="d-flex">
             <div cols="12" class="w-100">
                 <h1>MTG Sets</h1>
-                <SetList :sets="sets" :page="page"></SetList>
+                <SetList :sets="sets"></SetList>
                 <!-- <div cols="5" class="left mt-10 comunity-box w-49" :id="canarias" :data-id="canarias"
                     @click="selectComunityOption(canarias)">
                     Canarias
@@ -66,7 +66,6 @@ export default {
                 .get(urlSetList)
                 .then(response => {
                     this.sets = response.data.data;
-                    this.page = response.data.meta;
                 })
                 .catch(error => {
                     console.log('error')
