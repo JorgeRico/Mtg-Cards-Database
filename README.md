@@ -4,12 +4,12 @@ A project that runs a Express server and Vue-CLI with two separate containers, s
 # config
 # first time need node_modules on /client
 ```
-nom install
+npm install
 ```
 
 # first time need node_modules on /server
 ```
-nom install
+npm install
 ```
 
 # run docker build
@@ -20,6 +20,16 @@ docker-compose build
 # launch docker
 ```
 docker-compose up -d
+```
+
+# launch client
+```
+npm run serve
+```
+
+# launch api
+```
+npm run dev
 ```
 
 ## Client ports
