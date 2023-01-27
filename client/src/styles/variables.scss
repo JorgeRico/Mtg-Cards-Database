@@ -146,94 +146,6 @@ a.dashboardLink:hover {
     float: left;
 }
 
-.contamination-box,
-.pathology-box,
-.pathology-box-impact,
-.regionImpacto {
-    padding: 15px;
-    position: relative;
-    float: left;
-    margin-right: 25px;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.1);
-}
-
-.contamination-box,
-.pathology-box,
-.pathology-box-impact {
-    width: 130px;
-}
-
-.comunity-box {
-    padding: 20px;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    background: rgba(0, 0, 0, 0.1);
-}
-
-.contamination-box {
-    font-size: 16px;
-}
-
-.datepicker input {
-    padding: 15px;
-    border-radius: 5px;
-    width: 300px;
-}
-
-.contamination-box,
-.pathology-box,
-.pathology-box-impact,
-.regionImpacto,
-.comunity-box,
-.datepicker input {
-    border: 2px solid lightgrey;
-}
-
-.regionList td:hover,
-.comunity-box:hover,
-.regionImpacto:hover,
-.pathology-box:hover {
-    background: var(--v-primary-base) !important;
-    color: white !important;
-    border: 2px solid darkviolet;
-}
-
-.selected,
-.selectedContaminant,
-.selectedComunity,
-.selectedRegion,
-.selectedPathology {
-    background: var(--v-primary-base) !important;
-    border: 2px solid darkviolet;
-    color: white;
-}
-
-.datepicker input.selectedDate {
-    border: 2px solid darkviolet;
-}
-
-#inside-map {
-    background: white;
-}
-
-.pathology-box,
-.pathology-box-impact,
-.regionList,
-.regionImpacto,
-.contamination-box,
-.comunity-box {
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.peticion {
-    position: relative;
-    width: 48%;
-    padding: 0 20px;
-}
-
 .table td {
     border-bottom: 0px solid !important;
 }
@@ -258,22 +170,14 @@ a.dashboardLink:hover {
     cursor: not-allowed;
 }
 
-.text-align-right {
+.align-right {
     text-align: right;
 }
 
-#buttonCost,
-#buttonImpact,
-#alarmButtonButton {
-    padding: 15px 20px;
-    height: auto !important;
+.align-left {
+    text-align: left;
 }
 
-.theme--dark .datepicker input,
-.theme--dark .dashboardLink {
-    color: rgba(231, 227, 252, 0.87);
-}
-
-.theme--dark .vdp-datepicker__calendar {
-    color: black;
+.v-application .white-text {
+    color: white;
 }

@@ -8,7 +8,7 @@ var router = express.Router();
 
 /* GET Cards Set listing. */
 router.get('/', async function (req, res, next) {
-  res.send(JSON.stringify(await getMultipleSets()));
+  res.send(JSON.stringify(await getMultipleSets(req.query.filter)));
 });
 
 /* GET Single Set */
@@ -27,31 +27,48 @@ router.put("/:id", async function (req, res, next) {
 
 
 /* GET Cards function */
-async function getMultipleSets(page = 1) {
-  const offset = helper.getOffset(page, config.listPerPage);
-  const rows = await db.query(
-    `SELECT 
-    id, setName, setAbrv, setLink, setTotalCards, setReleaseDate, complete
-    FROM mtgSet
-    ORDER BY setReleaseDate ASC
-    LIMIT ${offset},${config.listPerPage}`
-  );
-  const data = helper.emptyOrRows(rows);
-  const meta = { page };
+async function getMultipleSets(filterParam = null, page = 1) {
+   
+    const offset = helper.getOffset(page, config.listPerPage);
+    var  filter = '';
+    if (filterParam != ''){
+        if (filterParam == '1') {
+            filter = 'WHERE s.complete = 1'
+        }
+        if (filterParam == '2') {
+            filter = 'WHERE s.complete = 0 AND (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) > 0'
+        }
+        if (filterParam == '3') {
+            filter = 'WHERE s.complete = 0 AND (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) = 0'
+        }
+    }
 
-  return {
-    data,
-    meta,
-  };
+    const rows = await db.query(
+        `SELECT 
+        s.id, s.setName, s.setAbrv, s.setLink, s.setTotalCards, s.setReleaseDate, s.complete,
+        (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) as ownedCards
+        FROM mtgSet s
+        ${filter}
+        ORDER BY s.id DESC
+        LIMIT ${offset},${config.listPerPage}`
+    );
+    const data = helper.emptyOrRows(rows);
+    const meta = { page };
+
+    return {
+        data,
+        meta,
+    };
 }
 
 /* GET Single Card */
 async function getSingleSet(id) {
   const rows = await db.query(
     `SELECT 
-    id, setName, setAbrv, setLink, setTotalCards, setReleaseDate, complete
-    FROM mtgSet
-    WHERE id = ${id} `
+    s.id, s.setName, s.setAbrv, s.setLink, s.setTotalCards, s.setReleaseDate, s.complete,
+    (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.own = 1) as ownedCards
+    FROM mtgSet s
+    WHERE s.id = ${id} `
   );
 
   const data = helper.emptyOrRows(rows);
@@ -68,7 +85,7 @@ async function updateSetComplete(id, value) {
     WHERE id = ${id}`
   );
 
-  let message = "Error in updating programming language";
+  let message = "Error on updating";
 
   if (result.affectedRows) {
     message = "Updated successfully";

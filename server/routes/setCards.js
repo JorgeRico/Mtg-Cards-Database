@@ -46,9 +46,10 @@ async function getMultipleSetCards(id, page = 1) {
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
     `SELECT 
-    id, idSet, cardName, cardJsonLink, cardLink, own
+    id, idSet, cardName, cardJsonLink, cardUri, own
     FROM mtgCard 
     WHERE idSet = ${id} 
+    ORDER BY cardName ASC
     LIMIT ${offset},${config.listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
@@ -64,7 +65,7 @@ async function getMultipleSetCards(id, page = 1) {
 async function getSingleCard(id, idCard) {
   const rows = await db.query(
     `SELECT 
-    id, idSet, cardName, cardJsonLink, cardLink, own
+    id, idSet, cardName, cardJsonLink, cardUri, own
     FROM mtgCard 
     WHERE idSet = ${id} 
     AND id = ${idCard}`
@@ -85,7 +86,7 @@ async function updateCardOwn(id, idSet, value) {
     AND idSet = ${idSet}`
   );
 
-  let message = "Error in updating programming language";
+  let message = "Error on updating";
 
   if (result.affectedRows) {
     message = "Updated successfully";
@@ -105,7 +106,7 @@ async function updateCardSetOwn(idSet, value) {
         WHERE id in (${cards}) AND idSet = ${idSet}`
     );
 
-    let message = "Error in updating programming language";
+    let message = "Error on updating";
 
     if (result.affectedRows) {
       message = "Updated successfully";
@@ -120,7 +121,7 @@ async function updateCardSetOwn(idSet, value) {
         WHERE idSet = ${idSet}`
     );
 
-    let message = "Error in updating programming language";
+    let message = "Error on updating";
 
     if (result.affectedRows) {
       message = "Updated successfully";

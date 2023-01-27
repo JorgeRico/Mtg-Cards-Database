@@ -1,6 +1,7 @@
 <template>
     <div id="setResult" class="mt-10 w-100">
         <div class="left w-100">
+            <BackLink></BackLink>
             <v-btn color="primary" class="right me-3 mb-5">
                 <span class="d-none d-sm-block" @click="setAllCards">Complete all</span>
             </v-btn>
@@ -10,11 +11,6 @@
                 <template>
                     <thead>
                         <tr>
-                            <th class="text-uppercase w-50px">
-                                <p class="mb-0 center" cols="6">
-                                    ID
-                                </p>
-                            </th>
                             <th class="text-uppercase w-50px">
                                 <p class="mb-0 center" cols="6">
                                     NAME
@@ -29,11 +25,8 @@
                     </thead>
                     <tbody>
                         <tr v-for="(item, i) in cardsList" :key="i"
-                            :style="item.own == 1 ? 'background: greenyellow' : ''">
+                            :style="item.own == 1 ? 'background: #28a745' : ''">
 
-                            <td class="text-uppercase w-40">
-                                {{ item.id }}
-                            </td>
                             <td class="text-uppercase w-40">
                                 <p class="mb-0 center" cols="6">
                                     {{ item.cardName }}
@@ -51,6 +44,9 @@
                 </template>
             </v-simple-table>
         </div>
+        <div class="left w-100">
+            <BackLink></BackLink>
+        </div>
         <ApiError></ApiError>
     </div>
 </template>
@@ -65,10 +61,12 @@
 import axios from "axios";
 import qs from 'qs';
 import ApiError from '@/layouts/components/ApiError.vue'
+import BackLink from '@/layouts/components/setlist/BackLink.vue'
 
 export default {
     components: {
-        ApiError
+        ApiError,
+        BackLink
     },
     data() {
         return {

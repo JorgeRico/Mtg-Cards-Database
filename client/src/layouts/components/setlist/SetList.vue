@@ -1,5 +1,5 @@
 <template>
-    <div id="setResult" class="mt-10 w-100">
+    <div id="setResult" class="mt-5 w-100">
         <div class="left w-100">
             <v-simple-table class="border-grey mb-10">
                 <template>
@@ -30,11 +30,16 @@
                                     TOTAL CARDS
                                 </p>
                             </th>
+                            <th class="text-uppercase w-50px">
+                                <p class="mb-0 center" cols="6">
+                                    OWNED CARDS
+                                </p>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(item, i) in sets" :key="i"
-                            :style="item.complete == 1 ? 'background: greenyellow' : ''">
+                            :style="item.complete == 1 ? 'background: #28a745' : item.ownedCards > 0 ? 'background: #ffc107' : ''">
 
                             <td class="text-uppercase w-40">
                                 {{ item.id }}
@@ -61,6 +66,11 @@
                                     {{ item.setTotalCards }}
                                 </p>
                             </td>
+                            <td class="text-uppercase w-40">
+                                <p class="mb-0 center" cols="6">
+                                    {{ item.ownedCards }}
+                                </p>
+                            </td>
                         </tr>
                     </tbody>
                 </template>
@@ -77,6 +87,7 @@ export default {
     },
     data() {
         return {
+
         }
     },
     setup() {
@@ -86,11 +97,11 @@ export default {
     props: {
         sets: {
             type: Array,
-            default: null,
+            default: [],
         },
     },
     methods: {
-
+        
     },
 }
 </script>
