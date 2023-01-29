@@ -7,5 +7,6 @@ const config = {
         database: "app-db",
     },
     listPerPage: 100,
+    listPerPageSetCards: 10000
 };
 module.exports = config;

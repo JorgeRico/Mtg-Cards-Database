@@ -39,7 +39,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="(item, i) in sets" :key="i"
-                            :style="item.complete == 1 ? 'background: #28a745' : item.ownedCards > 0 ? 'background: #ffc107' : ''">
+                            :class="item.complete == 1 ? 'complete' : item.ownedCards > 0 ? 'working' : ''">
 
                             <td class="text-uppercase w-40">
                                 {{ item.id }}

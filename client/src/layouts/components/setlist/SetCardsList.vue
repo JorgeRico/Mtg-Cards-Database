@@ -1,9 +1,26 @@
 <template>
     <div id="setResult" class="mt-10 w-100">
-        <div class="left w-100">
-            <BackLink></BackLink>
+        <BackLink></BackLink>
+        <div class="left w-50 pb-20">
+            <div class="left w-100 pt5">
+                <strong>Set name</strong>: <strong>{{ setName }}</strong>
+            </div>
+            <div class="left w-100 pt5">
+                <strong>Release date</strong>: <strong>{{ releaseDate }}</strong>
+            </div>
+            <div class="left w-100 pt5">
+                <strong>Num cards</strong>: <strong>{{ numCards }}</strong>
+            </div>
+            <div class="left w-100 pt5">
+                <strong>Owned cards</strong>: <strong>{{ ownCards }}</strong>
+            </div>
+        </div>
+        <div class="right w-50 pb-20 complete-buttons">
             <v-btn color="primary" class="right me-3 mb-5">
-                <span class="d-none d-sm-block" @click="setAllCards">Complete all</span>
+                <span class="d-none d-sm-block" @click="setAllCards(1)">Complete all</span>
+            </v-btn>
+            <v-btn color="primary" class="right me-3 mb-5">
+                <span class="d-none d-sm-block" @click="setAllCards(0)">UnComplete all</span>
             </v-btn>
         </div>
         <div class="left w-100">
@@ -11,6 +28,16 @@
                 <template>
                     <thead>
                         <tr>
+                            <th class="text-uppercase w-50px">
+                                <p class="mb-0 center" cols="2">
+                                    NUM
+                                </p>
+                            </th>
+                            <th class="text-uppercase w-50px">
+                                <p class="mb-0 center" cols="6">
+                                    IMG
+                                </p>
+                            </th>
                             <th class="text-uppercase w-50px">
                                 <p class="mb-0 center" cols="6">
                                     NAME
@@ -25,8 +52,28 @@
                     </thead>
                     <tbody>
                         <tr v-for="(item, i) in cardsList" :key="i"
-                            :style="item.own == 1 ? 'background: #28a745' : ''">
-
+                            :class="item.own == 1 ? 'complete' : ''">
+                            <td class="text-uppercase w-40">
+                                <p class="mb-0 center" cols="6" v-if="item.special == 1">
+                                    <span class="special-img">{{ i+1 }}</span> 
+                                    <span class="ml-20">
+                                        <v-img
+                                            contain
+                                            style="max-width: 30px; height: 30px; left: 35px; top: -13px;"
+                                            class="greeting-card-trophy"
+                                            src="@/assets/images/misc/trophy.png"
+                                        ></v-img>
+                                    </span>
+                                </p>
+                                <p class="mb-0 center" cols="6" v-else>
+                                    {{ i+1 }}
+                                </p>
+                            </td>
+                            <td class="text w-40">
+                                <p class="mb-0 center" cols="6" :id="'img-'+i">
+                                    <a :href="item.cardImg.toLowerCase().trim()" target="_BLANK">show image</a>
+                                </p>
+                            </td>
                             <td class="text-uppercase w-40">
                                 <p class="mb-0 center" cols="6">
                                     {{ item.cardName }}
@@ -34,21 +81,20 @@
                             </td>
                             <td class="text-uppercase w-40">
                                 <p class="mb-0 center" cols="6">
-                                    <span v-if="item.own==0" @click="setOwnYes(item.id)" class="pointer"><u>update to
+                                    <span v-if="item.own==0" @click="setOwnYesNo(item.id, 1)" class="pointer"><u>update to
                                             YES</u></span>
-                                    <span v-else @click="setOwnNo(item.id)" class="pointer"><u>update to NO</u></span>
+                                    <span v-else @click="setOwnYesNo(item.id, 0)" class="pointer"><u>update to NO</u></span>
                                 </p>
                             </td>
                         </tr>
                     </tbody>
                 </template>
             </v-simple-table>
+            <ApiError></ApiError>
         </div>
-        <div class="left w-100">
-            <BackLink></BackLink>
-        </div>
-        <ApiError></ApiError>
+        <BackLink></BackLink>
     </div>
+    
 </template>
 
 <style>
@@ -70,11 +116,14 @@ export default {
     },
     data() {
         return {
-            setId: null,
-            // set: null,
-            complete: null,
-            setTotalCards: null,
-            numOwnedCards: 0,
+            cardsList     : null,
+            complete      : null,
+            setTotalCards : null,
+            numOwnedCards : 0,
+            setName       : '',
+            releaseDate   : '',
+            numCards      : '',
+            ownCards      : '',
         }
     },
     setup() {
@@ -82,156 +131,77 @@ export default {
         }
     },
     props: {
-        set: {
-            type: Object,
+        setId: {
+            type: Number,
             default: null,
-        },
-        cardsList: {
-            type: Array,
-            default: [],
         },
     },
     methods: {
-        async setOwnYes(id) {
-            var urlSetCardYes = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id;
-
-            await axios({
-                method: 'put',
-                url: urlSetCardYes,
-                headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                data: qs.stringify({ 'own': '1' }),
-            })
+        async getSetInfo() {
+            await axios
+                .get(process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_ENDPOINT + '/' + this.setId)
                 .then(response => {
-                    this.getSetInfoToCheckNumCardsReload();
+                    var setInfo      = response.data.data;
+                    this.setName     = setInfo[0].setName;
+                    this.releaseDate = setInfo[0].setReleaseDate;
+                    this.numCards    = setInfo[0].setTotalCards;
+                    this.ownCards    = setInfo[0].ownedCards;
                 })
                 .catch(error => {
-                    console.log('error')
-                    this.show('errorApiFile');
-                    setTimeout(() => this.hide('errorApiFile'), 2500);
-                })
-                .finally(() => this.loading = false)
-
-        },
-        async setOwnNo(id) {
-            var urlSetCardYes = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id;
-
-            await axios({
-                method: 'put',
-                url: urlSetCardYes,
-                headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                data: qs.stringify({ 'own': '0' }),
-            })
-                .then(response => {
-                    console.log(this.complete)
-                    this.getSetInfoToCheckCompleteReload();
-                })
-                .catch(error => {
-                    console.log('error')
                     this.show('errorApiFile');
                     setTimeout(() => this.hide('errorApiFile'), 2500);
                 })
                 .finally(() => this.loading = false)
         },
-        completeAll() {
+        async getSetCardList() {
+            await axios
+                .get(process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId)
+                .then(response => {
+                    this.cardsList = null;
+                    this.cardsList = response.data.data;
+                    this.getSetInfo();
+                })
+                .catch(error => {
+                    this.show('errorApiFile');
+                    setTimeout(() => this.hide('errorApiFile'), 2500);
+                })
+                .finally(() => this.loading = false)
+        },
+        async setOwnYesNo(id, value) {
+            await axios({
+                method  : 'put',
+                url     : process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id,
+                headers : { 'content-type': 'application/x-www-form-urlencoded' },
+                data    : qs.stringify({ 'own': value }),
+            })
+            .then(response => {
+                this.getSetCardList();
+            })
+            .catch(error => {
+                this.show('errorApiFile');
+                setTimeout(() => this.hide('errorApiFile'), 2500);
+            })
+            .finally(() => this.loading = false)
+
+        },
+        async setAllCards(value) {
             let text = "Are you sure?!\nEither OK or Cancel.";
             if (confirm(text) == true) {
-                text = true;
-                this.setAllCards();
-            } else {
-                text = false;
+                await axios({
+                    method  : 'put',
+                    url     : process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards',
+                    headers : { 'content-type': 'application/x-www-form-urlencoded' },
+                    data    : qs.stringify({ 'own': value }),
+                })
+                .then(response => {
+                    this.getSetCardList();
+                })
+                .catch(error => {
+                    this.show('errorApiFile');
+                    setTimeout(() => this.hide('errorApiFile'), 2500);
+                })
+                .finally(() => this.loading = false)
             }
-        },
-
-        async setAllCards() {
-            var urlSetAllCards = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards';
-
-            await axios({
-                method: 'put',
-                url: urlSetAllCards,
-                headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                data: qs.stringify({ 'own': '1' }),
-            })
-                .then(response => {
-                    this.setComplete('1');
-                })
-                .catch(error => {
-                    console.log('error')
-                    this.show('errorApiFile');
-                    setTimeout(() => this.hide('errorApiFile'), 2500);
-                })
-                .finally(() => this.loading = false)
-        },
-        async setComplete(value) {
-            var urlSetComplete = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_ENDPOINT + '/' + this.setId;
-
-            await axios({
-                method: 'put',
-                url: urlSetComplete,
-                headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                data: qs.stringify({ 'complete': value }),
-            })
-                .then(response => {
-                    location.reload();
-                })
-                .catch(error => {
-                    console.log('error')
-                    this.show('errorApiFile');
-                    setTimeout(() => this.hide('errorApiFile'), 2500);
-                })
-                .finally(() => this.loading = false)
-        },
-        // setSetInfo() {
-        //     this.complete = this.set.complete;
-        //     this.setTotalCards = this.set.setTotalCards;
-        // },
-        getNumCards() {
-            this.numOwnedCards = 0;
-            for (var i = 0; i < this.cardsList.length; i++) {
-                if (this.cardsList[i].own == 1) {
-                    this.numOwnedCards++;
-                }
-            }
-        },
-        async getSetInfoToCheckCompleteReload() {
-            var urlSet = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_ENDPOINT + '/' + this.setId;
-
-            await axios
-                .get(urlSet)
-                .then(response => {
-                    var set = response.data.data;
-                    if (set[0].complete == 1) {
-                        this.setComplete('0');
-                    } else {
-                        location.reload();
-                    }
-                })
-                .catch(error => {
-                    console.log('error')
-                    this.show('errorApiFile');
-                    setTimeout(() => this.hide('errorApiFile'), 2500);
-                })
-                .finally(() => this.loading = false)
-        },
-        async getSetInfoToCheckNumCardsReload() {
-            var urlSet = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_ENDPOINT + '/' + this.setId;
-
-            await axios
-                .get(urlSet)
-                .then(response => {
-                    var set = response.data.data;
-                    this.getNumCards()
-                    if (set[0].setTotalCards == parseInt(this.numOwnedCards) + 1) {
-                        this.setComplete('1');
-                    } else {
-                        location.reload();
-                    }
-                })
-                .catch(error => {
-                    console.log('error')
-                    this.show('errorApiFile');
-                    setTimeout(() => this.hide('errorApiFile'), 2500);
-                })
-                .finally(() => this.loading = false)
         },
         show(id) {
             var element = document.getElementById(id);
@@ -244,8 +214,12 @@ export default {
             element.classList.add("invisible");
         },
     },
+    mounted() {
+        this.getSetCardList();
+    },
     beforeMount() {
-        this.setId = this.$route.params.id;
+        this.setId = Number(this.$route.params.id);
+        this.getSetInfo();
     }
 }
 </script>
