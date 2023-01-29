@@ -181,3 +181,20 @@ a.dashboardLink:hover {
 .v-application .white-text {
     color: white;
 }
+
+.active {
+    background: #007bff;
+    color: white !important;
+}
+
+.relative {
+    position: relative;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}

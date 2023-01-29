@@ -4,20 +4,18 @@
             <div cols="12" class="w-100">
                 <h1>MTG Sets</h1>
                 <div class="left w-100 mb-5 align-right">
-                    <button class="btn btn-primary mr-5" @click="clickButton(0)">All sets</button>
-                    <button class="btn btn-success mr-5" @click="clickButton(1)">Complete sets</button>
-                    <button class="btn btn-warning mr-5" @click="clickButton(2)">Working sets</button>
-                    <button class="btn btn-danger" @click="clickButton(3)">Not started sets</button>
+                    <button class="btn btn-primary mr-5" @click="getSetListFiltered(0)">All sets</button>
+                    <button class="btn btn-success mr-5" @click="getSetListFiltered(1)">Complete sets</button>
+                    <button class="btn btn-warning mr-5" @click="getSetListFiltered(2)">Working sets</button>
+                    <button class="btn btn-danger" @click="getSetListFiltered(3)">Not started sets</button>
                 </div>
+                <Pagination :page="page" :numPages="numPages" @clickPagination="clickLinkPagination($event)"></Pagination>
                 <SetList :sets="sets"></SetList>
-            </div>
-        </v-card-text>
-        <v-card-text class="d-flex">
-            <div cols="12" class="w-100">
                 <Spinner></Spinner>
+                <ApiError></ApiError>
+                <Pagination :page="page" :numPages="numPages" @clickPagination="clickLinkPagination($event)"></Pagination>
             </div>
         </v-card-text>
-        <ApiError></ApiError>
     </v-card>
 </template>
   
@@ -25,9 +23,11 @@
 import ApiError from '@/layouts/components/ApiError.vue'
 import SetList from '@/layouts/components/setlist/SetList.vue';
 import Spinner from '@/layouts/components/Spinner.vue'
+import Pagination from '@/layouts/components/Pagination.vue'
 import axios from "axios";
 
 const urlSetList = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_ENDPOINT;
+const pagination = 100;
 
 import { getAuth } from "firebase/auth";
 
@@ -37,40 +37,65 @@ export default {
     components: {
         SetList,
         ApiError,
-        Spinner
+        Spinner,
+        Pagination
     },
     data() {
         return {
             sets: null,
-            page: null,
+            page: 1,
+            numPages: 1,
+            filters: null
         }
     },
     methods: {
-        async clickButton(value) {
-            this.sets = null;
-            this.show('spinner');
+        async getPagination(param = null) {
+            var url = this.getNumSetPaginationUrl(param);
+
             await axios
-                .get(urlSetList + '?filter=' + value)
+                .get(url)
                 .then(response => {
-                    this.hide('spinner');
-                    this.sets = response.data.data;
+                    this.numSets = response.data.data[0].numTotal;
+                    let totalPages = this.numSets / pagination;
+                    totalPages = Math.trunc(totalPages);
+
+                    let total = this.numSets - (totalPages * pagination);
+                    
+                    if (total > 0) {
+                        this.numPages = totalPages + 1;
+                    } else {
+                        this.numPages = totalPages;
+                    }
                 })
                 .catch(error => {
-                    console.log('error')
                     this.show('errorApiFile');
                     setTimeout(() => this.hide('errorApiFile'), 2500);
                 })
                 .finally(() => this.loading = false)
         },
-        async getSetList() {
+        filterVarsReset(value) {
+            this.page = 1;
+            this.numPages = 1;
+            this.filters = value;
+        },
+        getSetListFiltered(value) {
+            this.filterVarsReset(value);
+            this.getPagination('?filter=' + this.filters);
+            this.show('spinner');
+
+            var url = this.getPaginationUrl();
+            this.getSetInfo(url);
+        },        
+        async getSetInfo(url) {
+            this.sets = null;
+
             await axios
-                .get(urlSetList)
+                .get(url)
                 .then(response => {
                     this.hide('spinner');
                     this.sets = response.data.data;
                 })
                 .catch(error => {
-                    console.log('error')
                     this.show('errorApiFile');
                     setTimeout(() => this.hide('errorApiFile'), 2500);
                 })
@@ -86,18 +111,58 @@ export default {
             element.classList.remove("visible");
             element.classList.add("invisible");
         },
+        clickLinkPagination(data) {
+            this.show('spinner');
+            this.page = data;
+
+            var url = this.getPaginationUrl();
+            this.getSetInfo(url);
+        },
+        getPaginationUrl(){
+            var url = urlSetList;
+            
+            if (this.page > 1) {
+                url = url + '?page=' + this.page
+                if (this.filters != null) {
+                    url = url + '&filter=' + this.filters;
+                }
+            } else {
+                if (this.filters != null) {
+                    url = url + '?filter=' + this.filters;
+                }
+            }
+
+            return url;
+        },
+        getNumSetPaginationUrl(param) {
+            var url = urlSetList;
+
+            if (param != null) {
+                url = url + '/' + 'numSets' + param;
+            } else {
+                url = url + '/' + 'numSets';
+            }
+
+            return url;
+        }
     },
     mounted() {
         this.show('spinner');
     },
     beforeMount() {
-        this.getSetList();
-
         auth.onAuthStateChanged(function (user) {
             if (!user) { // not logged in
                 window.location.href = "/";
             }
         })
+        
+        let urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('page') == true) {
+            this.page = Number(urlParams.get('page'));
+        }
+        
+        this.getPagination();           
+        this.getSetInfo(urlSetList);
     }
 }
 </script>
