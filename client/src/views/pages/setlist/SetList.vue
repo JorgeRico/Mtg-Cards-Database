@@ -10,11 +10,31 @@
                     <button class="btn btn-danger" @click="getSetListFiltered(3)">Not started sets</button>
                 </div>
                 <div class="left w-100 mb-5 align-right">
-                    <div class="f18">
-                        <strong>Total Sets: {{ this.numSets }}</strong>
-                    </div>
-                    <div class="f18">
-                        <strong>Total Complete Sets: {{ this.completeNumSets }}</strong>
+                    <div class="right f18 w-300px">
+                        <div class="left align-left w-80">
+                            <strong>Total Sets: </strong>
+                        </div>
+                        <div class="right w-20">
+                            <strong>{{ this.numSets }}</strong>
+                        </div>
+                        <div class="left align-left w-80">
+                            <strong>Total Complete Sets: </strong>
+                        </div>
+                        <div class="right w-20">
+                            <strong>{{ this.completeNumSets }}</strong>
+                        </div>
+                        <div class="left align-left w-80">
+                            <strong>Total Cards: </strong>
+                        </div>
+                        <div class="right w-20">
+                            <strong>{{ this.numTotalCards }}</strong>
+                        </div>
+                        <div class="left align-left w-80">
+                            <strong>Total Cards Own: </strong>
+                        </div>
+                        <div class="right w-20">
+                            <strong>{{ this.numTotalCardsOwn }}</strong>
+                        </div>
                     </div>
                 </div>
                 <Pagination :page="page" :numPages="numPages" @clickPagination="clickLinkPagination($event)"></Pagination>
@@ -50,11 +70,13 @@ export default {
     },
     data() {
         return {
-            sets: null,
-            page: 1,
-            numPages: 1,
-            filters: null,
-            completeNumSets: null
+            sets             : null,
+            page             : 1,
+            numPages         : 1,
+            filters          : null,
+            completeNumSets  : null,
+            numTotalCards    : null,
+            numTotalCardsOwn : null
         }
     },
     methods: {
@@ -64,11 +86,13 @@ export default {
             await axios
                 .get(url)
                 .then(response => {
-                    this.numSets         = response.data.data[0].numTotal;
-                    this.completeNumSets = response.data.data[0].numTotalComplete;
+                    this.numSets          = response.data.data[0].numTotal;
+                    this.completeNumSets  = response.data.data[0].numTotalComplete;
+                    this.numTotalCards    = response.data.data[0].numTotalCards;
+                    this.numTotalCardsOwn = response.data.data[0].numTotalCardsOwn;
 
                     let totalPages = this.numSets / pagination;
-                    totalPages = Math.trunc(totalPages);
+                    totalPages     = Math.trunc(totalPages);
 
                     let total = this.numSets - (totalPages * pagination);
                     
