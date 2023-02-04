@@ -9,6 +9,14 @@
                     <button class="btn btn-warning mr-5" @click="getSetListFiltered(2)">Working sets</button>
                     <button class="btn btn-danger" @click="getSetListFiltered(3)">Not started sets</button>
                 </div>
+                <div class="left w-100 mb-5 align-right">
+                    <div class="f18">
+                        <strong>Total Sets: {{ this.numSets }}</strong>
+                    </div>
+                    <div class="f18">
+                        <strong>Total Complete Sets: {{ this.completeNumSets }}</strong>
+                    </div>
+                </div>
                 <Pagination :page="page" :numPages="numPages" @clickPagination="clickLinkPagination($event)"></Pagination>
                 <SetList :sets="sets"></SetList>
                 <Spinner></Spinner>
@@ -45,7 +53,8 @@ export default {
             sets: null,
             page: 1,
             numPages: 1,
-            filters: null
+            filters: null,
+            completeNumSets: null
         }
     },
     methods: {
@@ -55,7 +64,9 @@ export default {
             await axios
                 .get(url)
                 .then(response => {
-                    this.numSets = response.data.data[0].numTotal;
+                    this.numSets         = response.data.data[0].numTotal;
+                    this.completeNumSets = response.data.data[0].numTotalComplete;
+
                     let totalPages = this.numSets / pagination;
                     totalPages = Math.trunc(totalPages);
 

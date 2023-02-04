@@ -55,7 +55,10 @@ async function getTotalNumSets(filterParam = null) {
     var filter = getFilterQueryString(filterParam);
 
     const rows = await db.query(
-        `SELECT count(s.id) as numTotal FROM mtgSet s ${filter}`
+        `SELECT 
+            count(s.id) as numTotal,
+            (SELECT count(s.id) as numTotal FROM mtgSet s ${filter} AND s.complete = 1) as numTotalComplete 
+        FROM mtgSet s ${filter}`
     );
 
     const data = helper.emptyOrRows(rows);
