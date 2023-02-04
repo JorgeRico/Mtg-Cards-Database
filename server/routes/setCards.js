@@ -77,7 +77,7 @@ async function getSingleCard(id, idCard) {
     };
 }
 
-/* UPDATE Card */
+/* UPDATE Card - single card */
 async function updateCardOwn(id, idSet, value) {
     const result = await db.query(
         `UPDATE mtgCard 
@@ -92,10 +92,22 @@ async function updateCardOwn(id, idSet, value) {
         message = "Updated successfully";
     }
 
+    if (value.own == 0) {
+        const resultSet = await db.query(
+            `UPDATE mtgSet 
+            SET complete = "${value.own}"
+            WHERE id = ${idSet}`
+        );
+
+        if (resultSet.affectedRows) {
+            message = "Updated successfully";
+        }
+    }
+
     return { message };
 }
 
-/* UPDATE Card */
+/* UPDATE Card - all Set*/
 async function updateCardSetOwn(idSet, value) {
     const result = await db.query(
         `UPDATE mtgCard 
