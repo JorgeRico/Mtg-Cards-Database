@@ -41,7 +41,7 @@ router.put("/:idSet/cards", async function (req, res, next) {
 });
 
 
-/* GET Cards function - no pagination */
+/* GET Cards function */
 async function getMultipleSetCards(id, page = 1) {
     const offset = helper.getOffset(page, config.listPerPageSetCards);
     const rows = await db.query(

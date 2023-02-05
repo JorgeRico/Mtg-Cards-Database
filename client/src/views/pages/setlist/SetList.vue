@@ -10,7 +10,7 @@
                     <button class="btn btn-danger" @click="getSetListFiltered(3)">Not started sets</button>
                 </div>
                 <div class="left w-100 mb-5 align-right">
-                    <div class="right f18 w-300px">
+                    <div class="right f18 w-400px">
                         <div class="left align-left w-80">
                             <strong>Total Sets: </strong>
                         </div>
@@ -76,7 +76,8 @@ export default {
             filters          : null,
             completeNumSets  : null,
             numTotalCards    : null,
-            numTotalCardsOwn : null
+            numTotalCardsOwn : null,
+            numSets          : null
         }
     },
     methods: {
