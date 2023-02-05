@@ -32,8 +32,11 @@ router.put("/:id", async function (req, res, next) {
 
 function getFilterQueryString(filterParam) {
     var filter = '';
-
+    
     if (filterParam != null){
+        if (filterParam == '0') {
+            filter = 'WHERE s.onlineSet = 0';
+        }
         if (filterParam == '1') {
             filter = 'WHERE s.complete = 1 AND s.onlineSet = 0';
         }
