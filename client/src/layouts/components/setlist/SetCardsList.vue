@@ -70,8 +70,14 @@
                                 </p>
                             </td>
                             <td class="text w-40">
-                                <p class="mb-0 center" cols="6" :id="'img-'+i">
-                                    <a :href="item.cardImg.toLowerCase().trim()" target="_BLANK">show image</a>
+                                <p class="mb-0 center" style="padding: 3px 0px" cols="6" :id="'img-'+i">
+                                    <!--<a :href="item.cardImg.toLowerCase().trim()" target="_BLANK">show image</a>-->
+                                    <v-img
+                                        contain
+                                        style="width: 100px; height: 100px;"
+                                        class="greeting-card-trophy"
+                                        :src="item.cardImg.toLowerCase().trim()"
+                                    ></v-img>
                                 </p>
                             </td>
                             <td class="text-uppercase w-40">
