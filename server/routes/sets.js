@@ -81,7 +81,7 @@ async function getMultipleSets(filterParam = null, page = 1) {
 
     const rows = await db.query(
         `SELECT 
-        s.id, s.setName, s.setAbrv, s.setLink, s.setTotalCards, s.setReleaseDate, s.complete,
+        s.id, s.setName, s.setAbrv, s.setLink, s.setLogo, s.setTotalCards, s.setReleaseDate, s.complete,
         (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) as ownedCards
         FROM mtgSet s
         ${filter}
@@ -101,7 +101,7 @@ async function getMultipleSets(filterParam = null, page = 1) {
 async function getSingleSet(id) {
     const rows = await db.query(
         `SELECT 
-        s.id, s.setName, s.setAbrv, s.setLink, s.setTotalCards, s.setReleaseDate, s.complete,
+        s.id, s.setName, s.setAbrv, s.setLink, s.setLogo, s.setTotalCards, s.setReleaseDate, s.complete,
         (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.own = 1) as ownedCards
         FROM mtgSet s
         WHERE s.id = ${id} `

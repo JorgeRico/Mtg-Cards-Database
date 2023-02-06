@@ -5,33 +5,33 @@
                 <template>
                     <thead>
                         <tr>
-                            <th class="text-uppercase w-50px">
-                                <p class="mb-0 center" cols="6">
+                            <th class="text-uppercase">
+                                <p class="mb-0 center">
                                     ID
                                 </p>
                             </th>
-                            <th class="text-uppercase w-50px">
-                                <p class="mb-0 center" cols="6">
+                            <th class="text-uppercase">
+                                <p class="mb-0 center">
                                     NAME
                                 </p>
                             </th>
-                            <th class="text-uppercase w-50px">
-                                <p class="mb-0 center" cols="6">
+                            <th class="text-uppercase">
+                                <p class="mb-0 center">
                                     ABREV
                                 </p>
                             </th>
-                            <th class="text-uppercase w-50px">
-                                <p class="mb-0 center" cols="6">
+                            <th class="text-uppercase">
+                                <p class="mb-0 center">
                                     RELEASE DATE
                                 </p>
                             </th>
-                            <th class="text-uppercase w-50px">
-                                <p class="mb-0 center" cols="6">
+                            <th class="text-uppercase">
+                                <p class="mb-0 center">
                                     TOTAL CARDS
                                 </p>
                             </th>
-                            <th class="text-uppercase w-50px">
-                                <p class="mb-0 center" cols="6">
+                            <th class="text-uppercase">
+                                <p class="mb-0 center">
                                     OWNED CARDS
                                 </p>
                             </th>
@@ -41,33 +41,34 @@
                         <tr v-for="(item, i) in sets" :key="i"
                             :class="item.complete == 1 ? 'complete' : item.ownedCards > 0 ? 'working' : ''">
 
-                            <td class="text-uppercase w-40">
+                            <td class="text-uppercase">
                                 {{ item.id }}
                             </td>
-                            <td class="text-uppercase w-40">
-                                <p class="mb-0 center" cols="6">
+                            <td class="text-uppercase">
+                                <div class="left w-25px" v-html="item.setLogo"></div>
+                                <p class="right w-90 mb-0">
                                     <router-link :to="{ name: 'setcards', params: { 'id': item.id } }">
                                         {{ item.setName }}
                                     </router-link>
                                 </p>
                             </td>
-                            <td class="text-uppercase w-40">
-                                <p class="mb-0 center" cols="6">
+                            <td class="text-uppercase">
+                                <p class="mb-0 center">
                                     {{ item.setAbrv }}
                                 </p>
                             </td>
-                            <td class="text-uppercase w-40">
-                                <p class="mb-0 center" cols="6">
+                            <td class="text-uppercase">
+                                <p class="mb-0 center">
                                     {{ item.setReleaseDate }}
                                 </p>
                             </td>
-                            <td class="text-uppercase w-40">
-                                <p class="mb-0 center" cols="6">
+                            <td class="text-uppercase">
+                                <p class="mb-0 center">
                                     {{ item.setTotalCards }}
                                 </p>
                             </td>
-                            <td class="text-uppercase w-40">
-                                <p class="mb-0 center" cols="6">
+                            <td class="text-uppercase center">
+                                <p class="mb-0 center">
                                     {{ item.ownedCards }}
                                 </p>
                             </td>

@@ -58,8 +58,16 @@ a.dashboardLink:hover {
     float: right
 }
 
+.w-25px {
+    width: 25px;
+}
+
 .w-50px {
     width: 50px;
+}
+
+.w-100px {
+    width: 100px;
 }
 
 .w-150px {
@@ -88,6 +96,10 @@ a.dashboardLink:hover {
 
 .w-80 {
     width: 80%;
+}
+
+.w-90 {
+    width: 90%;
 }
 
 .w-100 {
@@ -262,4 +274,8 @@ a.dashboardLink:hover {
     margin-top: 0;
     padding-top: 66px;
     padding-bottom: 0;
+}
+
+.center {
+    text-align: center;
 }
