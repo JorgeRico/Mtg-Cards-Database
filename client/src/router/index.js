@@ -65,6 +65,11 @@ const routes = [
     name: 'pendingCards',
     component: () => import('@/views/pages/PendingCards.vue'),
   },
+  {
+    path: '/cardsOnADeck',
+    name: 'cardsOnADeck',
+    component: () => import('@/views/pages/CardsOnADeck.vue'),
+  },
   
   // {
   //   path: '*',

@@ -7,18 +7,18 @@ var router = express.Router();
 
 /* GET Cards Set listing. */
 router.get('/', async function (req, res, next) {
-    res.send(JSON.stringify(await getPendingCards()));
+    res.send(JSON.stringify(await getOnADeckCards()));
 });
 
 
 /* GET Pending Cards function */
-async function getPendingCards() {
+async function getOnADeckCards() {
     const rows = await db.query(
         `SELECT 
         c.id, c.idSet, c.cardName, c.cardImg, c.special, s.setName, s.setLogo
         FROM mtgCard c
         INNER JOIN mtgSet s ON s.id = c.idSet 
-        WHERE c.pendingToArrive = 1 
+        WHERE c.isOnADeck = 1 
         ORDER BY c.id ASC`
     );
     const data = helper.emptyOrRows(rows);
