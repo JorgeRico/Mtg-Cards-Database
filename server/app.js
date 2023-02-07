@@ -9,6 +9,8 @@ const cors = require('cors');
 var indexRouter = require('./routes/index');
 var setsRouter = require('./routes/sets');
 var setCardsRouter = require('./routes/setCards');
+var pendingCardsRouter = require('./routes/pendingCards');
+
 
 var app = express();
 
@@ -29,6 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/sets', setsRouter);
 app.use('/setCards', setCardsRouter);
+app.use('/pendingCards', pendingCardsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

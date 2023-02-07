@@ -16,11 +16,10 @@
 
     <!-- Navigation Items -->
     <v-list expand shaped class="vertical-nav-menu-items pr-5">
-      <nav-menu-link title="Dashboard" :to="{ name: 'dashboard' }" :icon="icons.mdiHomeOutline"></nav-menu-link>
-      <nav-menu-section-title title="CASOS"></nav-menu-section-title>
-      <nav-menu-group :icon="icons.mdiCardAccountDetailsStar" title="Sets">
-        <nav-menu-link title="Sets" :to="{ name: 'setlist' }"></nav-menu-link>
-      </nav-menu-group>
+        <nav-menu-link title="Dashboard" :to="{ name: 'dashboard' }" :icon="icons.mdiHomeOutline"></nav-menu-link>
+        <nav-menu-section-title title="CASOS"></nav-menu-section-title>
+        <nav-menu-link :icon="icons.mdiCardAccountDetailsStar" title="Sets" :to="{ name: 'setlist' }"></nav-menu-link>
+        <nav-menu-link :icon="icons.mdiCardAccountDetailsStar" title="Pending Cards" :to="{ name: 'pendingCards' }"></nav-menu-link>
     </v-list>
   </v-navigation-drawer>
 </template>
