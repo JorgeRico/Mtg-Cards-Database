@@ -70,6 +70,11 @@ const routes = [
     name: 'cardsOnADeck',
     component: () => import('@/views/pages/CardsOnADeck.vue'),
   },
+  {
+    path: '/printLogos',
+    name: 'printLogos',
+    component: () => import('@/views/pages/logos/PrintLogos.vue'),
+  },
   
   // {
   //   path: '*',
