@@ -102,7 +102,9 @@ async function getSingleSet(id) {
     const rows = await db.query(
         `SELECT 
         s.id, s.setName, s.setAbrv, s.setLink, s.setLogo, s.setTotalCards, s.setReleaseDate, s.complete,
-        (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.own = 1) as ownedCards
+        (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.own = 1) as ownedCards,
+        (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.isOnADeck = 1) as numCardsOnADeck,
+        (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.pendingToArrive = 1) as numPendingCards
         FROM mtgSet s
         WHERE s.id = ${id} `
     );

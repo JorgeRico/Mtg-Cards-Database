@@ -259,6 +259,10 @@ a.dashboardLink:hover {
     background: #ffc107;
 }
 
+.pointer { 
+    cursor: pointer;
+}
+
 .theme--light.v-data-table tr.working td,
 .theme--light.v-data-table tr.working td a, 
 .theme--light.v-data-table tr.complete td,
@@ -276,12 +280,6 @@ a.dashboardLink:hover {
     margin-top: 13px;
     position: relative;
     float: left;
-}
-
-.complete-buttons {
-    margin-top: 0;
-    padding-top: 66px;
-    padding-bottom: 0;
 }
 
 .center {

@@ -15,9 +15,14 @@
                                     SET
                                 </p>
                             </th>
-                            <th class="text-uppercase w-60">
+                            <th class="text-uppercase w-49">
                                 <p class="mb-0">
                                     NAME
+                                </p>
+                            </th>
+                            <th class="text-uppercase w-200px">
+                                <p class="mb-0">
+                                    IS ON A CART
                                 </p>
                             </th>
                         </tr>
@@ -37,7 +42,7 @@
                             <td class="text-uppercase">
                                 <div class="left w-25px" v-html="item.setLogo"></div>
                                 <p class="right w-90 mb-0">
-                                    <router-link :to="{ name: 'setcards', params: { 'id': item.id } }">
+                                    <router-link :to="{ name: 'setcards', params: { 'id': item.idSet } }">
                                         {{ item.setName }}
                                     </router-link>
                                 </p>
@@ -45,6 +50,11 @@
                             <td class="text-uppercase">
                                 <p class="mb-0">
                                     {{ item.cardName }}
+                                </p>
+                            </td>
+                            <td class="text-uppercase">
+                                <p class="mb-0">
+                                    <span @click="setPendingYesNo(item.id, item.idSet, 0)" class="pointer"><u>Delete from cart</u></span>
                                 </p>
                             </td>
                         </tr>
@@ -59,6 +69,7 @@
 
 <script>
 import axios from "axios";
+import qs from 'qs';
 import ApiError from '@/layouts/components/ApiError.vue'
 
 export default {
@@ -82,6 +93,27 @@ export default {
                     setTimeout(() => this.hide('errorApiFile'), 2500);
                 })
                 .finally(() => this.loading = false)
+        },
+        setPendingYesNo(id, idSet, value) {
+            var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + idSet + '/cards/' + id;
+            var data = qs.stringify({ 'pendingToArrive': value });
+            this.commonUpdateFunction(url, data)
+        },
+        async commonUpdateFunction(url, data) {
+            await axios({
+                method  : 'put',
+                url     : url,
+                headers : { 'content-type': 'application/x-www-form-urlencoded' },
+                data    : data,
+            })
+            .then(response => {
+                this.getSetCardList();
+            })
+            .catch(error => {
+                this.show('errorApiFile');
+                setTimeout(() => this.hide('errorApiFile'), 2500);
+            })
+            .finally(() => this.loading = false)
         },
         show(id) {
             var element = document.getElementById(id);

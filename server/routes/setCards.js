@@ -23,12 +23,21 @@ router.get('/:id/cards/:idCard', async function (req, res, next) {
 /* PUT Card */
 router.put("/:idSet/cards/:idCard", async function (req, res, next) {
     try {
-        res.json(await updateCardOwn(req.params.idCard, req.params.idSet, req.body));
+        if (req.body.own != null) {
+            res.json(await updateCardOwn(req.params.idCard, req.params.idSet, req.body));
+        }
+        if (req.body.isOnADeck != null) {
+            res.json(await updateCardIsOnADeck(req.params.idCard, req.params.idSet, req.body));
+        }
+        if (req.body.pendingToArrive != null) {
+            res.json(await updateCardPendingToArrive(req.params.idCard, req.params.idSet, req.body));
+        }
     } catch (err) {
         console.error(`Error while updating`, err.message);
         next(err);
     }
 });
+
 
 /* PUT Card */
 router.put("/:idSet/cards", async function (req, res, next) {
@@ -46,7 +55,7 @@ async function getMultipleSetCards(id, page = 1) {
     const offset = helper.getOffset(page, config.listPerPageSetCards);
     const rows = await db.query(
         `SELECT 
-        id, idSet, cardName, cardJsonLink, cardUri, cardImg, special, own
+        id, idSet, cardName, cardJsonLink, cardUri, cardImg, special, own, pendingToArrive, isOnADeck
         FROM mtgCard 
         WHERE idSet = ${id} 
         ORDER BY cardName ASC
@@ -77,7 +86,7 @@ async function getSingleCard(id, idCard) {
     };
 }
 
-/* UPDATE Card - single card */
+/* UPDATE Card own - single card */
 async function updateCardOwn(id, idSet, value) {
     const result = await db.query(
         `UPDATE mtgCard 
@@ -121,6 +130,14 @@ async function updateCardSetOwn(idSet, value) {
         WHERE id = ${idSet}`
     );
 
+    if (value.own == 1) {
+        const result = await db.query(
+            `UPDATE mtgCard 
+            SET pendingToArrive = 0
+            WHERE idSet = ${idSet}`
+        );
+    }
+
     let message = "Error on updating";
 
     if (result.affectedRows && resultSet.affectedRows) {
@@ -129,5 +146,50 @@ async function updateCardSetOwn(idSet, value) {
 
     return { message };
 }
+
+/* UPDATE Card is on a deck - single card */
+async function updateCardIsOnADeck(id, idSet, value) {
+    const result = await db.query(
+        `UPDATE mtgCard 
+        SET isOnADeck = "${value.isOnADeck}"
+        WHERE id = ${id}
+        AND idSet = ${idSet}`
+    );
+
+    let message = "Error on updating";
+
+    if (result.affectedRows) {
+        message = "Updated successfully";
+    }
+
+    return { message };
+}
+
+/* UPDATE Card pending to arrive - single card */
+async function updateCardPendingToArrive(id, idSet, value) {
+    const result = await db.query(
+        `UPDATE mtgCard 
+        SET pendingToArrive = "${value.pendingToArrive}"
+        WHERE id = ${id}
+        AND idSet = ${idSet}`
+    );
+
+    if (value.pendingToArrive == 1) {
+        const result = await db.query(
+            `UPDATE mtgSet 
+            SET complete = 0
+            WHERE id = ${idSet}`
+        );
+    }
+
+    let message = "Error on updating";
+
+    if (result.affectedRows) {
+        message = "Updated successfully";
+    }
+
+    return { message };
+}
+
 
 module.exports = router;

@@ -1,7 +1,7 @@
 <template>
     <div id="setResult" class="mt-10 w-100">
         <BackLink></BackLink>
-        <div class="left w-50 pb-20">
+        <div class="left w-100 pb-20">
             <div class="left w-50px pt5" v-html="setLogo"></div>
             <div class="w-90 right">
                 <div class="left w-100 pt5">
@@ -14,11 +14,23 @@
                     <strong>Num cards</strong>: <strong>{{ numCards }}</strong>
                 </div>
                 <div class="left w-100 pt5">
+                    <strong>Num Waiting to arrive cards</strong>: <strong>{{ numPendingCards }}</strong>
+                </div>
+                <div class="left w-100 pt5">
+                    <strong>Num cards on Decks</strong>: <strong>{{ numCardsOnADeck }}</strong>
+                </div>
+                <div class="left w-100 pt5">
                     <strong>Owned cards</strong>: <strong>{{ ownCards }}</strong>
+                </div>
+                <div class="left w-100 pt5" v-if="complete==1">
+                    <strong>Complete set</strong>: <strong>YES</strong>
+                </div>
+                <div class="left w-100 pt5" v-else>
+                    <strong>Complete set</strong>: <strong>NO</strong>
                 </div>
             </div>
         </div>
-        <div class="right w-50 pb-20 complete-buttons">
+        <div class="right w-100 pb-20">
             <v-btn color="primary" class="right me-3 mb-5" @click="setAllCards(1)">
                 <span class="d-none d-sm-block">Complete all</span>
             </v-btn>
@@ -44,6 +56,16 @@
                             <th class="text-uppercase">
                                 <p class="mb-0">
                                     NAME
+                                </p>
+                            </th>
+                            <th class="text-uppercase">
+                                <p class="mb-0 center">
+                                    ON A DECK
+                                </p>
+                            </th>
+                            <th class="text-uppercase">
+                                <p class="mb-0 center">
+                                    WAITING TO ARRIVE
                                 </p>
                             </th>
                             <th class="text-uppercase">
@@ -88,6 +110,28 @@
                                     {{ item.cardName }}
                                 </p>
                             </td>
+                            <td class="text-uppercase" v-if="item.isOnADeck==0">
+                                <p class="mb-0 center">
+                                    <span @click="setIsOnADeck(item.id, 1)" class="pointer"><u>ADD to deck</u></span>
+                                </p>
+                            </td>
+                            <td class="text-uppercase working" v-else>
+                                <p class="mb-0 center">
+                                    <span @click="setIsOnADeck(item.id, 0)" class="pointer"><u>Delete from deck</u></span>
+                                </p>
+                            </td>
+
+                            <td class="text-uppercase" v-if="item.pendingToArrive==0">
+                                <p class="mb-0 center">
+                                    <span  @click="setPendingYesNo(item.id, 1)" class="pointer"><u>Add to Cart</u></span>
+                                </p>
+                            </td>
+                            <td class="text-uppercase working" v-else>
+                                <p class="mb-0 center">
+                                    <span @click="setPendingYesNo(item.id, 0)" class="pointer"><u>Delete from cart</u></span>
+                                </p>
+                            </td>
+
                             <td class="text-uppercase">
                                 <p class="mb-0 center">
                                     <span v-if="item.own==0" @click="setOwnYesNo(item.id, 1)" class="pointer"><u>update to
@@ -106,12 +150,6 @@
     
 </template>
 
-<style>
-.pointer {
-    cursor: pointer;
-}
-</style>
-
 <script>
 import axios from "axios";
 import qs from 'qs';
@@ -125,15 +163,17 @@ export default {
     },
     data() {
         return {
-            cardsList     : null,
-            complete      : null,
-            setTotalCards : null,
-            numOwnedCards : 0,
-            setName       : '',
-            releaseDate   : '',
-            numCards      : '',
-            ownCards      : '',
-            setLogo       : ''
+            cardsList       : null,
+            complete        : null,
+            setTotalCards   : null,
+            numOwnedCards   : 0,
+            setName         : '',
+            releaseDate     : '',
+            numCards        : '',
+            ownCards        : '',
+            setLogo         : '',
+            numCardsOnADeck : null,
+            numPendingCards : null
         }
     },
     setup() {
@@ -151,12 +191,15 @@ export default {
             await axios
                 .get(process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_ENDPOINT + '/' + this.setId)
                 .then(response => {
-                    var setInfo      = response.data.data;
-                    this.setName     = setInfo[0].setName;
-                    this.releaseDate = setInfo[0].setReleaseDate;
-                    this.numCards    = setInfo[0].setTotalCards;
-                    this.ownCards    = setInfo[0].ownedCards;
-                    this.setLogo     = setInfo[0].setLogo;
+                    var setInfo          = response.data.data;
+                    this.setName         = setInfo[0].setName;
+                    this.releaseDate     = setInfo[0].setReleaseDate;
+                    this.numCards        = setInfo[0].setTotalCards;
+                    this.ownCards        = setInfo[0].ownedCards;
+                    this.setLogo         = setInfo[0].setLogo;
+                    this.numCardsOnADeck = setInfo[0].numCardsOnADeck;
+                    this.numPendingCards = setInfo[0].numPendingCards;
+                    this.complete        = setInfo[0].complete;
                 })
                 .catch(error => {
                     this.show('errorApiFile');
@@ -178,12 +221,27 @@ export default {
                 })
                 .finally(() => this.loading = false)
         },
-        async setOwnYesNo(id, value) {
+        setOwnYesNo(id, value) {
+            var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id;
+            var data = qs.stringify({ 'own': value });
+            this.commonUpdateFunction(url, data)
+        },
+        setIsOnADeck(id, value) {
+            var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id;
+            var data = qs.stringify({ 'isOnADeck': value });
+            this.commonUpdateFunction(url, data)
+        },
+        setPendingYesNo(id, value) {
+            var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id;
+            var data = qs.stringify({ 'pendingToArrive': value });
+            this.commonUpdateFunction(url, data)
+        },
+        async commonUpdateFunction(url, data) {
             await axios({
                 method  : 'put',
-                url     : process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id,
+                url     : url,
                 headers : { 'content-type': 'application/x-www-form-urlencoded' },
-                data    : qs.stringify({ 'own': value }),
+                data    : data,
             })
             .then(response => {
                 this.getSetCardList();
@@ -193,7 +251,6 @@ export default {
                 setTimeout(() => this.hide('errorApiFile'), 2500);
             })
             .finally(() => this.loading = false)
-
         },
         async setAllCards(value) {
             let text = "Are you sure?!\nEither OK or Cancel.";
