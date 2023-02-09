@@ -7,6 +7,7 @@
                 <Dropdown :label="monthLabel" :modelName="monthModel" :items="months"></Dropdown>
                 <Input :label="yearLabel" :modelName="yearModel" :placeholderText="yearPlaceholder"></Input>
                 <div class="mt-40">
+                    <EmptyInputError class="mb-20"></EmptyInputError>
                     <v-btn color="primary" class="left me-3 mb-5" @click="reset">
                         <span class="d-none d-sm-block">Reset</span>
                     </v-btn>
@@ -17,6 +18,9 @@
             </v-form>
         </div>
         <Logo :setList="setList"></Logo>
+        <div class="w-100 left" style="padding: 30px 20px;">
+            Note: logos from <a href="https://keyrune.andrewgioia.com/icons.html" target="_BLANK">https://keyrune.andrewgioia.com/icons.html</a>
+        </div>
     </v-card>
 </template>
 
@@ -24,13 +28,14 @@
 import Dropdown from '@/layouts/components/form/Dropdown.vue'
 import Input from '@/layouts/components/form/Input.vue'
 import Logo from '@/layouts/components/logos/Logo.vue'
-
+import EmptyInputError from '@/layouts/components/EmptyInputError.vue'
 
 export default {
     components: {
         Dropdown,
         Input,
-        Logo
+        Logo,
+        EmptyInputError
     },
     data () {
         return {
@@ -60,14 +65,33 @@ export default {
             var logoYear  = document.getElementById('logoYear').value;
             var logoMonth = document.getElementById('logoMonth').value;
 
-            let setItem = {
-                logo  : logoText,
-                icon  : logoIcon,
-                year  : logoYear,
-                month : logoMonth
+            if (this.checkErrors(logoText, logoIcon, logoYear, logoMonth) == false) {
+                let setItem = {
+                    logo  : logoText,
+                    icon  : logoIcon,
+                    year  : logoYear,
+                    month : logoMonth
+                }
+
+                this.getItemSetList(setItem);
+                this.clearValues();
+            }
+        },
+        clearValues() {
+            document.getElementById('logoText').value = '';
+            document.getElementById('logoIcon').value = '';
+            document.getElementById('logoYear').value = '';
+            document.getElementById('logoMonth').value = null;
+        },
+        checkErrors(logoText, logoIcon, logoYear, logoMonth) {
+            if (logoText == '' || logoIcon == '' || logoYear == '' || logoMonth == '') {
+                this.show('errorEmptyInput');
+                setTimeout(() => this.hide('errorEmptyInput'), 2500);
+
+                return true;
             }
 
-            this.getItemSetList(setItem)
+            return false
         },
         getItemSetList(setItem) {
             let items = []
@@ -83,7 +107,17 @@ export default {
         },
         reset() {
             this.setList = null
-        }
+        },
+        show(id) {
+            var element = document.getElementById(id);
+            element.classList.remove("invisible");
+            element.classList.add("visible");
+        },
+        hide(id) {
+            var element = document.getElementById(id);
+            element.classList.remove("visible");
+            element.classList.add("invisible");
+        },
     },
     mounted() {
         

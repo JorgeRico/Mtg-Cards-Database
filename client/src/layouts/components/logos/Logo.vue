@@ -1,6 +1,6 @@
 <template>
     <div class="w-50 right">
-        <div class="item-box" size="ETIQUETA">
+        <div class="item-box mb-40" size="ETIQUETA">
             <div v-for="(item, i) in setList" class="icono-box">
                 <div class="icono">
                     <i :class="'ss ss-3x ss-'+item.icon.toLowerCase()"></i>

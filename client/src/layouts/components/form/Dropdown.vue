@@ -2,7 +2,8 @@
     <div class="mb-20">
         <label>{{ label }}</label>
         <select :id="modelName" :v-model="modelName" outlined dense :label="modelName">
-            <option value="1" v-for="(item, i) in items" :value="item">{{ item }}</option>
+            <option value="">-</option>
+            <option v-for="(item, i) in items" :value="item">{{ item }}</option>
         </select>
     </div>
 </template>
