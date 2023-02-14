@@ -31,12 +31,17 @@
             </div>
         </div>
         <div class="right w-100 pb-20">
-            <v-btn color="primary" class="right me-3 mb-5" @click="setAllCards(1)">
-                <span class="d-none d-sm-block">Complete all</span>
-            </v-btn>
-            <v-btn color="primary" class="right me-3 mb-5" @click="setAllCards(0)">
-                <span class="d-none d-sm-block">UnComplete all</span>
-            </v-btn>
+            <div class="right dropdown">
+                <button color="primary" class="btn btn-primary dropdown-toggle" @click="dropdown()">
+                    Options
+                </button>
+                <div id="dropdown-menu" ref="myElement">
+                    <a class="dropdown-item" @click="completeSet(1)">Mark Set as Complete</a>
+                    <a class="dropdown-item" @click="completeSet(0)">Mark Set as UnComplete</a>
+                    <a class="dropdown-item" @click="setAllCards(1)">Complete all</a>
+                    <a class="dropdown-item" @click="setAllCards(0)">UnComplete all</a>
+                </div>
+            </div>
         </div>
         <div class="left w-100">
             <v-simple-table class="border-grey mb-10">
@@ -187,6 +192,14 @@ export default {
         },
     },
     methods: {
+        dropdown() {
+            const element = this.$refs.myElement
+            if (element.classList.contains('invisible')) {
+                this.show('dropdown-menu');
+            } else {
+                this.hide('dropdown-menu');
+            }
+        },
         async getSetInfo() {
             await axios
                 .get(process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_ENDPOINT + '/' + this.setId)
@@ -236,7 +249,13 @@ export default {
             var data = qs.stringify({ 'pendingToArrive': value });
             this.commonUpdateFunction(url, data)
         },
+        completeSet(value) {
+            var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_ENDPOINT + '/' + this.setId;
+            var data = qs.stringify({ 'complete': value });
+            this.commonUpdateFunction(url, data)
+        },
         async commonUpdateFunction(url, data) {
+            this.hide('dropdown-menu');
             await axios({
                 method  : 'put',
                 url     : url,
@@ -254,6 +273,7 @@ export default {
         },
         async setAllCards(value) {
             let text = "Are you sure?!\nEither OK or Cancel.";
+            this.hide('dropdown-menu');
             if (confirm(text) == true) {
                 await axios({
                     method  : 'put',
@@ -284,6 +304,7 @@ export default {
     },
     mounted() {
         this.getSetCardList();
+        this.hide('dropdown-menu');
     },
     beforeMount() {
         this.setId = Number(this.$route.params.id);

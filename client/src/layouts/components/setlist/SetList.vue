@@ -35,6 +35,11 @@
                                     OWNED CARDS
                                 </p>
                             </th>
+                            <th class="text-uppercase">
+                                <p class="mb-0 center">
+                                    SPECIAL CARDS
+                                </p>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,6 +75,11 @@
                             <td class="text-uppercase center">
                                 <p class="mb-0 center">
                                     {{ item.ownedCards }}
+                                </p>
+                            </td>
+                            <td class="text-uppercase center">
+                                <p class="mb-0 center">
+                                    {{ item.specialCards }}
                                 </p>
                             </td>
                         </tr>
