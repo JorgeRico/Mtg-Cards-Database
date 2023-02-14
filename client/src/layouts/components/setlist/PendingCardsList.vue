@@ -1,5 +1,8 @@
 <template>
     <div id="setResult" class="mt-10 w-100">
+        <div class="left w-100 mb-20 f16">
+            <strong>Total Pending cards: {{ total }}</strong>
+        </div>
         <div class="left w-100">
             <v-simple-table class="border-grey mb-10">
                 <template>
@@ -79,6 +82,7 @@ export default {
     data () {
         return {
             cardsList : null,
+            total     : null
         }
     },
     methods: {
@@ -87,6 +91,7 @@ export default {
                 .get(process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_PENDING_CARDS_ENDPOINT)
                 .then(response => {
                     this.cardsList = response.data.data;
+                    this.total = this.cardsList.length;
                 })
                 .catch(error => {
                     this.show('errorApiFile');
