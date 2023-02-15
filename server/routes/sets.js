@@ -86,7 +86,7 @@ async function getMultipleSets(filterParam = null, page = 1) {
         (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) as specialCards
         FROM mtgSet s
         ${filter}
-        ORDER BY s.id DESC
+        ORDER BY s.setReleaseDate DESC
         LIMIT ${offset},${config.listPerPage}`
     );
     const data = helper.emptyOrRows(rows);
