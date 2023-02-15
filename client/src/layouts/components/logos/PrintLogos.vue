@@ -25,12 +25,14 @@
 </template>
 
 <script>
-import Dropdown from '@/layouts/components/form/Dropdown.vue'
-import Input from '@/layouts/components/form/Input.vue'
-import Logo from '@/layouts/components/logos/Logo.vue'
-import EmptyInputError from '@/layouts/components/EmptyInputError.vue'
+import Dropdown from '@/layouts/components/form/Dropdown.vue';
+import Input from '@/layouts/components/form/Input.vue';
+import Logo from '@/layouts/components/logos/Logo.vue';
+import EmptyInputError from '@/layouts/components/EmptyInputError.vue';
+import helper from "@/mixins/helper";
 
 export default {
+    mixins: [helper],
     components: {
         Dropdown,
         Input,
@@ -107,16 +109,6 @@ export default {
         },
         reset() {
             this.setList = null
-        },
-        show(id) {
-            var element = document.getElementById(id);
-            element.classList.remove("invisible");
-            element.classList.add("visible");
-        },
-        hide(id) {
-            var element = document.getElementById(id);
-            element.classList.remove("visible");
-            element.classList.add("invisible");
         },
     },
     mounted() {

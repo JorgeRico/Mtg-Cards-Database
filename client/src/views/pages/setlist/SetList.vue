@@ -53,6 +53,7 @@ import SetList from '@/layouts/components/setlist/SetList.vue';
 import Spinner from '@/layouts/components/Spinner.vue'
 import Pagination from '@/layouts/components/Pagination.vue'
 import axios from "axios";
+import helper from "@/mixins/helper";
 
 const urlSetList = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_ENDPOINT;
 const pagination = 100;
@@ -62,6 +63,7 @@ import { getAuth } from "firebase/auth";
 const auth = getAuth();
 
 export default {
+    mixins: [helper],
     components: {
         SetList,
         ApiError,
@@ -136,16 +138,6 @@ export default {
                     setTimeout(() => this.hide('errorApiFile'), 2500);
                 })
                 .finally(() => this.loading = false)
-        },
-        show(id) {
-            var element = document.getElementById(id);
-            element.classList.remove("invisible");
-            element.classList.add("visible");
-        },
-        hide(id) {
-            var element = document.getElementById(id);
-            element.classList.remove("visible");
-            element.classList.add("invisible");
         },
         clickLinkPagination(data) {
             this.show('spinner');

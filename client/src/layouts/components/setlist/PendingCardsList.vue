@@ -73,9 +73,11 @@
 <script>
 import axios from "axios";
 import qs from 'qs';
-import ApiError from '@/layouts/components/ApiError.vue'
+import ApiError from '@/layouts/components/ApiError.vue';
+import helper from "@/mixins/helper";
 
 export default {
+    mixins: [helper],
     components: {
         ApiError,
     },
@@ -119,16 +121,6 @@ export default {
                 setTimeout(() => this.hide('errorApiFile'), 2500);
             })
             .finally(() => this.loading = false)
-        },
-        show(id) {
-            var element = document.getElementById(id);
-            element.classList.remove("invisible");
-            element.classList.add("visible");
-        },
-        hide(id) {
-            var element = document.getElementById(id);
-            element.classList.remove("visible");
-            element.classList.add("invisible");
         },
     },
     mounted() {
