@@ -1,5 +1,9 @@
 <template>
     <div id="setResult" class="mt-10 w-100">
+        <div class="left w-100 mb-20 f16">
+            <span v-if="isOnACart==true"><strong>Total Pending cards: {{ total }}</strong></span>
+            <span v-if="isOnADeck==true"><strong>Total on use cards: {{ total }}</strong></span>
+        </div>
         <div class="left w-100">
             <v-simple-table class="border-grey mb-10">
                 <template>
@@ -25,7 +29,12 @@
                                     NAME
                                 </p>
                             </th>
-                            <th class="text-uppercase w-200px">
+                            <th class="text-uppercase w-200px" v-if="isOnACart==true">
+                                <p class="mb-0">
+                                    IS ON A CART
+                                </p>
+                            </th>
+                            <th class="text-uppercase w-200px" v-if="isOnADeck==true">
                                 <p class="mb-0">
                                     DELETE FROM A DECK
                                 </p>
@@ -40,11 +49,11 @@
                             <td class="text-uppercase">
                                 <v-img
                                     contain
-                                    class="greeting-card-trophy w-100px zoom"
+                                    class="greeting-card-trophy zoom"
                                     :src="item.cardImg.toLowerCase().trim()"
                                 ></v-img>
                             </td>
-                            <td class="text-uppercase">
+                            <td class="text-uppercase">                            
                                 <router-link :to="{ name: 'setcards', params: { 'id': item.idSet } }">
                                     {{ item.setName }}
                                 </router-link>
@@ -54,7 +63,12 @@
                                     {{ item.cardName }}
                                 </p>
                             </td>
-                            <td class="text-uppercase">
+                            <td class="text-uppercase" v-if="isOnACart==true">
+                                <p class="mb-0">
+                                    <span @click="setPendingYesNo(item.id, item.idSet, 0)" class="pointer"><u>Delete from cart</u></span>
+                                </p>
+                            </td>
+                            <td class="text-uppercase" v-if="isOnADeck==true">
                                 <p class="mb-0">
                                     <span @click="setIsOnADeck(item.id, item.idSet, 0)" class="pointer"><u>Delete from deck</u></span>
                                 </p>
@@ -80,17 +94,35 @@ export default {
     components: {
         ApiError,
     },
+    props: {
+        isOnACart: {
+            type: Boolean,
+            default: false,
+        },
+        isOnADeck: {
+            type: Boolean,
+            default: false,
+        },
+    },
     data () {
         return {
             cardsList : null,
+            total     : null
         }
     },
     methods: {
         async getSetCardList() {
+            if (this.isOnADeck == true) {
+                var url = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ON_DECKS_ENDPOINT
+            }
+            if (this.isOnACart == true) {
+                var url = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_PENDING_CARDS_ENDPOINT
+            }
             await axios
-                .get(process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ON_DECKS_ENDPOINT)
+                .get(url)
                 .then(response => {
                     this.cardsList = response.data.data;
+                    this.total = this.cardsList.length;
                 })
                 .catch(error => {
                     this.show('errorApiFile');
@@ -101,6 +133,11 @@ export default {
         setIsOnADeck(id, idSet, value) {
             var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + idSet + '/cards/' + id;
             var data = qs.stringify({ 'isOnADeck': value });
+            this.commonUpdateFunction(url, data)
+        },
+        setPendingYesNo(id, idSet, value) {
+            var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + idSet + '/cards/' + id;
+            var data = qs.stringify({ 'pendingToArrive': value });
             this.commonUpdateFunction(url, data)
         },
         async commonUpdateFunction(url, data) {

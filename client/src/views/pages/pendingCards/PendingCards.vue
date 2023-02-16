@@ -3,21 +3,21 @@
         <v-card-text class="d-flex">
             <div cols="12" class="w-100">
                 <h1>Cards Waiting to arrive</h1>
-                <PendingCardsList></PendingCardsList>
+                <CardsOutOfAlbum :isOnACart="true" :isOnADeck="false"></CardsOutOfAlbum>
             </div>
         </v-card-text>
     </v-card>
 </template>
   
 <script>
-import PendingCardsList from '@/layouts/components/pendingCardsList/PendingCardsList.vue'
+import CardsOutOfAlbum from '@/layouts/components/cardsOutOfAlbum/cardsOutOfAlbum.vue'
 import { getAuth } from "firebase/auth";
 
 const auth = getAuth();
 
 export default {
     components: {
-        PendingCardsList,
+        CardsOutOfAlbum,
     },
     methods: {
     

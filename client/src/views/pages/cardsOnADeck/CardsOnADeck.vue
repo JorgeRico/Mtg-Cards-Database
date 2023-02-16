@@ -3,21 +3,21 @@
         <v-card-text class="d-flex">
             <div cols="12" class="w-100">
                 <h1>Cards sleeved on a deck</h1>
-                <CardsOnADeck></CardsOnADeck>
+                <CardsOutOfAlbum :isOnACart="false" :isOnADeck="true"></CardsOutOfAlbum>
             </div>
         </v-card-text>
     </v-card>
 </template>
   
 <script>
-import CardsOnADeck from '@/layouts/components/cardsOnADeck/CardsOnADeck.vue'
+import CardsOutOfAlbum from '@/layouts/components/cardsOutOfAlbum/cardsOutOfAlbum.vue'
 import { getAuth } from "firebase/auth";
 
 const auth = getAuth();
 
 export default {
     components: {
-        CardsOnADeck,
+        CardsOutOfAlbum,
     },
     methods: {
     
