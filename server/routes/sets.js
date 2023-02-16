@@ -31,23 +31,18 @@ router.put("/:id", async function (req, res, next) {
 });
 
 function getFilterQueryString(filterParam) {
-    var filter = '';
-    
+    var filter = 'WHERE s.onlineSet = 0';    
+
     if (filterParam != null){
-        if (filterParam == '0') {
-            filter = 'WHERE s.onlineSet = 0';
-        }
         if (filterParam == '1') {
-            filter = 'WHERE s.complete = 1 AND s.onlineSet = 0';
+            filter += ' AND s.complete = 1';
         }
         if (filterParam == '2') {
-            filter = 'WHERE s.complete = 0 AND (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) > 0 AND s.onlineSet = 0';
+            filter += ' AND s.complete = 0 AND (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) > 0';
         }
         if (filterParam == '3') {
-            filter = 'WHERE s.complete = 0 AND (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) = 0 AND s.onlineSet = 0';
+            filter += ' AND s.complete = 0 AND (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) = 0';
         }
-    } else {
-        filter = 'WHERE s.onlineSet = 0';
     }
 
     return filter;
