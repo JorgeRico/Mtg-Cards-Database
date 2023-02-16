@@ -2,33 +2,28 @@
     <v-card flat class="pa-3 mt-2" style="overflow: hidden;">
         <v-card-text class="d-flex">
             <div cols="12" class="w-100">
-                <h1>MTG Cards</h1>
-                <SetCardsList :setId="setId"></SetCardsList>
+                <h1>Cards Waiting to arrive</h1>
+                <PendingCardsList></PendingCardsList>
             </div>
         </v-card-text>
     </v-card>
 </template>
   
 <script>
-import SetCardsList from '@/layouts/components/setlist/SetCardsList.vue';
-
+import PendingCardsList from '@/layouts/components/pendingCardsList/PendingCardsList.vue'
 import { getAuth } from "firebase/auth";
+
 const auth = getAuth();
 
 export default {
     components: {
-        SetCardsList,
-    },
-    data() {
-        return {
-            setId: null,
-        }
+        PendingCardsList,
     },
     methods: {
-
+    
     },
     mounted() {
-
+    
     },
     beforeMount() {
         auth.onAuthStateChanged(function (user) {
@@ -36,8 +31,6 @@ export default {
                 window.location.href = "/";
             }
         })
-
-        this.setId = Number(this.$route.params.id);
     }
 }
 </script>

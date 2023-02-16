@@ -8,17 +8,22 @@
                 <template>
                     <thead>
                         <tr>
-                            <th class="text-uppercase w-100px">
-                                <p class="mb-0 ml-35 align-left">
+                            <th class="text-uppercase w-25px">
+                                <p class="mb-0">
+                                    &nbsp;
+                                </p>
+                            </th>
+                            <th class="text-uppercase">
+                                <p class="mb-0 center">
                                     IMG
                                 </p>
                             </th>
                             <th class="text-uppercase">
-                                <p class="mb-0 align-left">
+                                <p class="mb-0">
                                     SET
                                 </p>
                             </th>
-                            <th class="text-uppercase w-49">
+                            <th class="text-uppercase">
                                 <p class="mb-0">
                                     NAME
                                 </p>
@@ -33,22 +38,19 @@
                     <tbody>
                         <tr v-for="(item) in cardsList">
                             <td class="text-uppercase">
-                                <p class="mb-0 w-100px" style="padding: 3px 0px;">
-                                    <v-img
-                                        contain
-                                        style="height: 100px;"
-                                        class="greeting-card-trophy w-100px"
-                                        :src="item.cardImg.toLowerCase().trim()"
-                                    ></v-img>
-                                </p>
+                                <div class="w-40px ml-40" v-html="item.setLogo"></div>
                             </td>
                             <td class="text-uppercase">
-                                <div class="left w-25px" v-html="item.setLogo"></div>
-                                <p class="right w-90 mb-0">
-                                    <router-link :to="{ name: 'setcards', params: { 'id': item.idSet } }">
-                                        {{ item.setName }}
-                                    </router-link>
-                                </p>
+                                <v-img
+                                    contain
+                                    class="greeting-card-trophy zoom"
+                                    :src="item.cardImg.toLowerCase().trim()"
+                                ></v-img>
+                            </td>
+                            <td class="text-uppercase">                            
+                                <router-link :to="{ name: 'setcards', params: { 'id': item.idSet } }">
+                                    {{ item.setName }}
+                                </router-link>
                             </td>
                             <td class="text-uppercase">
                                 <p class="mb-0">
@@ -73,7 +75,7 @@
 <script>
 import axios from "axios";
 import qs from 'qs';
-import ApiError from '@/layouts/components/ApiError.vue';
+import ApiError from '@/layouts/components/errors/ApiError.vue';
 import helper from "@/mixins/helper";
 
 export default {

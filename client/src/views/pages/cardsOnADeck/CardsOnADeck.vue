@@ -10,7 +10,7 @@
 </template>
   
 <script>
-import CardsOnADeck from '@/layouts/components/setlist/CardsOnADeck.vue'
+import CardsOnADeck from '@/layouts/components/cardsOnADeck/CardsOnADeck.vue'
 import { getAuth } from "firebase/auth";
 
 const auth = getAuth();

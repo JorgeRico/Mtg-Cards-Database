@@ -48,8 +48,8 @@
 </template>
   
 <script>
-import ApiError from '@/layouts/components/ApiError.vue'
-import SetList from '@/layouts/components/setlist/SetList.vue';
+import ApiError from '@/layouts/components/errors/ApiError.vue'
+import SetList from '@/layouts/components/setList/SetList.vue';
 import Spinner from '@/layouts/components/Spinner.vue'
 import Pagination from '@/layouts/components/Pagination.vue'
 import axios from "axios";

@@ -53,27 +53,27 @@ const routes = [
   {
     path: '/setlist',
     name: 'setlist',
-    component: () => import('@/views/pages/setlist/SetList.vue'),
+    component: () => import('@/views/pages/setList/SetList.vue'),
   },
   {
     path: '/setcards/:id',
     name: 'setcards',
-    component: () => import('@/views/pages/setlist/SetCards.vue'),
+    component: () => import('@/views/pages/setCards/SetCards.vue'),
   },
   {
     path: '/pendingCards',
     name: 'pendingCards',
-    component: () => import('@/views/pages/PendingCards.vue'),
+    component: () => import('@/views/pages/pendingCards/PendingCards.vue'),
   },
   {
     path: '/cardsOnADeck',
     name: 'cardsOnADeck',
-    component: () => import('@/views/pages/CardsOnADeck.vue'),
+    component: () => import('@/views/pages/cardsOnADeck/CardsOnADeck.vue'),
   },
   {
     path: '/printLogos',
     name: 'printLogos',
-    component: () => import('@/views/pages/logos/PrintLogos.vue'),
+    component: () => import('@/views/pages/printLogos/PrintLogos.vue'),
   },
   
   // {

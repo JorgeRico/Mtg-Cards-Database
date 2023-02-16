@@ -62,6 +62,10 @@ a.dashboardLink:hover {
     width: 25px;
 }
 
+.w-40px {
+    width: 40px;
+}
+
 .w-50px {
     width: 50px;
 }
@@ -130,12 +134,24 @@ a.dashboardLink:hover {
     margin-left: 35px;
 }
 
+.ml-40 {
+    margin-left: 40px;
+}
+
+.ml-45 {
+    margin-left: 45px;
+}
+
 .mr-25 {
     margin-right: 25px;
 }
 
 .mr-30 {
     margin-right: 30px;
+}
+
+.mt-8 {
+    margin-top: 8px;
 }
 
 .mt-20 {
@@ -387,4 +403,16 @@ div[size="ETIQUETA"] {
 
 #dropdown-menu a:hover {
     background: lightseagreen;
+}
+
+.zoom {
+    transition: transform .2s; /* Animation */
+    width: 200px !important;
+    height: 200px !important;
+    margin: 0 auto;
+}
+  
+.zoom:hover {
+    transform: scale(1.5);
+    z-index: 1;
 }

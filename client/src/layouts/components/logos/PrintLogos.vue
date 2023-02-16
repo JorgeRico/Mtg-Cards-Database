@@ -28,7 +28,7 @@
 import Dropdown from '@/layouts/components/form/Dropdown.vue';
 import Input from '@/layouts/components/form/Input.vue';
 import Logo from '@/layouts/components/logos/Logo.vue';
-import EmptyInputError from '@/layouts/components/EmptyInputError.vue';
+import EmptyInputError from '@/layouts/components/errors/EmptyInputError.vue';
 import helper from "@/mixins/helper";
 
 export default {

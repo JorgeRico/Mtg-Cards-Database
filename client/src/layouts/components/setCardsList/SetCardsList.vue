@@ -101,11 +101,9 @@
                             </td>
                             <td class="text w-100px">
                                 <p class="mb-0 w-100px" style="padding: 3px 0px;" :id="'img-'+i">
-                                    <!--<a :href="item.cardImg.toLowerCase().trim()" target="_BLANK">show image</a>-->
                                     <v-img
                                         contain
-                                        style="height: 100px;"
-                                        class="greeting-card-trophy w-100px"
+                                        class="greeting-card-trophy w-100px zoom"
                                         :src="item.cardImg.toLowerCase().trim()"
                                     ></v-img>
                                 </p>
@@ -158,8 +156,8 @@
 <script>
 import axios from "axios";
 import qs from 'qs';
-import ApiError from '@/layouts/components/ApiError.vue';
-import BackLink from '@/layouts/components/setlist/BackLink.vue';
+import ApiError from '@/layouts/components/errors/ApiError.vue';
+import BackLink from '@/layouts/components/setCardsList/BackLink.vue';
 import helper from "@/mixins/helper";
 
 
