@@ -1,16 +1,7 @@
 # Node + Express + Vue + MySQL + Docker Compose
 A project that runs a Express server and Vue-CLI with two separate containers, server and client, using Docker Compose.
 
-# config
-# first time need node_modules on /client
-```
-npm install
-```
-
-# first time need node_modules on /server
-```
-npm install
-```
+## Docker
 
 # run docker build
 ```
@@ -20,16 +11,6 @@ docker-compose build
 # launch docker
 ```
 docker-compose up -d
-```
-
-# launch client
-```
-npm run serve
-```
-
-# launch api
-```
-npm run dev
 ```
 
 ## Front
@@ -42,7 +23,7 @@ http://localhost:8080
 http://localhost:3000
 ```
 
-## PhpMyAdmin
+## PhpMyAdmin ( database is autoloaded )
 ```
 http://localhost:18081
 ```
@@ -61,4 +42,18 @@ VUE_APP_API_SET_CARDS_ON_DECKS_ENDPOINT=/cardsOnADeck
 VUE_APP_API_SET_CARDS_ENDPOINT=/setCards
 VUE_APP_API_PENDING_CARDS_ENDPOINT=/pendingCards
 VUE_APP_API_SET_ENDPOINT=/sets
+VUE_APP_API_SPECIAL_SET_ENDPOINT=/specialSets
+```
+
+## Manual launch
+# /client launch client
+```
+npm install
+npm run serve
+```
+
+# /server launch api
+```
+npm install
+npm run dev
 ```
