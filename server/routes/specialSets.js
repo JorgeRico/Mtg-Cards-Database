@@ -6,6 +6,9 @@ const config = require('../config');
 var express = require('express');
 var router = express.Router();
 
+/**************************************************/
+/***********         ENDPOINTS          ***********/
+/**************************************************/
 /* GET Num Sets - Pagination info. */
 router.get('/numSets', async function (req, res, next) {
     res.send(JSON.stringify(await getTotalNumSets(req.query.filter)));
@@ -16,6 +19,10 @@ router.get('/', async function (req, res, next) {
   res.send(JSON.stringify(await getMultipleSets(req.query.filter, req.query.page)));
 });
 
+
+/**************************************************/
+/***********         FUNCTIONS          ***********/
+/**************************************************/
 function getFilterQueryString(filterParam) {
     var filter = 'WHERE s.onlineSet = 0 AND (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) >= 1';
 

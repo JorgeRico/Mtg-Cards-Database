@@ -5,6 +5,9 @@ const config = require('../config');
 var express = require('express');
 var router = express.Router();
 
+/**************************************************/
+/***********         ENDPOINTS          ***********/
+/**************************************************/
 /* GET Cards Set listing. */
 router.get('/:id', async function (req, res, next) {
     res.send(JSON.stringify(await getMultipleSetCards(req.params.id)));
@@ -28,7 +31,6 @@ router.put("/:idSet/cards/:idCard", async function (req, res, next) {
     }
 });
 
-
 /* PUT all set Cards */
 router.put("/:idSet/cards", async function (req, res, next) {
     try {
@@ -45,6 +47,10 @@ router.put("/:idSet/cards", async function (req, res, next) {
 });
 
 
+
+/**************************************************/
+/***********         FUNCTIONS          ***********/
+/**************************************************/
 /* GET Cards function */
 async function getMultipleSetCards(id, page = 1) {
     const offset = helper.getOffset(page, config.listPerPageSetCards);

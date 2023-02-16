@@ -6,6 +6,9 @@ const config = require('../config');
 var express = require('express');
 var router = express.Router();
 
+/**************************************************/
+/***********         ENDPOINTS          ***********/
+/**************************************************/
 /* GET Num Sets - Pagination info. */
 router.get('/numSets', async function (req, res, next) {
     res.send(JSON.stringify(await getTotalNumSets(req.query.filter)));
@@ -30,6 +33,10 @@ router.put("/:id", async function (req, res, next) {
     }
 });
 
+
+/**************************************************/
+/***********         FUBCTIONS          ***********/
+/**************************************************/
 function getFilterQueryString(filterParam) {
     var filter = 'WHERE s.onlineSet = 0';    
 

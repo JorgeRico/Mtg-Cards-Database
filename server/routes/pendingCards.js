@@ -5,12 +5,18 @@ const config = require('../config');
 var express = require('express');
 var router = express.Router();
 
+/**************************************************/
+/***********         ENDPOINTS          ***********/
+/**************************************************/
 /* GET Cards Set listing. */
 router.get('/', async function (req, res, next) {
     res.send(JSON.stringify(await getPendingCards()));
 });
 
 
+/**************************************************/
+/***********         FUNCTIONS          ***********/
+/**************************************************/
 /* GET Pending Cards function */
 async function getPendingCards() {
     const rows = await db.query(
