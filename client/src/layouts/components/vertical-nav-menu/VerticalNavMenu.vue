@@ -21,8 +21,8 @@
         <nav-menu-link :icon="icons.mdiCardAccountDetailsStar" title="Sets" :to="{ name: 'setlist' }"></nav-menu-link>
         <nav-menu-link :icon="icons.mdiCardAccountDetailsStar" title="Pending Cards" :to="{ name: 'pendingCards' }"></nav-menu-link>
         <nav-menu-link :icon="icons.mdiCardAccountDetailsStar" title="Cards on Decks" :to="{ name: 'cardsOnADeck' }"></nav-menu-link>
+        <nav-menu-link :icon="icons.mdiCardAccountDetailsStar" title="Special Cards on Sets" :to="{ name: 'specialSets' }"></nav-menu-link>
         <nav-menu-link :icon="icons.mdiCardAccountDetailsStar" title="Logos" :to="{ name: 'printLogos' }"></nav-menu-link>
-
     </v-list>
   </v-navigation-drawer>
 </template>

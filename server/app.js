@@ -8,6 +8,7 @@ const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var setsRouter = require('./routes/sets');
+var specialSetsRouter = require('./routes/specialSets');
 var setCardsRouter = require('./routes/setCards');
 var pendingCardsRouter = require('./routes/pendingCards');
 var cardsOnADeckRouter = require('./routes/cardsOnADeck');
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/sets', setsRouter);
+app.use('/specialSets', specialSetsRouter);
 app.use('/setCards', setCardsRouter);
 app.use('/pendingCards', pendingCardsRouter);
 app.use('/cardsOnADeck', cardsOnADeckRouter);

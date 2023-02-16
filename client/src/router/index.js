@@ -75,6 +75,11 @@ const routes = [
     name: 'printLogos',
     component: () => import('@/views/pages/printLogos/PrintLogos.vue'),
   },
+  {
+    path: '/specialSets',
+    name: 'specialSets',
+    component: () => import('@/views/pages/specialSetsList/SpecialSetsList.vue'),
+  },
   
   // {
   //   path: '*',
