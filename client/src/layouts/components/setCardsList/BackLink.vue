@@ -1,10 +1,8 @@
 <template>
     <div class="left w-100">
-        <router-link :to="{ name: 'setlist' }" class="d-flex align-center text-decoration-none white-text">
-            <v-btn color="primary" class="left me-3 mb-5">
-                <span class="d-none d-sm-block">&laquo; Back to set list</span>
-            </v-btn>
-        </router-link>
+        <v-btn color="primary" class="left me-3 mb-5" @click="$router.go(-1)">
+            <span class="d-none d-sm-block">&laquo; Back </span>
+        </v-btn>
     </div>
 </template>
 
