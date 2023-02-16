@@ -17,22 +17,7 @@ router.get('/', async function (req, res, next) {
 });
 
 function getFilterQueryString(filterParam) {
-    var filter = 'WHERE s.onlineSet = 0';
-    
-    if (filterParam != null){
-        if (filterParam == '1') {
-            filter += ' AND s.complete = 1';
-        }
-        if (filterParam == '2') {
-            filter += ' AND s.complete = 0 AND (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) > 0';
-        }
-        if (filterParam == '3') {
-            filter += ' AND s.complete = 0 AND (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) = 0';
-        }
-    }
-
-    filter += ' AND (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) >= 1';
-
+    var filter = 'WHERE s.onlineSet = 0 AND (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) >= 1';
 
     return filter;
 }
@@ -44,9 +29,7 @@ async function getTotalNumSets(filterParam = null) {
     const rows = await db.query(
         `SELECT 
             count(s.id) as numTotal,
-            (SELECT count(s.id) FROM mtgSet s ${filter} AND s.complete = 1) as numTotalComplete,
-            (SELECT count(c.id) FROM mtgCard c INNER JOIN mtgSet ms ON ms.id = c.idSet WHERE ms.onlineSet = 0) as numTotalCards,
-            (SELECT count(c.id) FROM mtgCard c INNER JOIN mtgSet ms ON ms.id = c.idSet WHERE ms.onlineSet = 0 AND c.own = 1) as numTotalCardsOwn 
+            (SELECT count(s.id) FROM mtgSet s ${filter} AND s.complete = 1) as numTotalComplete
         FROM mtgSet s ${filter}`
     );
 
