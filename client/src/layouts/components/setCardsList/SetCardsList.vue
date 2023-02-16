@@ -38,8 +38,10 @@
                 <div id="dropdown-menu" ref="myElement">
                     <a class="dropdown-item" @click="completeSet(1)">Mark Set as Complete</a>
                     <a class="dropdown-item" @click="completeSet(0)">Mark Set as UnComplete</a>
-                    <a class="dropdown-item" @click="setAllCards(1)">Complete all</a>
-                    <a class="dropdown-item" @click="setAllCards(0)">UnComplete all</a>
+                    <a class="dropdown-item" @click="setAllCards(1)">Complete all (cards and set)</a>
+                    <a class="dropdown-item" @click="setAllCards(0)">UnComplete all (cards and set)</a>
+                    <a class="dropdown-item" @click="setAllPendingCards(1)">Mark all cards as "On Cart"</a>
+                    <a class="dropdown-item" @click="setAllPendingCards(0)">Unmark all cards "On Cart"</a>
                 </div>
             </div>
         </div>
@@ -137,8 +139,7 @@
 
                             <td class="text-uppercase">
                                 <p class="mb-0 center">
-                                    <span v-if="item.own==0" @click="setOwnYesNo(item.id, 1)" class="pointer"><u>update to
-                                            YES</u></span>
+                                    <span v-if="item.own==0" @click="setOwnYesNo(item.id, 1)" class="pointer"><u>update to YES</u></span>
                                     <span v-else @click="setOwnYesNo(item.id, 0)" class="pointer"><u>update to NO</u></span>
                                 </p>
                             </td>
@@ -159,7 +160,6 @@ import qs from 'qs';
 import ApiError from '@/layouts/components/errors/ApiError.vue';
 import BackLink from '@/layouts/components/setCardsList/BackLink.vue';
 import helper from "@/mixins/helper";
-
 
 export default {
     mixins: [helper],
@@ -255,6 +255,20 @@ export default {
             var data = qs.stringify({ 'complete': value });
             this.commonUpdateFunction(url, data)
         },
+        setAllPendingCards(value) {
+            var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards';
+            var data = qs.stringify({ 'pendingToArrive': value });
+            this.commonUpdateFunction(url, data)
+        },
+        async setAllCards(value) {
+            let text = "Are you sure?!\nEither OK or Cancel.";
+            this.hide('dropdown-menu');
+            if (confirm(text) == true) {
+                var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards';
+                var data = qs.stringify({ 'own': value });
+                this.commonUpdateFunction(url, data);
+            }
+        },
         async commonUpdateFunction(url, data) {
             this.hide('dropdown-menu');
             await axios({
@@ -271,26 +285,6 @@ export default {
                 setTimeout(() => this.hide('errorApiFile'), 2500);
             })
             .finally(() => this.loading = false)
-        },
-        async setAllCards(value) {
-            let text = "Are you sure?!\nEither OK or Cancel.";
-            this.hide('dropdown-menu');
-            if (confirm(text) == true) {
-                await axios({
-                    method  : 'put',
-                    url     : process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards',
-                    headers : { 'content-type': 'application/x-www-form-urlencoded' },
-                    data    : qs.stringify({ 'own': value }),
-                })
-                .then(response => {
-                    this.getSetCardList();
-                })
-                .catch(error => {
-                    this.show('errorApiFile');
-                    setTimeout(() => this.hide('errorApiFile'), 2500);
-                })
-                .finally(() => this.loading = false)
-            }
         },
     },
     mounted() {
