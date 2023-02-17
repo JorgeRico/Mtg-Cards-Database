@@ -1,5 +1,29 @@
 @import '@/plugins/vuetify/default-preset/preset/variables.scss';
 
+.theme--light.v-application {
+    background: lightsteelblue;
+}
+.theme--light.app-navigation-menu {
+    background-color: unset !important;
+}
+
+.theme--light.v-subheader .title-wrapper span {
+    background: none !important;
+    color: white !important;
+}
+
+.theme--light.v-application .text--primary {
+    color: white !important;
+    margin-top: 12px;
+}
+
+.theme--light.v-sheet,
+.theme--light .v-list-item__title,
+.theme--light .v-list-item__icon,
+.theme--light.v-icon {
+    color: white !important;
+}
+
 // Write your variable overrides
 a.dashboardLink {
     text-decoration: none;
@@ -280,7 +304,8 @@ a.dashboardLink:hover {
 }
 
 .working {
-    background: #ffc107;
+    background: darkorange;
+
 }
 
 .pointer { 
