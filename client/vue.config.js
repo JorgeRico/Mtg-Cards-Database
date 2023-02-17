@@ -4,6 +4,7 @@ module.exports = {
   publicPath: '/',
   lintOnSave: false,
   transpileDependencies: ['vuetify'],
+  productionSourceMap: false,
   chainWebpack: config => {
     const modules = ['vue-modules', 'vue', 'normal-modules', 'normal']
     modules.forEach(match => {
