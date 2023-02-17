@@ -54,8 +54,10 @@ services:
       - "8080:8080"
     volumes:
       - ./client:/app
+      - /app/node_modules # <---- this enables a much faster start/reload
     environment:
       - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true # <---- this enables the hot reloading
     depends_on:
       - server
     networks:
