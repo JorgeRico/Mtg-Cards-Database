@@ -73,12 +73,12 @@
                                 </p>
                             </td>
                             <td class="text-uppercase center">
-                                <p class="mb-0 center">
+                                <p :class="item.ownedCards == item.setTotalCards ? 'mb-0 center' : item.specialCards >= 1 ? 'mb-0 center specialCard' : 'mb-0 center'">
                                     {{ item.ownedCards }}
                                 </p>
                             </td>
                             <td class="text-uppercase center">
-                                <p class="mb-0 center">
+                                <p :class="item.ownedCards == item.setTotalCards ? 'mb-0 center' : item.specialCards >= 1 ? 'mb-0 center specialCard' : 'mb-0 center'">
                                     {{ item.specialCards }}
                                 </p>
                             </td>
