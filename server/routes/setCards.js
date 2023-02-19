@@ -56,7 +56,7 @@ async function getMultipleSetCards(id, page = 1) {
     const offset = helper.getOffset(page, config.listPerPageSetCards);
     const rows = await db.query(
         `SELECT 
-        id, idSet, cardName, cardJsonLink, cardUri, cardImg, special, own, pendingToArrive, isOnADeck
+        id, idSet, cardName, cardJsonLink, cardUri, cardImg, special, own, pendingToArrive, isOnADeck, isBackCard
         FROM mtgCard 
         WHERE idSet = ${id} 
         ORDER BY cardName ASC

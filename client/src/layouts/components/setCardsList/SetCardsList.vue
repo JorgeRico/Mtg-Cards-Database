@@ -83,21 +83,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(item, i) in cardsList" :key="i"
-                            :class="item.own == 1 ? 'complete' : ''">
+                        <tr v-for="(item, i) in cardsList" :key="i" :class="item.own == 1 ? 'complete' : ''">
                             <td class="text-uppercase">
-                                <p class="mb-0" v-if="item.special == 1">
+                                <p class="mb-0" style="width: 30px" v-if="item.special == 1">
                                     <span class="special-img">{{ i+1 }}</span> 
+                                    <br>
                                     <span class="ml-20">
                                         <v-img
                                             contain
-                                            style="max-width: 30px; height: 30px; left: 35px; top: -13px;"
-                                            class="greeting-card-trophy"
+                                            class="specialCardImg greeting-card-trophy"
                                             src="@/assets/images/misc/trophy.png"
                                         ></v-img>
                                     </span>
                                 </p>
-                                <p class="mb-0 center" v-else>
+                                <p class="mb-0 center" style="width: 30px" v-if="item.isBackCard == 1">
+                                    <span class="special-img">{{ i+1 }}</span> 
+                                    <br>
+                                    <span class="ml-20">
+                                        <v-img
+                                            contain
+                                            class="specialCardImg greeting-card-trophy"
+                                            src="@/assets/images/misc/backCard.png"
+                                        ></v-img>
+                                    </span>
+                                </p>
+                                <p class="mb-0 center" v-if="item.isBackCard == 0 && item.special == 0">
                                     {{ i+1 }}
                                 </p>
                             </td>
