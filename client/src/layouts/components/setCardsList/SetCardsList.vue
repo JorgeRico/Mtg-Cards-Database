@@ -47,115 +47,113 @@
         </div>
         <div class="left w-100">
             <VTable class="border-grey mb-10">
-                <template>
-                    <thead>
-                        <tr>
-                            <th class="text-uppercase">
-                                <p class="mb-0 center">
-                                    NUM
-                                </p>
-                            </th>
-                            <th class="text-uppercase">
-                                <p class="mb-0 center">
-                                    IMG
-                                </p>
-                            </th>
-                            <th class="text-uppercase">
-                                <p class="mb-0">
-                                    NAME
-                                </p>
-                            </th>
-                            <th class="text-uppercase">
-                                <p class="mb-0 center">
-                                    ON A DECK
-                                </p>
-                            </th>
-                            <th class="text-uppercase">
-                                <p class="mb-0 center">
-                                    WAITING TO ARRIVE
-                                </p>
-                            </th>
-                            <th class="text-uppercase">
-                                <p class="mb-0 center">
-                                    OWN
-                                </p>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(item, i) in cardsList" :key="i" :class="item.own == 1 ? 'complete' : ''">
-                            <td class="text-uppercase">
-                                <p class="mb-0" style="width: 30px" v-if="item.special == 1">
-                                    <span class="special-img">{{ i+1 }}</span> 
-                                    <br>
-                                    <span class="ml-20">
-                                        <v-img
-                                            contain
-                                            class="specialCardImg greeting-card-trophy"
-                                            src="@/assets/images/misc/trophy.png"
-                                        ></v-img>
-                                    </span>
-                                </p>
-                                <p class="mb-0 center" style="width: 30px" v-if="item.isBackCard == 1">
-                                    <span class="special-img">{{ i+1 }}</span> 
-                                    <br>
-                                    <span class="ml-20">
-                                        <v-img
-                                            contain
-                                            class="specialCardImg greeting-card-trophy"
-                                            src="@/assets/images/misc/backCard.png"
-                                        ></v-img>
-                                    </span>
-                                </p>
-                                <p class="mb-0 center" v-if="item.isBackCard == 0 && item.special == 0">
-                                    {{ i+1 }}
-                                </p>
-                            </td>
-                            <td class="text w-100px">
-                                <p class="mb-0 w-100px" style="padding: 3px 0px;" :id="'img-'+i">
+                <thead>
+                    <tr>
+                        <th class="text-uppercase">
+                            <p class="mb-0 center">
+                                NUM
+                            </p>
+                        </th>
+                        <th class="text-uppercase">
+                            <p class="mb-0 center">
+                                IMG
+                            </p>
+                        </th>
+                        <th class="text-uppercase">
+                            <p class="mb-0">
+                                NAME
+                            </p>
+                        </th>
+                        <th class="text-uppercase">
+                            <p class="mb-0 center">
+                                ON A DECK
+                            </p>
+                        </th>
+                        <th class="text-uppercase">
+                            <p class="mb-0 center">
+                                WAITING TO ARRIVE
+                            </p>
+                        </th>
+                        <th class="text-uppercase">
+                            <p class="mb-0 center">
+                                OWN
+                            </p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, i) in cardsList" :key="i" :class="item.own == 1 ? 'complete' : ''">
+                        <td class="text-uppercase">
+                            <p class="mb-0" style="width: 30px" v-if="item.special == 1">
+                                <span class="special-img">{{ i+1 }}</span> 
+                                <br>
+                                <span class="ml-20">
                                     <v-img
                                         contain
-                                        class="greeting-card-trophy w-100px zoom"
-                                        :src="item.cardImg.toLowerCase().trim()"
+                                        class="specialCardImg greeting-card-trophy"
+                                        src="@/assets/images/misc/trophy.png"
                                     ></v-img>
-                                </p>
-                            </td>
-                            <td class="text-uppercase">
-                                <p class="mb-0">
-                                    {{ item.cardName }}
-                                </p>
-                            </td>
-                            <td class="text-uppercase" v-if="item.isOnADeck==0">
-                                <p class="mb-0 center">
-                                    <span @click="setIsOnADeck(item.id, 1)" class="pointer"><u>ADD to deck</u></span>
-                                </p>
-                            </td>
-                            <td class="text-uppercase working" v-else>
-                                <p class="mb-0 center">
-                                    <span @click="setIsOnADeck(item.id, 0)" class="pointer"><u>Delete from deck</u></span>
-                                </p>
-                            </td>
+                                </span>
+                            </p>
+                            <p class="mb-0 center" style="width: 30px" v-if="item.isBackCard == 1">
+                                <span class="special-img">{{ i+1 }}</span> 
+                                <br>
+                                <span class="ml-20">
+                                    <v-img
+                                        contain
+                                        class="specialCardImg greeting-card-trophy"
+                                        src="@/assets/images/misc/backCard.png"
+                                    ></v-img>
+                                </span>
+                            </p>
+                            <p class="mb-0 center" v-if="item.isBackCard == 0 && item.special == 0">
+                                {{ i+1 }}
+                            </p>
+                        </td>
+                        <td class="text w-100px">
+                            <p class="mb-0 w-100px" style="padding: 3px 0px;" :id="'img-'+i">
+                                <v-img
+                                    contain
+                                    class="greeting-card-trophy w-100px zoom"
+                                    :src="item.cardImg.toLowerCase().trim()"
+                                ></v-img>
+                            </p>
+                        </td>
+                        <td class="text-uppercase">
+                            <p class="mb-0">
+                                {{ item.cardName }}
+                            </p>
+                        </td>
+                        <td class="text-uppercase" v-if="item.isOnADeck==0">
+                            <p class="mb-0 center">
+                                <span @click="setIsOnADeck(item.id, 1)" class="pointer"><u>ADD to deck</u></span>
+                            </p>
+                        </td>
+                        <td class="text-uppercase working" v-else>
+                            <p class="mb-0 center">
+                                <span @click="setIsOnADeck(item.id, 0)" class="pointer"><u>Delete from deck</u></span>
+                            </p>
+                        </td>
 
-                            <td class="text-uppercase" v-if="item.pendingToArrive==0">
-                                <p class="mb-0 center">
-                                    <span  @click="setPendingYesNo(item.id, 1)" class="pointer"><u>Add to Cart</u></span>
-                                </p>
-                            </td>
-                            <td class="text-uppercase working" v-else>
-                                <p class="mb-0 center">
-                                    <span @click="setPendingYesNo(item.id, 0)" class="pointer"><u>Delete from cart</u></span>
-                                </p>
-                            </td>
+                        <td class="text-uppercase" v-if="item.pendingToArrive==0">
+                            <p class="mb-0 center">
+                                <span  @click="setPendingYesNo(item.id, 1)" class="pointer"><u>Add to Cart</u></span>
+                            </p>
+                        </td>
+                        <td class="text-uppercase working" v-else>
+                            <p class="mb-0 center">
+                                <span @click="setPendingYesNo(item.id, 0)" class="pointer"><u>Delete from cart</u></span>
+                            </p>
+                        </td>
 
-                            <td class="text-uppercase">
-                                <p class="mb-0 center">
-                                    <span v-if="item.own==0" @click="setOwnYesNo(item.id, 1)" class="pointer"><u>update to YES</u></span>
-                                    <span v-else @click="setOwnYesNo(item.id, 0)" class="pointer"><u>update to NO</u></span>
-                                </p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </template>
+                        <td class="text-uppercase">
+                            <p class="mb-0 center">
+                                <span v-if="item.own==0" @click="setOwnYesNo(item.id, 1)" class="pointer"><u>update to YES</u></span>
+                                <span v-else @click="setOwnYesNo(item.id, 0)" class="pointer"><u>update to NO</u></span>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
             </VTable>
             <ErrorApi></ErrorApi>
         </div>
@@ -193,14 +191,14 @@ export default {
     },
     setup() {
         return {
-            setId : null
+            // setId : null
         }
     },
     props: {
-        // setId: {
-        //     type: Number,
-        //     default: null,
-        // },
+        setId: {
+            type: Number,
+            default: null,
+        },
     },
     methods: {
         dropdown() {
@@ -237,7 +235,7 @@ export default {
                 .then(response => {
                     this.cardsList = null;
                     this.cardsList = response.data.data;
-                    console.log(this.cardsList)
+                    // console.log(this.cardsList)
                     this.getSetInfo();
                 })
                 .catch(error => {
@@ -306,7 +304,7 @@ export default {
     beforeMount() {
         // console.log('*************************')
         // console.log(this.$route.params.id)
-        this.setId = this.$route.params.id;
+        // this.setId = this.$route.params.id;
         this.getSetInfo();
     }
 }
