@@ -1,18 +1,13 @@
-import Vue from 'vue'
-import Vuetify from 'vuetify/lib/framework'
-import preset from './default-preset/preset'
+import { createVuetify } from 'vuetify'
+import defaults from './defaults'
+import { icons } from './icons'
+import theme from './theme'
 
-Vue.use(Vuetify)
-
-export default new Vuetify({
-  preset,
-  icons: {
-    iconfont: 'mdiSvg',
-  },
-  theme: {
-    options: {
-      customProperties: true,
-      variations: false,
-    },
-  },
+// Styles
+import '@core/scss/libs/vuetify/index.scss'
+import 'vuetify/styles'
+export default createVuetify({
+  defaults,
+  icons,
+  theme,
 })

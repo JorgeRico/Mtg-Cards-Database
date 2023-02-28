@@ -7,7 +7,7 @@
                 <Dropdown :label="monthLabel" :modelName="monthModel" :items="months"></Dropdown>
                 <Input :label="yearLabel" :modelName="yearModel" :placeholderText="yearPlaceholder"></Input>
                 <div class="mt-40">
-                    <EmptyInputError class="mb-20"></EmptyInputError>
+                    <Error :errorMessage="errorMessage" class="mb-20"></Error>
                     <v-btn color="primary" class="left me-3 mb-5" @click="reset">
                         <span class="d-none d-sm-block">Reset</span>
                     </v-btn>
@@ -28,19 +28,18 @@
 import Dropdown from '@/layouts/components/form/Dropdown.vue';
 import Input from '@/layouts/components/form/Input.vue';
 import Logo from '@/layouts/components/logos/Logo.vue';
-import EmptyInputError from '@/layouts/components/errors/EmptyInputError.vue';
-import helper from "@/mixins/helper";
+import Error from '@/layouts/components/errors/Error.vue';
 
 export default {
-    mixins: [helper],
     components: {
         Dropdown,
         Input,
         Logo,
-        EmptyInputError
+        Error
     },
     data () {
         return {
+            errorMessage    : '',
             setList         : null,
 
             logoLabel       : 'Logo',
@@ -87,7 +86,8 @@ export default {
         },
         checkErrors(logoText, logoIcon, logoYear, logoMonth) {
             if (logoText == '' || logoIcon == '' || logoYear == '' || logoMonth == '') {
-                this.show('errorEmptyInput');
+                this.errorMessage = 'Fill all data';
+                this.show('error');
                 setTimeout(() => this.hide('errorEmptyInput'), 2500);
 
                 return true;

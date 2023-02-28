@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="left w-100">
-            <v-simple-table class="border-grey mb-10">
+            <VTable class="border-grey mb-10">
                 <template>
                     <thead>
                         <tr>
@@ -156,8 +156,8 @@
                         </tr>
                     </tbody>
                 </template>
-            </v-simple-table>
-            <ApiError></ApiError>
+            </VTable>
+            <ErrorApi></ErrorApi>
         </div>
         <BackLink></BackLink>
     </div>
@@ -167,14 +167,13 @@
 <script>
 import axios from "axios";
 import qs from 'qs';
-import ApiError from '@/layouts/components/errors/ApiError.vue';
+import ErrorApi from '@/layouts/components/errors/ErrorApi.vue';
 import BackLink from '@/layouts/components/setCardsList/BackLink.vue';
-import helper from "@/mixins/helper";
+import router from "@/router";
 
 export default {
-    mixins: [helper],
     components: {
-        ApiError,
+        ErrorApi,
         BackLink
     },
     data() {
@@ -194,13 +193,14 @@ export default {
     },
     setup() {
         return {
+            setId : null
         }
     },
     props: {
-        setId: {
-            type: Number,
-            default: null,
-        },
+        // setId: {
+        //     type: Number,
+        //     default: null,
+        // },
     },
     methods: {
         dropdown() {
@@ -213,7 +213,7 @@ export default {
         },
         async getSetInfo() {
             await axios
-                .get(process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_ENDPOINT + '/' + this.setId)
+                .get(import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_ENDPOINT + '/' + this.setId)
                 .then(response => {
                     var setInfo          = response.data.data;
                     this.setName         = setInfo[0].setName;
@@ -233,10 +233,11 @@ export default {
         },
         async getSetCardList() {
             await axios
-                .get(process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId)
+                .get(import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId)
                 .then(response => {
                     this.cardsList = null;
                     this.cardsList = response.data.data;
+                    console.log(this.cardsList)
                     this.getSetInfo();
                 })
                 .catch(error => {
@@ -246,27 +247,27 @@ export default {
                 .finally(() => this.loading = false)
         },
         setOwnYesNo(id, value) {
-            var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id;
+            var url  = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id;
             var data = qs.stringify({ 'own': value });
             this.commonUpdateFunction(url, data)
         },
         setIsOnADeck(id, value) {
-            var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id;
+            var url  = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id;
             var data = qs.stringify({ 'isOnADeck': value });
             this.commonUpdateFunction(url, data)
         },
         setPendingYesNo(id, value) {
-            var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id;
+            var url  = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id;
             var data = qs.stringify({ 'pendingToArrive': value });
             this.commonUpdateFunction(url, data)
         },
         completeSet(value) {
-            var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_ENDPOINT + '/' + this.setId;
+            var url  = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_ENDPOINT + '/' + this.setId;
             var data = qs.stringify({ 'complete': value });
             this.commonUpdateFunction(url, data)
         },
         setAllPendingCards(value) {
-            var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards';
+            var url  = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards';
             var data = qs.stringify({ 'pendingToArrive': value });
             this.commonUpdateFunction(url, data)
         },
@@ -274,7 +275,7 @@ export default {
             let text = "Are you sure?!\nEither OK or Cancel.";
             this.hide('dropdown-menu');
             if (confirm(text) == true) {
-                var url  = process.env.VUE_APP_API_SERVER + process.env.VUE_APP_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards';
+                var url  = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards';
                 var data = qs.stringify({ 'own': value });
                 this.commonUpdateFunction(url, data);
             }
@@ -298,11 +299,14 @@ export default {
         },
     },
     mounted() {
+        // this.setId = this.$route.params.id;
         this.getSetCardList();
         this.hide('dropdown-menu');
     },
     beforeMount() {
-        this.setId = Number(this.$route.params.id);
+        // console.log('*************************')
+        // console.log(this.$route.params.id)
+        this.setId = this.$route.params.id;
         this.getSetInfo();
     }
 }

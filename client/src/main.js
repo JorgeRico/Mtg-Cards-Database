@@ -1,29 +1,23 @@
-import '@/plugins/vue-composition-api'
+/* eslint-disable import/order */
+import '@/@iconify/icons-bundle'
+import App from '@/App.vue'
+import vuetify from '@/plugins/vuetify'
+import { loadFonts } from '@/plugins/webfontloader'
+import router from '@/router'
 import '@/styles/styles.scss'
-import Vue from 'vue'
-import App from './App.vue'
-import vuetify from './plugins/vuetify'
-import router from './router'
-import store from './store'
+import '@core/scss/index.scss'
+import { createPinia } from 'pinia'
+import { createApp } from 'vue'
+import helper from "@/mixins/helper";
+import store from "@/store";
 
-import * as firebase from 'firebase/app';
+loadFonts()
 
-const firebaseConfig = {
-  apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
-  authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.VUE_APP_FIREBASE_APP_ID
-};
+const app = createApp(App)
 
-firebase.initializeApp(firebaseConfig);
-
-Vue.config.productionTip = false
-
-new Vue({
-  router,
-  store,
-  vuetify,
-  render: h => h(App),
-}).$mount('#app')
+app.mixin(helper)
+app.use(vuetify)
+app.use(createPinia())
+app.use(router)
+app.use(store)
+app.mount('#app')

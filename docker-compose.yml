@@ -62,7 +62,7 @@ services:
       - server
     networks:
       - app-network
-    command: npm run serve
+    command: npm run dev
 
 volumes:
   app_db_volume:
