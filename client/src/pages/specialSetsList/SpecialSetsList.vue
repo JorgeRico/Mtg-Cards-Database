@@ -154,11 +154,7 @@ export default {
         this.show('spinner');
     },
     beforeMount() {
-        // auth.onAuthStateChanged(function (user) {
-        //     if (!user) { // not logged in
-        //         window.location.href = "/";
-        //     }
-        // })
+        this.redirectIfIsNotLogged();
         
         let urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('page') == true) {

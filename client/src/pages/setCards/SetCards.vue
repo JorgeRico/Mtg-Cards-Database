@@ -12,9 +12,6 @@
 <script>
 import SetCardsList from '@/layouts/components/setCardsList/SetCardsList.vue';
 
-import { getAuth } from "firebase/auth";
-const auth = getAuth();
-
 export default {
     components: {
         SetCardsList,
@@ -31,11 +28,7 @@ export default {
 
     },
     beforeMount() {
-        auth.onAuthStateChanged(function (user) {
-            if (!user) { // not logged in
-                window.location.href = "/";
-            }
-        })
+        this.redirectIfIsNotLogged();
 
         this.setId = Number(this.$route.params.id);
     }

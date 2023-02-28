@@ -235,7 +235,6 @@ export default {
                 .then(response => {
                     this.cardsList = null;
                     this.cardsList = response.data.data;
-                    // console.log(this.cardsList)
                     this.getSetInfo();
                 })
                 .catch(error => {
@@ -297,15 +296,11 @@ export default {
         },
     },
     mounted() {
-        // this.setId = this.$route.params.id;
         this.getSetCardList();
         this.hide('dropdown-menu');
     },
     beforeMount() {
-        // console.log('*************************')
-        // console.log(this.$route.params.id)
-        // this.setId = this.$route.params.id;
-        this.getSetInfo();
+
     }
 }
 </script>

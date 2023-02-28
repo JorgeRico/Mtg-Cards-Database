@@ -12,9 +12,6 @@
 
 <script>
 import PrintLogos from '@/layouts/components/logos/PrintLogos.vue'
-import { getAuth } from "firebase/auth";
-
-const auth = getAuth();
 
 export default {
     components: {
@@ -27,11 +24,7 @@ export default {
     
     },
     beforeMount() {
-        auth.onAuthStateChanged(function (user) {
-            if (!user) { // not logged in
-                window.location.href = "/";
-            }
-        })
+        this.redirectIfIsNotLogged();
     }
 }
 </script>
