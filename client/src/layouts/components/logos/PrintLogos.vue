@@ -1,13 +1,13 @@
 <template>
-    <v-card>
-        <div class="left w-50" style="padding: 0 20px;">
+    <v-card class="no-shadow">
+        <div class="mt20 left w-50" style="padding: 0 20px;">
             <v-form>
                 <Input :label="logoLabel" :modelName="logoModel" :placeholderText="logoPlaceholder"></Input>
                 <Input :label="iconLabel" :modelName="iconModel" :placeholderText="iconPlaceholder"></Input>
                 <Dropdown :label="monthLabel" :modelName="monthModel" :items="months"></Dropdown>
                 <Input :label="yearLabel" :modelName="yearModel" :placeholderText="yearPlaceholder"></Input>
-                <div class="mt-40">
-                    <Error :errorMessage="errorMessage" class="mb-20"></Error>
+                <div class="mt40">
+                    <Error :errorMessage="errorMessage" class="mb20"></Error>
                     <v-btn color="primary" class="left me-3 mb-5" @click="reset">
                         <span class="d-none d-sm-block">Reset</span>
                     </v-btn>

@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-20">
+    <div class="mb20">
         <label>{{ label }}</label>
         <select :id="modelName" :v-model="modelName" outlined dense :label="modelName">
             <option value="">-</option>

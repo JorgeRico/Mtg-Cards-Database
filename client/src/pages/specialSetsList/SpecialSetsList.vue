@@ -4,7 +4,7 @@
             <div cols="12" class="w-100">
                 <h1>MTG Sets with Special Cards</h1>
                 <div class="left w-100 mb-5 align-right">
-                    <div class="right f18 w-400px">
+                    <div class="right f18 w400px">
                         <div class="left align-left w-80">
                             <strong>Total Sets: </strong>
                         </div>

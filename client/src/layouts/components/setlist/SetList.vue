@@ -49,7 +49,7 @@
                             {{ item.id }}
                         </td>
                         <td class="text-uppercase">
-                            <div class="left w-25px" v-html="item.setLogo"></div>
+                            <div class="left w25px" v-html="item.setLogo"></div>
                             <p class="right w-90 mb-0">
                                 <router-link :to="{ name: 'setcards', params: { 'id': item.id } }">
                                     {{ item.setName }}

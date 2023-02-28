@@ -1,8 +1,8 @@
 <template>
     <div id="setResult" class="mt-10 w-100">
         <BackLink></BackLink>
-        <div class="left w-100 pb-20">
-            <div class="left w-50px pt5" v-html="setLogo"></div>
+        <div class="left w-100 pb20">
+            <div class="left w50px pt5" v-html="setLogo"></div>
             <div class="w-90 right">
                 <div class="left w-100 pt5">
                     <strong>Set name</strong>: <strong>{{ setName }}</strong>
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="right w-100 pb-20">
+        <div class="right w-100 pb20">
             <div class="right dropdown">
                 <button color="primary" class="btn btn-primary dropdown-toggle" @click="dropdown()">
                     Options
@@ -87,7 +87,7 @@
                             <p class="mb-0" style="width: 30px" v-if="item.special == 1">
                                 <span class="special-img">{{ i+1 }}</span> 
                                 <br>
-                                <span class="ml-20">
+                                <span class="ml20">
                                     <v-img
                                         contain
                                         class="specialCardImg greeting-card-trophy"
@@ -98,7 +98,7 @@
                             <p class="mb-0 center" style="width: 30px" v-if="item.isBackCard == 1">
                                 <span class="special-img">{{ i+1 }}</span> 
                                 <br>
-                                <span class="ml-20">
+                                <span class="ml20">
                                     <v-img
                                         contain
                                         class="specialCardImg greeting-card-trophy"
@@ -110,11 +110,11 @@
                                 {{ i+1 }}
                             </p>
                         </td>
-                        <td class="text w-100px">
-                            <p class="mb-0 w-100px" style="padding: 3px 0px;" :id="'img-'+i">
+                        <td class="text w100px">
+                            <p class="mb-0 w100px" style="padding: 3px 0px;" :id="'img-'+i">
                                 <v-img
                                     contain
-                                    class="greeting-card-trophy w-100px zoom"
+                                    class="greeting-card-trophy w100px zoom"
                                     :src="item.cardImg.toLowerCase().trim()"
                                 ></v-img>
                             </p>

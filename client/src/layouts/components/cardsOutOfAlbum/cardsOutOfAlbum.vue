@@ -1,6 +1,6 @@
 <template>
     <div id="setResult" class="mt-10 w-100">
-        <div class="left w-100 mb-20 f16">
+        <div class="left w-100 mb20 f16">
             <span v-if="isOnACart==true"><strong>Total Pending cards: {{ total }}</strong></span>
             <span v-if="isOnADeck==true"><strong>Total on use cards: {{ total }}</strong></span>
         </div>
@@ -8,7 +8,7 @@
             <VTable class="border-grey mb-10">
                 <thead>
                     <tr>
-                        <th class="text-uppercase w-25px">
+                        <th class="text-uppercase w25px">
                             <p class="mb-0">
                                 &nbsp;
                             </p>
@@ -28,12 +28,12 @@
                                 NAME
                             </p>
                         </th>
-                        <th class="text-uppercase w-200px" v-if="isOnACart==true">
+                        <th class="text-uppercase w200px" v-if="isOnACart==true">
                             <p class="mb-0">
                                 IS ON A CART
                             </p>
                         </th>
-                        <th class="text-uppercase w-200px" v-if="isOnADeck==true">
+                        <th class="text-uppercase w200px" v-if="isOnADeck==true">
                             <p class="mb-0">
                                 DELETE FROM A DECK
                             </p>
@@ -43,7 +43,7 @@
                 <tbody>
                     <tr v-for="(item) in cardsList">
                         <td class="text-uppercase">
-                            <div class="w-40px ml-40" v-html="item.setLogo"></div>
+                            <div class="w40px ml40" v-html="item.setLogo"></div>
                         </td>
                         <td class="text-uppercase">
                             <v-img

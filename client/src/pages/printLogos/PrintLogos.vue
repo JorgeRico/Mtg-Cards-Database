@@ -5,7 +5,7 @@
                 <h1>Logos</h1>
             </div>
         </v-card-text>
-        <PrintLogos class="mt-20"></PrintLogos>
+        <PrintLogos></PrintLogos>
     </v-card>
 </template>
 

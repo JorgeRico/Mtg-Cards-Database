@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-20">
+    <div class="mb20">
         <label>{{ label }}</label>
         <v-text-field 
             :id="modelName" 

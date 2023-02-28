@@ -74,7 +74,7 @@ const isCardDetailsVisible = ref(false)
           </div>
 
           <!--  Mutual Friends -->
-          <div class="d-flex justify-space-between align-center mt-8">
+          <div class="d-flex justify-space-between align-center mt8">
             <span class="font-weight-medium">18 mutual friends</span>
 
             <div class="v-avatar-group">
@@ -347,7 +347,7 @@ const isCardDetailsVisible = ref(false)
                 5 Tips For Offshore <br> Software Development
               </p>
 
-              <VBtn class="mt-8">
+              <VBtn class="mt8">
                 Contact Now
               </VBtn>
             </div>
