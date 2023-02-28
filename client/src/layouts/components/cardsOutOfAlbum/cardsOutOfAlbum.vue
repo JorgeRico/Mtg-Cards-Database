@@ -157,7 +157,7 @@ export default {
         
     },
     beforeMount() {
-
+        this.getSetCardList();
     }
 }
 </script>
