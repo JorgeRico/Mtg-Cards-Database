@@ -38,6 +38,7 @@ services:
     tty: true
     volumes:
       - ./server:/app
+      - /app/node_modules # <---- this enables a much faster start/reload
     networks:
       - app-network
     environment:
@@ -66,6 +67,7 @@ services:
 
 volumes:
   app_db_volume:
+    driver: local
 
 
 networks:
