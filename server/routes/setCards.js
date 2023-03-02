@@ -53,14 +53,15 @@ router.put("/:idSet/cards", async function (req, res, next) {
 /**************************************************/
 /* GET Cards function */
 async function getMultipleSetCards(id, page = 1) {
-    const offset = helper.getOffset(page, config.listPerPageSetCards);
+    const pagination = 10000;
+    const offset = helper.getOffset(page, pagination);
     const rows = await db.query(
         `SELECT 
         id, idSet, cardName, cardJsonLink, cardUri, cardImg, special, own, pendingToArrive, isOnADeck, isBackCard
         FROM mtgCard 
         WHERE idSet = ${id} 
         ORDER BY cardName ASC
-        LIMIT ${offset},${config.listPerPageSetCards}`
+        LIMIT ${offset},${pagination}`
     );
     const data = helper.emptyOrRows(rows);
     const meta = { page };
@@ -74,15 +75,19 @@ async function getMultipleSetCards(id, page = 1) {
 async function updateOwnSetCard(own, id, idSet) {
     var message = "Error on updating";
 
-    const result = await db.query(
-        `UPDATE mtgCard 
-        SET own = "${own}"
-        WHERE id = ${id}
-        AND idSet = ${idSet}`
-    );
+    try {
+        const result = await db.query(
+            `UPDATE mtgCard 
+            SET own = "${own}"
+            WHERE id = ${id}
+            AND idSet = ${idSet}`
+        );
 
-    if (result.affectedRows) {
-        message = "Updated successfully";
+        if (result.affectedRows) {
+            message = "Updated successfully";
+        }
+    } catch (err) {
+        return message;
     }
 
     return message;

@@ -77,7 +77,8 @@ async function getTotalNumSets(filterParam = null) {
 
 /* GET Cards function */
 async function getMultipleSets(filterParam = null, page = 1) {
-    const offset = helper.getOffset(page, config.listPerPage);
+    const pagination = 100;
+    const offset = helper.getOffset(page, pagination);
 
     var filter = getFilterQueryString(filterParam);
 
@@ -89,7 +90,7 @@ async function getMultipleSets(filterParam = null, page = 1) {
         FROM mtgSet s
         ${filter}
         ORDER BY s.setReleaseDate DESC
-        LIMIT ${offset},${config.listPerPage}`
+        LIMIT ${offset},${pagination}`
     );
     const data = helper.emptyOrRows(rows);
     const meta = { page };
