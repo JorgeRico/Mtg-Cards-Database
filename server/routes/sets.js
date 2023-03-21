@@ -84,7 +84,14 @@ async function getMultipleSets(filterParam = null, page = 1) {
 
     const rows = await db.query(
         `SELECT 
-        s.id, s.setName, s.setAbrv, s.setLink, s.setLogo, s.setTotalCards, s.setReleaseDate, s.complete,
+        s.id, 
+        s.setName, 
+        s.setAbrv, 
+        s.setLink, 
+        s.setLogo, 
+        (s.setTotalCards - (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.isMolCard = 1)) as setTotalCards, 
+        s.setReleaseDate, 
+        s.complete,
         (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) as ownedCards,
         (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) as specialCards
         FROM mtgSet s
@@ -105,7 +112,14 @@ async function getMultipleSets(filterParam = null, page = 1) {
 async function getSingleSet(id) {
     const rows = await db.query(
         `SELECT 
-        s.id, s.setName, s.setAbrv, s.setLink, s.setLogo, s.setTotalCards, s.setReleaseDate, s.complete,
+        s.id,
+        s.setName, 
+        s.setAbrv, 
+        s.setLink, 
+        s.setLogo,
+        (s.setTotalCards - (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.isMolCard = 1)) as setTotalCards, 
+        s.setReleaseDate, 
+        s.complete,
         (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.own = 1) as ownedCards,
         (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.isOnADeck = 1) as numCardsOnADeck,
         (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.pendingToArrive = 1) as numPendingCards
@@ -121,16 +135,20 @@ async function getSingleSet(id) {
 }
 
 async function updateSetComplete(id, value) {
-    const result = await db.query(
-        `UPDATE mtgSet 
-        SET complete = "${value.complete}"
-        WHERE id = ${id}`
-    );
-
     let message = "Error on updating";
 
-    if (result.affectedRows) {
-        message = "Updated successfully";
+    try {
+        const result = await db.query(
+            `UPDATE mtgSet 
+            SET complete = "${value.complete}"
+            WHERE id = ${id}`
+        );
+
+        if (result.affectedRows) {
+            message = "Updated successfully";
+        }
+    } catch (err) {
+        return message;
     }
 
     return { message };
