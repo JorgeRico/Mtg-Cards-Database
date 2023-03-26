@@ -3,13 +3,9 @@ A project that runs a Express server and Vue-CLI with two separate containers, s
 
 ## Docker
 
-# run docker build
+# run docker
 ```
 docker-compose build
-```
-
-# launch docker
-```
 docker-compose up -d
 ```
 
