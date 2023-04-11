@@ -91,7 +91,7 @@
                                     <v-img
                                         contain
                                         class="specialCardImg greeting-card-trophy"
-                                        src="@/assets/images/misc/trophy.png"
+                                        :src="trophyImg"
                                     ></v-img>
                                 </span>
                             </p>
@@ -102,7 +102,7 @@
                                     <v-img
                                         contain
                                         class="specialCardImg greeting-card-trophy"
-                                        src="@/assets/images/misc/backCard.png"
+                                        :src="backCardImg"
                                     ></v-img>
                                 </span>
                             </p>
@@ -168,6 +168,8 @@ import qs from 'qs';
 import ErrorApi from '@/layouts/components/errors/ErrorApi.vue';
 import BackLink from '@/layouts/components/setCardsList/BackLink.vue';
 import router from "@/router";
+import trophyImg from '@/assets/images/misc/trophy.png'
+import backCardImg from '@/assets/images/misc/backCard.png'
 
 export default {
     components: {
@@ -191,7 +193,8 @@ export default {
     },
     setup() {
         return {
-            // setId : null
+            trophyImg: trophyImg,
+            backCardImg: backCardImg
         }
     },
     props: {
