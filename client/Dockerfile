@@ -6,7 +6,7 @@ WORKDIR /app
 # copy 'package.json' to install dependencies
 COPY package*.json ./
 # install dependencies
-RUN npm install
+RUN npm install --force
 RUN npm install @vue/cli -g
 # copy files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
