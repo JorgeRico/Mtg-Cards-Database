@@ -2,6 +2,7 @@
     "name": "vue-project",
     "version": "0.0.0",
     "scripts": {
+        "start": "npm run build:icons && vite --host",
         "dev": "npm run build:icons && vite --host",
         "build": "npm run build:icons && vite build",
         "preview": "vite preview --port 5050",
