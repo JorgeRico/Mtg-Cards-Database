@@ -26,12 +26,7 @@
                         </th>
                         <th class="text-uppercase">
                             <p class="mb-0 center">
-                                TOTAL CARDS
-                            </p>
-                        </th>
-                        <th class="text-uppercase">
-                            <p class="mb-0 center">
-                                OWNED CARDS
+                                SET CARDS
                             </p>
                         </th>
                         <th class="text-uppercase">
@@ -39,11 +34,22 @@
                                 SPECIAL CARDS
                             </p>
                         </th>
+                        <th class="text-uppercase">
+                            <p class="mb-0 center">
+                                TOTAL OWNED CARDS
+                            </p>
+                        </th>
+                        <th class="text-uppercase">
+                            <p class="mb-0 center">
+                                TOTAL SET CARDS
+                            </p>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(item, i) in sets" :key="i"
-                        :class="item.complete == 1 ? 'complete' : item.ownedCards > 0 ? 'working' : ''">
+                    
+                        :class="(item.complete == 1 && item.setTotalCards == item.ownedCards) ? 'complete' : (item.complete == 1 && item.setTotalCards != item.ownedCards) ? 'softcomplete' : (item.complete != 1 && item.ownedCards > 0) ? 'working' : ''">
 
                         <td class="text-uppercase">
                             {{ item.id }}
@@ -66,19 +72,24 @@
                                 {{ item.setReleaseDate }}
                             </p>
                         </td>
-                        <td class="text-uppercase">
+                        <td class="text-uppercase center">
                             <p class="mb-0 center">
-                                {{ item.setTotalCards }}
+                                {{ (item.setTotalCards - item.specialCards) }}
                             </p>
                         </td>
                         <td class="text-uppercase center">
-                            <p :class="item.ownedCards == item.setTotalCards ? 'mb-0 center' : item.specialCards >= 1 ? 'mb-0 center specialCard' : 'mb-0 center'">
+                            <p class="mb-0 center">
+                                {{ item.specialCards }}
+                            </p>
+                        </td>
+                        <td class="text-uppercase center">
+                            <p class="mb-0 center">
                                 {{ item.ownedCards }}
                             </p>
                         </td>
-                        <td class="text-uppercase center">
-                            <p :class="item.ownedCards == item.setTotalCards ? 'mb-0 center' : item.specialCards >= 1 ? 'mb-0 center specialCard' : 'mb-0 center'">
-                                {{ item.specialCards }}
+                        <td class="text-uppercase">
+                            <p class="mb-0 center">
+                                {{ item.setTotalCards }}
                             </p>
                         </td>
                     </tr>
