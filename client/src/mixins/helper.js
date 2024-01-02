@@ -12,7 +12,7 @@ export default {
         redirectIfIsLogged() {
             auth.onAuthStateChanged(function (user) {
                 if (!user) { // not logged in
-                    window.location.href = "/dashboard";
+                    window.location.href = "/setlist";
                 }
             })
         },

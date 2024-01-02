@@ -7,16 +7,6 @@ const routes = [
         redirect: 'login',
     },
     {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: () => import('@/pages/Dashboard.vue'),
-    },
-    {
-        path: '/account-settings',
-        name: 'account-settings',
-        component: () => import('@/pages/account-settings/Account-settings.vue'),
-    },
-    {
         path: '/login',
         name: 'login',
         component: () => import('@/pages/login/Login.vue'),

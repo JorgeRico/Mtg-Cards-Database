@@ -34,22 +34,9 @@ const upgradeBanner = computed(() => {
 
   <!-- 👉 Nav items -->
   <ul>
-    <VerticalNavLink
-      :item="{
-        title: 'Dashboard',
-        to: 'dashboard',
-        icon: { icon: 'mdi-home-outline' }
-      }"
-    />
-    <VerticalNavLink
-      :item="{
-        title: 'Account Settings',
-        to: 'account-settings',
-        icon: { icon: 'mdi-account-cog-outline' }
-      }"
-    />
+    
 
-    <VerticalNavSectionTitle :item="{ heading: 'Pages' }" />
+    <VerticalNavSectionTitle :item="{ heading: '' }" />
 
     <VerticalNavLink
       :item="{

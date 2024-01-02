@@ -53,7 +53,7 @@
                             ></v-img>
                         </td>
                         <td class="text-uppercase">                            
-                            <router-link :to="{ name: 'setcards', params: { 'id': item.idSet } }">
+                            <router-link :to="{ name: 'setcards', params: { 'id': item.idSet } }" class="link">
                                 {{ item.setName }}
                             </router-link>
                         </td>

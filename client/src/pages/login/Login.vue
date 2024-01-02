@@ -100,7 +100,7 @@ export default {
 
                 // Login successful
                 if (this.$store.state.user != null) {
-                    this.$router.push('dashboard');
+                    this.$router.push('setlist');
                 }
 
                 // Login error

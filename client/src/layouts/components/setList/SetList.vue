@@ -6,11 +6,6 @@
                     <tr>
                         <th class="text-uppercase">
                             <p class="mb-0 center">
-                                ID
-                            </p>
-                        </th>
-                        <th class="text-uppercase">
-                            <p class="mb-0 center">
                                 NAME
                             </p>
                         </th>
@@ -47,17 +42,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, i) in sets" :key="i"
-                    
-                        :class="(item.complete == 1 && item.setTotalCards == item.ownedCards) ? 'complete' : (item.complete == 1 && item.setTotalCards != item.ownedCards) ? 'softcomplete' : (item.complete != 1 && item.ownedCards > 0) ? 'working' : ''">
-
-                        <td class="text-uppercase">
-                            {{ item.id }}
-                        </td>
+                    <tr v-for="(item, i) in sets" :key="i" :class="(item.complete == 1 && item.setTotalCards == item.ownedCards) ? 'complete' : (item.complete == 1 && item.setTotalCards != item.ownedCards) ? 'softcomplete' : (item.complete != 1 && item.ownedCards > 0) ? 'working' : ''">
                         <td class="text-uppercase">
                             <div class="left w25px" v-html="item.setLogo"></div>
                             <p class="right w-90 mb-0">
-                                <router-link :to="{ name: 'setcards', params: { 'id': item.id } }">
+                                <router-link :to="{ name: 'setcards', params: { 'id': item.id } }" class="link">
                                     {{ item.setName }}
                                 </router-link>
                             </p>
