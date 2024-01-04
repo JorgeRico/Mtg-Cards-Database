@@ -59,6 +59,11 @@ const routes = [
         component: () => import('@/pages/cardsOnADeck/CardsOnADeck.vue'),
     },
     {
+        path: '/cardsBetterGraded',
+        name: 'cardsBetterGraded',
+        component: () => import('@/pages/cardsBetterGraded/CardsBetterGraded.vue'),
+    },
+    {
         path: '/printLogos',
         name: 'printLogos',
         component: () => import('@/pages/printLogos/PrintLogos.vue'),

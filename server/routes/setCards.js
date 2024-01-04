@@ -25,6 +25,9 @@ router.put("/:idSet/cards/:idCard", async function (req, res, next) {
         if (req.body.pendingToArrive != null) {
             res.json(updateCardPendingToArrive(req.params.idCard, req.params.idSet, req.body));
         }
+        if (req.body.needUpgrade != null) {
+            res.json(updateCardBetterGrade(req.params.idCard, req.params.idSet, req.body));
+        }
     } catch (err) {
         console.error(`Error while updating`, err.message);
         next(err);
@@ -57,7 +60,7 @@ async function getMultipleSetCards(id, page = 1) {
     const offset = helper.getOffset(page, pagination);
     const rows = await db.query(
         `SELECT 
-        id, idSet, cardName, cardJsonLink, cardUri, cardImg, special, own, pendingToArrive, isOnADeck, isBackCard
+        id, idSet, cardName, cardJsonLink, cardUri, cardImg, special, own, pendingToArrive, isOnADeck, isBackCard, needUpgrade
         FROM mtgCard 
         WHERE idSet = ${id} 
         AND isMolCard = 0
@@ -175,6 +178,27 @@ async function updatePendingToArriveCard(pendingToArrive, own, id, idSet) {
     return message ;
 }
 
+async function updateBetterGrade(id, idSet, value) {
+    var message = "Error on updating";
+    
+    try {
+        const result = await db.query(
+            `UPDATE mtgCard 
+            SET needUpgrade = "${value}"
+            WHERE id = ${id}
+            AND idSet = ${idSet}`
+        );
+
+        if (result.affectedRows) {
+            message = "Updated successfully";
+        }
+    } catch (err) {
+        return message;
+    }
+
+    return message ;
+}
+
 async function updatePendingToArriveAllCards(pendingToArrive, own, idSet) {
     var message = "Error on updating";
 
@@ -263,6 +287,16 @@ function updateCardPendingToArrive(id, idSet, value) {
         message = updateCompleteSet(0, idSet)
     }
 
+    return { message };
+}
+
+/* UPDATE Card better grading - single card */
+function updateCardBetterGrade(id, idSet, value) {
+    // single card
+    if (id != null) {
+        message = updateBetterGrade(id, idSet, value.needUpgrade)
+    }
+    
     return { message };
 }
 

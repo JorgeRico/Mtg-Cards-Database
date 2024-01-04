@@ -76,6 +76,11 @@
                         </th>
                         <th class="text-uppercase">
                             <p class="mb-0 center">
+                                NEDD UPGRADE
+                            </p>
+                        </th>
+                        <th class="text-uppercase">
+                            <p class="mb-0 center">
                                 OWN
                             </p>
                         </th>
@@ -132,6 +137,17 @@
                         <td class="text-uppercase working" v-else>
                             <p class="mb-0 center">
                                 <span @click="setIsOnADeck(item.id, 0)" class="pointer"><u>Delete from deck</u></span>
+                            </p>
+                        </td>
+
+                        <td class="text-uppercase working" v-if="item.needUpgrade==1">
+                            <p class="mb-0 center">
+                                <span  @click="setNeedUpgrade(item.id, 0)" class="pointer"><u>Not Need upgrade</u></span>
+                            </p>
+                        </td>
+                        <td class="text-uppercase" v-else>
+                            <p class="mb-0 center">
+                                <span @click="setNeedUpgrade(item.id, 1)" class="pointer"><u>Need upgrade</u></span>
                             </p>
                         </td>
 
@@ -259,6 +275,11 @@ export default {
         setPendingYesNo(id, value) {
             var url  = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id;
             var data = qs.stringify({ 'pendingToArrive': value });
+            this.commonUpdateFunction(url, data)
+        },
+        setNeedUpgrade(id, value) {
+            var url  = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/cards/' + id;
+            var data = qs.stringify({ 'needUpgrade': value });
             this.commonUpdateFunction(url, data)
         },
         completeSet(value) {

@@ -1,17 +1,18 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var createError             = require('http-errors');
+var express                 = require('express');
+var path                    = require('path');
+var cookieParser            = require('cookie-parser');
+var logger                  = require('morgan');
 
-const cors = require('cors');
+const cors                  = require('cors');
 
-var indexRouter = require('./routes/index');
-var setsRouter = require('./routes/sets');
-var specialSetsRouter = require('./routes/specialSets');
-var setCardsRouter = require('./routes/setCards');
-var pendingCardsRouter = require('./routes/pendingCards');
-var cardsOnADeckRouter = require('./routes/cardsOnADeck');
+var indexRouter             = require('./routes/index');
+var setsRouter              = require('./routes/sets');
+var specialSetsRouter       = require('./routes/specialSets');
+var setCardsRouter          = require('./routes/setCards');
+var pendingCardsRouter      = require('./routes/pendingCards');
+var cardsOnADeckRouter      = require('./routes/cardsOnADeck');
+var cardsBetterGradedRouter = require('./routes/cardsBetterGraded');
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use('/specialSets', specialSetsRouter);
 app.use('/setCards', setCardsRouter);
 app.use('/pendingCards', pendingCardsRouter);
 app.use('/cardsOnADeck', cardsOnADeckRouter);
+app.use('/betterGradedCards', cardsBetterGradedRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

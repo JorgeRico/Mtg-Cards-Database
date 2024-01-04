@@ -61,6 +61,13 @@ const upgradeBanner = computed(() => {
     />
     <VerticalNavLink
       :item="{
+        title: 'Upgrade Cards',
+        to: 'cardsBetterGraded',
+        icon: { icon: 'mdi-account-cog-outline' }
+      }"
+    />
+    <VerticalNavLink
+      :item="{
         title: 'Special Cards',
         to: 'specialSets',
         icon: { icon: 'mdi-account-cog-outline' }
