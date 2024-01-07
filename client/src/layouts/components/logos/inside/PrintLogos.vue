@@ -2,15 +2,10 @@
     <v-card class="no-shadow">
         <div class="mt20 left w-50" style="padding: 0 20px;">
             <v-form>
-                <Input :label="logoLabel" :modelName="logoModel" :placeholderText="logoPlaceholder"></Input>
+                <Input :label="nameLabel" :modelName="nameModel" :placeholderText="namePlaceholder"></Input>
                 <Input :label="iconLabel" :modelName="iconModel" :placeholderText="iconPlaceholder"></Input>
-                <Dropdown :label="monthLabel" :modelName="monthModel" :items="months"></Dropdown>
-                <Input :label="yearLabel" :modelName="yearModel" :placeholderText="yearPlaceholder"></Input>
                 <div class="mt40">
                     <Error :errorMessage="errorMessage" class="mb20"></Error>
-                    <v-btn color="primary" class="left me-3 mb-5" @click="reset">
-                        <span class="d-none d-sm-block">Reset</span>
-                    </v-btn>
                     <v-btn color="success" class="right me-3 mb-5" @click="addSetToPreview">
                         <span class="d-none d-sm-block">Add</span>
                     </v-btn>
@@ -27,7 +22,7 @@
 <script>
 import Dropdown from '@/layouts/components/form/Dropdown.vue';
 import Input from '@/layouts/components/form/Input.vue';
-import Logo from '@/layouts/components/logos/Logo.vue';
+import Logo from '@/layouts/components/logos/inside/Logo.vue';
 import Error from '@/layouts/components/errors/Error.vue';
 
 export default {
@@ -42,36 +37,24 @@ export default {
             errorMessage    : '',
             setList         : null,
 
-            logoLabel       : 'Logo',
-            logoModel       : 'logoText',
-            logoPlaceholder : 'logo Text',
+            nameLabel       : 'Logo name',
+            nameModel       : 'nameText',
+            namePlaceholder : 'logo Text Name',
 
             iconLabel       : 'Icon',
             iconModel       : 'logoIcon',
             iconPlaceholder : 'Logo icon text',
-
-            yearLabel       : 'Year',
-            yearModel       : 'logoYear',
-            yearPlaceholder : 'Logo Year',
-
-            monthLabel      : 'Month',
-            monthModel      : 'logoMonth',
-            months          : ['January','February','March','April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         }
     },
     methods: {
         addSetToPreview () {
-            var logoText  = document.getElementById('logoText').value;
+            var nameText  = document.getElementById('nameText').value;
             var logoIcon  = document.getElementById('logoIcon').value;
-            var logoYear  = document.getElementById('logoYear').value;
-            var logoMonth = document.getElementById('logoMonth').value;
-
-            if (this.checkErrors(logoText, logoIcon, logoYear, logoMonth) == false) {
+            
+            if (this.checkErrors(nameText, logoIcon) == false) {
                 let setItem = {
-                    logo  : logoText,
-                    icon  : logoIcon,
-                    year  : logoYear,
-                    month : logoMonth
+                    name  : nameText,
+                    icon  : logoIcon
                 }
 
                 this.getItemSetList(setItem);
@@ -79,13 +62,11 @@ export default {
             }
         },
         clearValues() {
-            document.getElementById('logoText').value = '';
+            document.getElementById('nameText').value = '';
             document.getElementById('logoIcon').value = '';
-            document.getElementById('logoYear').value = '';
-            document.getElementById('logoMonth').value = null;
         },
-        checkErrors(logoText, logoIcon, logoYear, logoMonth) {
-            if (logoText == '' || logoIcon == '' || logoYear == '' || logoMonth == '') {
+        checkErrors(nameText, logoIcon) {
+            if (nameText == '' || logoIcon == '') {
                 this.errorMessage = 'Fill all data';
                 this.show('error');
                 setTimeout(() => this.hide('errorEmptyInput'), 2500);
@@ -106,10 +87,7 @@ export default {
             }
 
             this.setList = items;
-        },
-        reset() {
-            this.setList = null
-        },
+        }
     },
     mounted() {
         

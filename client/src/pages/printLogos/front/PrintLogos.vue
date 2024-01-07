@@ -11,7 +11,7 @@
 
 
 <script>
-import PrintLogos from '@/layouts/components/logos/PrintLogos.vue'
+import PrintLogos from '@/layouts/components/logos/front/PrintLogos.vue'
 
 export default {
     components: {

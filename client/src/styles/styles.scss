@@ -420,9 +420,21 @@ select {
 .icono {
     position: relative;
     float: left;
-    border: 1p solid;
+    // border: 1px solid;
     width: 50px;
     text-align: center;
+}
+
+.iconoInside {
+    position: relative;
+    float: left;
+    text-align: center;
+    width: 100%;
+    margin-left: -10px;
+
+    & .ss-3x {
+        font-size: 250px !important;
+    }
 }
 
 .icono-text {
@@ -430,6 +442,15 @@ select {
     float: left;
     margin-left: 10px;
     margin-top: 10px;
+}
+
+.icono-text-inside {
+    position: relative;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 86%;
+    text-align: center;
 }
 
 .icono-text-big {

@@ -75,8 +75,15 @@ const upgradeBanner = computed(() => {
     />
     <VerticalNavLink
       :item="{
-        title: 'Logos',
-        to: 'printLogos',
+        title: 'Front Logos',
+        to: 'printFrontLogos',
+        icon: { icon: 'mdi-account-cog-outline' }
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: 'Inside Logos',
+        to: 'printInsideLogos',
         icon: { icon: 'mdi-account-cog-outline' }
       }"
     />

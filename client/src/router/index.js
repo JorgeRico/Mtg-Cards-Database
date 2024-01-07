@@ -64,9 +64,14 @@ const routes = [
         component: () => import('@/pages/cardsBetterGraded/CardsBetterGraded.vue'),
     },
     {
-        path: '/printLogos',
-        name: 'printLogos',
-        component: () => import('@/pages/printLogos/PrintLogos.vue'),
+        path: '/printFrontLogos',
+        name: 'printFrontLogos',
+        component: () => import('@/pages/printLogos/front/PrintLogos.vue'),
+    },
+    {
+        path: '/printInsideLogos',
+        name: 'printInsideLogos',
+        component: () => import('@/pages/printLogos/inside/PrintLogos.vue'),
     },
     {
         path: '/specialSets',
