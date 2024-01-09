@@ -21,12 +21,7 @@
                         </th>
                         <th class="text-uppercase">
                             <p class="mb-0 center">
-                                SET CARDS
-                            </p>
-                        </th>
-                        <th class="text-uppercase">
-                            <p class="mb-0 center">
-                                SPECIAL CARDS
+                                TOTAL SET CARDS
                             </p>
                         </th>
                         <th class="text-uppercase">
@@ -36,7 +31,12 @@
                         </th>
                         <th class="text-uppercase">
                             <p class="mb-0 center">
-                                TOTAL SET CARDS
+                                SET CARDS
+                            </p>
+                        </th>
+                        <th class="text-uppercase">
+                            <p class="mb-0 center">
+                                SPECIAL CARDS
                             </p>
                         </th>
                     </tr>
@@ -61,6 +61,16 @@
                                 {{ item.setReleaseDate }}
                             </p>
                         </td>
+                        <td class="text-uppercase">
+                            <p class="mb-0 center">
+                                <strong>{{ item.setTotalCards }}</strong>
+                            </p>
+                        </td>
+                        <td class="text-uppercase center">
+                            <p class="mb-0 center">
+                                <strong>{{ item.ownedCards }}</strong>
+                            </p>
+                        </td>
                         <td class="text-uppercase center">
                             <p class="mb-0 center">
                                 {{ (item.setTotalCards - item.specialCards) }}
@@ -69,16 +79,6 @@
                         <td class="text-uppercase center">
                             <p class="mb-0 center">
                                 {{ item.specialCards }}
-                            </p>
-                        </td>
-                        <td class="text-uppercase center">
-                            <p class="mb-0 center">
-                                {{ item.ownedCards }}
-                            </p>
-                        </td>
-                        <td class="text-uppercase">
-                            <p class="mb-0 center">
-                                {{ item.setTotalCards }}
                             </p>
                         </td>
                     </tr>
