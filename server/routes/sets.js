@@ -122,7 +122,9 @@ async function getSingleSet(id) {
         s.complete,
         (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.own = 1) as ownedCards,
         (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.isOnADeck = 1) as numCardsOnADeck,
-        (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.pendingToArrive = 1) as numPendingCards
+        (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.pendingToArrive = 1) as numPendingCards,
+        (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.special = 1) as specialCards,
+        (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.isBackCard = 1) as backCards
         FROM mtgSet s
         WHERE s.id = ${id} `
     );

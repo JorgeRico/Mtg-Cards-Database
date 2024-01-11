@@ -67,7 +67,7 @@
                             </p>
                         </td>
                         <td class="text-uppercase center">
-                            <p class="mb-0 center">
+                            <p class="mb-0 center red">
                                 <strong>{{ item.ownedCards }}</strong>
                             </p>
                         </td>

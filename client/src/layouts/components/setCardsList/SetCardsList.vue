@@ -14,6 +14,12 @@
                     <strong>Num cards</strong>: <strong>{{ numCards }}</strong>
                 </div>
                 <div class="left w-100 pt5">
+                    <strong>Num Special cards</strong>: <strong> {{ specialCards }} </strong>
+                </div>
+                <div class="left w-100 pt5">
+                    <strong>Num Back side cards</strong>: <strong> {{ backCards }} </strong>
+                </div>
+                <div class="left w-100 pt5">
                     <strong>Num Waiting to arrive cards</strong>: <strong>{{ numPendingCards }}</strong>
                 </div>
                 <div class="left w-100 pt5">
@@ -204,7 +210,9 @@ export default {
             ownCards        : '',
             setLogo         : '',
             numCardsOnADeck : null,
-            numPendingCards : null
+            numPendingCards : null,
+            specialCards    : null,
+            backCards       : null
         }
     },
     setup() {
@@ -241,6 +249,8 @@ export default {
                     this.numCardsOnADeck = setInfo[0].numCardsOnADeck;
                     this.numPendingCards = setInfo[0].numPendingCards;
                     this.complete        = setInfo[0].complete;
+                    this.specialCards    = setInfo[0].specialCards;
+                    this.backCards       = setInfo[0].backCards;
                 })
                 .catch(error => {
                     this.show('errorApiFile');
