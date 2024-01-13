@@ -20,6 +20,9 @@
                     <strong>Num Back side cards</strong>: <strong> {{ backCards }} </strong>
                 </div>
                 <div class="left w-100 pt5">
+                    <strong>Num Oversized cards</strong>: <strong> {{ oversizedCards }} </strong>
+                </div>
+                <div class="left w-100 pt5">
                     <strong>Num Waiting to arrive cards</strong>: <strong>{{ numPendingCards }}</strong>
                 </div>
                 <div class="left w-100 pt5">
@@ -95,6 +98,17 @@
                 <tbody>
                     <tr v-for="(item, i) in cardsList" :key="i" :class="item.own == 1 ? 'complete' : ''">
                         <td class="text-uppercase">
+                            <p class="mb-0" style="width: 30px" v-if="item.isOversized == 1">
+                                <span class="special-img">{{ i+1 }}</span> 
+                                <br>
+                                <span class="ml20">
+                                    <v-img
+                                        contain
+                                        class="specialCardImg greeting-card-trophy"
+                                        :src="trophyImg"
+                                    ></v-img>
+                                </span>
+                            </p>
                             <p class="mb-0" style="width: 30px" v-if="item.special == 1">
                                 <span class="special-img">{{ i+1 }}</span> 
                                 <br>
@@ -117,7 +131,7 @@
                                     ></v-img>
                                 </span>
                             </p>
-                            <p class="mb-0 center" v-if="item.isBackCard == 0 && item.special == 0">
+                            <p class="mb-0 center" v-if="item.isBackCard == 0 && item.special == 0 && item.isOversized == 0">
                                 {{ i+1 }}
                             </p>
                         </td>
@@ -212,7 +226,8 @@ export default {
             numCardsOnADeck : null,
             numPendingCards : null,
             specialCards    : null,
-            backCards       : null
+            backCards       : null,
+            oversizedCards  : null
         }
     },
     setup() {
@@ -251,6 +266,7 @@ export default {
                     this.complete        = setInfo[0].complete;
                     this.specialCards    = setInfo[0].specialCards;
                     this.backCards       = setInfo[0].backCards;
+                    this.oversizedCards  = setInfo[0].oversizedCards;
                 })
                 .catch(error => {
                     this.show('errorApiFile');
