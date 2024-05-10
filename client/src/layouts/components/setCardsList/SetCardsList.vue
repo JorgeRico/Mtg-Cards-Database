@@ -237,7 +237,7 @@ export default {
             specialCards    : null,
             backCards       : null,
             oversizedCards  : null,
-            orderedById     : false
+            orderedBy       : 'name'
         }
     },
     setup() {
@@ -272,12 +272,12 @@ export default {
             }
         },
         orderById(){
-            this.orderedById = true;
-            this.getSetCardList(this.orderedById);
+            this.orderedBy = 'id';
+            this.getSetCardList(this.orderedBy);
         },
         orderByName() {
-            this.orderedById = false;
-            this.getSetCardList(this.orderedById);;
+            this.orderedBy = 'name';
+            this.getSetCardList(this.orderedBy);
         },
         async getSetInfo() {
             await axios
@@ -302,11 +302,12 @@ export default {
                 })
                 .finally(() => this.loading = false)
         },
-        async getSetCardList(orderById) {
-            if (!orderById) {
-                var url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId
-            } else {
-                var url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/order/id'
+        async getSetCardList(filter) {
+            if (filter == 'name') {
+                var url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId + '?filter=name';
+            } 
+            if (filter == 'id') {
+                var url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId + '?filter=id';
             }
             await axios
                 .get(url)
@@ -371,7 +372,7 @@ export default {
                 data    : data,
             })
             .then(response => {
-                this.getSetCardList(this.orderedById);;
+                this.getSetCardList(this.orderedBy);;
             })
             .catch(error => {
                 this.show('errorApiFile');
@@ -381,7 +382,7 @@ export default {
         },
     },
     mounted() {
-        this.getSetCardList(this.orderedById);;
+        this.getSetCardList(this.orderedBy);;
         this.hide('dropdown-menu');
     },
     beforeMount() {

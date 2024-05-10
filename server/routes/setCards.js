@@ -10,11 +10,7 @@ var router = express.Router();
 /**************************************************/
 /* GET Cards Set listing. */
 router.get('/:id', async function (req, res, next) {
-    res.send(JSON.stringify(await getMultipleSetCards(req.params.id)));
-});
-
-router.get('/:id/order/id', async function (req, res, next) {
-    res.send(JSON.stringify(await getMultipleSetCards(req.params.id, true)));
+    res.send(JSON.stringify(await getMultipleSetCards(req.params.id, req.query.filter)));
 });
 
 /* PUT Card */
@@ -59,14 +55,19 @@ router.put("/:idSet/cards", async function (req, res, next) {
 /***********         FUNCTIONS          ***********/
 /**************************************************/
 /* GET Cards function */
-async function getMultipleSetCards(id, orderedById = false, page = 1) {
+async function getMultipleSetCards(id, orderedById, page = 1) {
     const pagination = 10000;
     const offset     = helper.getOffset(page, pagination);
-    let orderedBy  = "cardName ASC";
+    let orderedBy    = "";
 
-    if (orderedById) {
-        orderedBy = "id ASC"
+    if (orderedById === 'id') {
+        orderedBy = "id ASC";
     }
+
+    if (orderedById === 'name') {
+        orderedBy = "cardName ASC";
+    }
+
     const rows = await db.query(
         `SELECT 
         id, idSet, cardName, cardJsonLink, cardUri, cardImg, special, own, pendingToArrive, isOnADeck, isBackCard, needUpgrade, isOversized
