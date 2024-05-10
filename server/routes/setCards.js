@@ -13,6 +13,10 @@ router.get('/:id', async function (req, res, next) {
     res.send(JSON.stringify(await getMultipleSetCards(req.params.id)));
 });
 
+router.get('/:id/order/id', async function (req, res, next) {
+    res.send(JSON.stringify(await getMultipleSetCards(req.params.id, true)));
+});
+
 /* PUT Card */
 router.put("/:idSet/cards/:idCard", async function (req, res, next) {
     try {
@@ -55,16 +59,21 @@ router.put("/:idSet/cards", async function (req, res, next) {
 /***********         FUNCTIONS          ***********/
 /**************************************************/
 /* GET Cards function */
-async function getMultipleSetCards(id, page = 1) {
+async function getMultipleSetCards(id, orderedById = false, page = 1) {
     const pagination = 10000;
-    const offset = helper.getOffset(page, pagination);
+    const offset     = helper.getOffset(page, pagination);
+    let orderedBy  = "cardName ASC";
+
+    if (orderedById) {
+        orderedBy = "id ASC"
+    }
     const rows = await db.query(
         `SELECT 
         id, idSet, cardName, cardJsonLink, cardUri, cardImg, special, own, pendingToArrive, isOnADeck, isBackCard, needUpgrade, isOversized
         FROM mtgCard 
         WHERE idSet = ${id} 
         AND isMolCard = 0
-        ORDER BY cardName ASC
+        ORDER BY ${orderedBy}
         LIMIT ${offset},${pagination}`
     );
     const data = helper.emptyOrRows(rows);

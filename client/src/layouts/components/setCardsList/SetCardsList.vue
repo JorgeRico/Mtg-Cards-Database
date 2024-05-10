@@ -41,10 +41,19 @@
         </div>
         <div class="right w-100 pb20">
             <div class="right dropdown">
+                <button color="primary" class="btn btn-primary dropdown-toggle" @click="orderDropdown()">
+                    Filter By
+                </button>
+                <div class="invisible" id="orderedDropdown-menu" ref="myElementOrdered">
+                    <a class="dropdown-item" @click="orderById()">Order by DB Id</a>
+                    <a class="dropdown-item" @click="orderByName()">Order by Name</a>
+                </div>
+            </div>
+            <div class="right dropdown" style="margin-right: 20px">
                 <button color="primary" class="btn btn-primary dropdown-toggle" @click="dropdown()">
                     Options
                 </button>
-                <div id="dropdown-menu" ref="myElement">
+                <div class="invisible" id="dropdown-menu" ref="myElement">
                     <a class="dropdown-item" @click="completeSet(1)">Mark Set as Complete</a>
                     <a class="dropdown-item" @click="completeSet(0)">Mark Set as UnComplete</a>
                     <a class="dropdown-item" @click="setAllCards(1)">Complete all (cards and set)</a>
@@ -227,7 +236,8 @@ export default {
             numPendingCards : null,
             specialCards    : null,
             backCards       : null,
-            oversizedCards  : null
+            oversizedCards  : null,
+            orderedById     : false
         }
     },
     setup() {
@@ -243,13 +253,31 @@ export default {
         },
     },
     methods: {
+        orderDropdown() {
+            const element = this.$refs.myElementOrdered;
+            this.hide('dropdown-menu');
+            if (element.classList.contains('invisible')) {
+                this.show('orderedDropdown-menu');
+            } else {
+                this.hide('orderedDropdown-menu');
+            }
+        },
         dropdown() {
-            const element = this.$refs.myElement
+            const element = this.$refs.myElement;
+            this.hide('orderedDropdown-menu');
             if (element.classList.contains('invisible')) {
                 this.show('dropdown-menu');
             } else {
                 this.hide('dropdown-menu');
             }
+        },
+        orderById(){
+            this.orderedById = true;
+            this.getSetCardList(this.orderedById);
+        },
+        orderByName() {
+            this.orderedById = false;
+            this.getSetCardList(this.orderedById);;
         },
         async getSetInfo() {
             await axios
@@ -274,13 +302,20 @@ export default {
                 })
                 .finally(() => this.loading = false)
         },
-        async getSetCardList() {
+        async getSetCardList(orderById) {
+            if (!orderById) {
+                var url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId
+            } else {
+                var url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId + '/order/id'
+            }
             await axios
-                .get(import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + this.setId)
+                .get(url)
                 .then(response => {
                     this.cardsList = null;
                     this.cardsList = response.data.data;
                     this.getSetInfo();
+                    this.hide('orderedDropdown-menu');
+                    this.hide('dropdown-menu');
                 })
                 .catch(error => {
                     this.show('errorApiFile');
@@ -336,7 +371,7 @@ export default {
                 data    : data,
             })
             .then(response => {
-                this.getSetCardList();
+                this.getSetCardList(this.orderedById);;
             })
             .catch(error => {
                 this.show('errorApiFile');
@@ -346,7 +381,7 @@ export default {
         },
     },
     mounted() {
-        this.getSetCardList();
+        this.getSetCardList(this.orderedById);;
         this.hide('dropdown-menu');
     },
     beforeMount() {

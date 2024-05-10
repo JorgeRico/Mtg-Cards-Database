@@ -501,7 +501,7 @@ div[size="ETIQUETA"] {
     padding-top: 25px;
 }
 
-#dropdown-menu {
+#dropdown-menu, #orderedDropdown-menu {
     position: absolute;
     z-index: 1;
     border: 1px solid lightgrey;
@@ -513,12 +513,12 @@ div[size="ETIQUETA"] {
     right: 0px;
 }
 
-#dropdown-menu a {
+#dropdown-menu a, #orderedDropdown-menu a{
     padding: 12px;
     border-bottom: 1px solid white;
 }
 
-#dropdown-menu a:hover {
+#dropdown-menu a:hover, #orderedDropdown-menu a:hover {
     background: lightseagreen;
 }
 
