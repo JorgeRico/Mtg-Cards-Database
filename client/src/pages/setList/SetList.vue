@@ -7,7 +7,8 @@
                     <button class="btn btn-primary mr-5" @click="getSetListFiltered(0)">All sets</button>
                     <button class="btn btn-success mr-5" @click="getSetListFiltered(1)">Complete sets</button>
                     <button class="btn btn-warning mr-5" @click="getSetListFiltered(2)">Working sets</button>
-                    <button class="btn btn-danger" @click="getSetListFiltered(3)">Not started sets</button>
+                    <button class="btn btn-danger mr-5" @click="getSetListFiltered(3)">Not started sets</button>
+                    <button class="btn btn-dark" @click="getSetListFiltered(4)">Imposible sets</button>
                 </div>
                 <div class="left w-100 mb-5 align-right">
                     <div class="right f18 w400px">

@@ -45,10 +45,15 @@ function getFilterQueryString(filterParam) {
             filter += ' AND s.complete = 1';
         }
         if (filterParam == '2') {
+            filter += ' AND s.imposible = 0';
             filter += ' AND s.complete = 0 AND (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) > 0';
         }
         if (filterParam == '3') {
+            filter += ' AND s.imposible = 0';
             filter += ' AND s.complete = 0 AND (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) = 0';
+        }
+        if (filterParam == '4') {
+            filter += ' AND s.imposible = 1';
         }
     }
 
