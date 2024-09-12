@@ -31,6 +31,12 @@
                             <strong>{{ this.numTotalCards }}</strong>
                         </div>
                         <div class="left align-left w-80">
+                            <strong>Total Pending Cards: </strong>
+                        </div>
+                        <div class="right w-20">
+                            <strong>{{ this.numTotalPendingCards }}</strong>
+                        </div>
+                        <div class="left align-left w-80">
                             <strong>Total Cards Own: </strong>
                         </div>
                         <div class="right w-20">
@@ -84,10 +90,11 @@ export default {
             await axios
                 .get(url)
                 .then(response => {
-                    this.numSets          = response.data.data[0].numTotal;
-                    this.completeNumSets  = response.data.data[0].numTotalComplete;
-                    this.numTotalCards    = response.data.data[0].numTotalCards;
-                    this.numTotalCardsOwn = response.data.data[0].numTotalCardsOwn;
+                    this.numSets              = response.data.data[0].numTotal;
+                    this.completeNumSets      = response.data.data[0].numTotalComplete;
+                    this.numTotalCards        = response.data.data[0].numTotalCards;
+                    this.numTotalCardsOwn     = response.data.data[0].numTotalCardsOwn;
+                    this.numTotalPendingCards = response.data.data[0].numTotalPendingCards;
 
                     let totalPages = this.numSets / pagination;
                     totalPages     = Math.trunc(totalPages);

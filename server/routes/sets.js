@@ -69,7 +69,8 @@ async function getTotalNumSets(filterParam = null) {
             count(s.id) as numTotal,
             (SELECT count(s.id) FROM mtgSet s ${filter} AND s.complete = 1) as numTotalComplete,
             (SELECT count(c.id) FROM mtgCard c INNER JOIN mtgSet ms ON ms.id = c.idSet WHERE ms.onlineSet = 0) as numTotalCards,
-            (SELECT count(c.id) FROM mtgCard c INNER JOIN mtgSet ms ON ms.id = c.idSet WHERE ms.onlineSet = 0 AND c.own = 1) as numTotalCardsOwn 
+            (SELECT count(c.id) FROM mtgCard c INNER JOIN mtgSet ms ON ms.id = c.idSet WHERE ms.onlineSet = 0 AND c.own = 1) as numTotalCardsOwn,
+            (SELECT count(c.id) FROM mtgCard c WHERE c.pendingToArrive = 1) as numTotalPendingCards
         FROM mtgSet s ${filter}`
     );
 
