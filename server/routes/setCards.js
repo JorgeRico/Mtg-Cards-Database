@@ -92,7 +92,7 @@ async function updateOwnSetCard(own, id, idSet) {
     try {
         const result = await db.query(
             `UPDATE mtgCard 
-            SET own = "${own}"
+            SET own = "${own}", pendingToArrive = 0
             WHERE id = ${id}
             AND idSet = ${idSet}`
         );
@@ -167,13 +167,13 @@ async function updateAllPending(idSet, pendingToArrive) {
     return message;
 }
 
-async function updatePendingToArriveCard(pendingToArrive, own, id, idSet) {
+async function updatePendingToArriveCard(pendingToArrive, id, idSet) {
     var message = "Error on updating";
 
     try {
         const result = await db.query(
             `UPDATE mtgCard 
-            SET pendingToArrive = "${pendingToArrive}", own = "${own}"
+            SET pendingToArrive = "${pendingToArrive}", own = 0
             WHERE id = ${id}
             AND idSet = ${idSet}`
         );
@@ -209,14 +209,14 @@ async function updateBetterGrade(id, idSet, value) {
     return message ;
 }
 
-async function updatePendingToArriveAllCards(pendingToArrive, own, idSet) {
+async function updatePendingToArriveAllCards(pendingToArrive, idSet) {
     var message = "Error on updating";
 
     // all set cards
     try {
         const result = await db.query(
             `UPDATE mtgCard 
-            SET pendingToArrive = "${pendingToArrive}", own = "${own}"
+            SET pendingToArrive = "${pendingToArrive}", own = 0
             WHERE idSet = ${idSet}`
         );
 
@@ -257,22 +257,11 @@ function updateCardOwn(id, idSet, value) {
     if (id != null) {
         // single card
         message = updateOwnSetCard(value.own, id, idSet);
-
-        if (value.own == 0) {
-            message = updateCompleteSet(value.own, idSet);
-        }
-
-        if (value.own == 1) {
-            message = updateAllPending(idSet, 0);
-        }
     } else {
         // all set cards
         message = updateAllOwnSetCard(value.own, idSet);
         message = updateCompleteSet(value.own, idSet);
-    
-        if (value.own == 1) {
-            message = updateAllPending(idSet, 0);
-        }
+        message = updateAllPending(idSet, 0);
     }
 
     return { message };
@@ -281,16 +270,13 @@ function updateCardOwn(id, idSet, value) {
 /* UPDATE Card pending to arrive - single card */
 function updateCardPendingToArrive(id, idSet, value) {
     var own = 0;
-    if (value.pendingToArrive == 0) {
-        own = 1;
-    }
 
     if (id != null) {
         // single card
-        message = updatePendingToArriveCard(value.pendingToArrive, own, id, idSet)
+        message = updatePendingToArriveCard(value.pendingToArrive, id, idSet)
     } else {
         // all set cards
-        message = updatePendingToArriveAllCards(value.pendingToArrive, own, idSet);
+        message = updatePendingToArriveAllCards(value.pendingToArrive, idSet);
     }
 
     if (value.pendingToArrive == 1) {
