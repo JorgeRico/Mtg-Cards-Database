@@ -125,7 +125,7 @@ export default {
         }
     },
     beforeMount() {
-        this.redirectIfIsLogged();
+        //this.redirectIfIsLogged();
     }
 }
 
