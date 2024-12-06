@@ -73,14 +73,15 @@ export default {
     },
     data() {
         return {
-            sets             : null,
-            page             : 1,
-            numPages         : 1,
-            filters          : null,
-            completeNumSets  : null,
-            numTotalCards    : null,
-            numTotalCardsOwn : null,
-            numSets          : null
+            sets                 : null,
+            page                 : 1,
+            numPages             : 1,
+            filters              : null,
+            completeNumSets      : null,
+            numTotalCards        : null,
+            numTotalCardsOwn     : null,
+            numSets              : null,
+            numTotalPendingCards : null
         }
     },
     methods: {
