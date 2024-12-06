@@ -1,11 +1,14 @@
 <template>
     <v-card class="no-shadow">
         <div class="mt20 left w-50" style="padding: 0 20px;">
-            <v-form>
+            <v-form ref="anyName">
                 <Input :label="nameLabel" :modelName="nameModel" :placeholderText="namePlaceholder"></Input>
                 <Input :label="iconLabel" :modelName="iconModel" :placeholderText="iconPlaceholder"></Input>
                 <div class="mt40">
                     <Error :errorMessage="errorMessage" class="mb20"></Error>
+                    <v-btn color="primary" class="left me-3 mb-5" @click="reset">
+                        <span class="d-none d-sm-block">Reset</span>
+                    </v-btn>
                     <v-btn color="success" class="right me-3 mb-5" @click="addSetToPreview">
                         <span class="d-none d-sm-block">Add</span>
                     </v-btn>
@@ -36,7 +39,6 @@ export default {
         return {
             errorMessage    : '',
             setList         : null,
-
             nameLabel       : 'Logo name',
             nameModel       : 'nameText',
             namePlaceholder : 'logo Text Name',
@@ -58,12 +60,8 @@ export default {
                 }
 
                 this.getItemSetList(setItem);
-                this.clearValues();
+                this.$refs.anyName.reset();
             }
-        },
-        clearValues() {
-            document.getElementById('nameText').value = '';
-            document.getElementById('logoIcon').value = '';
         },
         checkErrors(nameText, logoIcon) {
             if (nameText == '' || logoIcon == '') {
@@ -87,7 +85,11 @@ export default {
             }
 
             this.setList = items;
-        }
+        },
+        reset() {
+            this.setList = null
+            this.$refs.anyName.reset();
+        },
     },
     mounted() {
         

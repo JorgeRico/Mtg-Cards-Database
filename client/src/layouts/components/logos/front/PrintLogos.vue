@@ -1,7 +1,7 @@
 <template>
     <v-card class="no-shadow">
         <div class="mt20 left w-50" style="padding: 0 20px;">
-            <v-form>
+            <v-form ref="anyName">
                 <Input :label="logoLabel" :modelName="logoModel" :placeholderText="logoPlaceholder"></Input>
                 <Input :label="iconLabel" :modelName="iconModel" :placeholderText="iconPlaceholder"></Input>
                 <Dropdown :label="monthLabel" :modelName="monthModel" :items="months"></Dropdown>
@@ -79,9 +79,7 @@ export default {
             }
         },
         clearValues() {
-            document.getElementById('logoText').value = '';
-            document.getElementById('logoIcon').value = '';
-            document.getElementById('logoYear').value = '';
+            this.$refs.anyName.reset();
             document.getElementById('logoMonth').value = null;
         },
         checkErrors(logoText, logoIcon, logoYear, logoMonth) {
@@ -109,6 +107,7 @@ export default {
         },
         reset() {
             this.setList = null
+            this.clearValues();
         },
     },
     mounted() {
