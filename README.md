@@ -1,30 +1,36 @@
 # Node + Express + Vue + MySQL + Docker Compose
+
 A project that runs a Express server and Vue-CLI with two separate containers, server and client, using Docker Compose.
 
 ## Docker
 
-# run docker
+## run docker
+
 ```
 docker-compose build
 docker-compose up -d
 ```
 
 ## Front
+
 ```
 http://localhost:8080
 ```
 
 ## API
+
 ```
 http://localhost:3000
 ```
 
 ## PhpMyAdmin ( database is autoloaded )
+
 ```
 http://localhost:18081
 ```
 
 ## ENV values
+
 ```
 VUE_APP_FIREBASE_API_KEY=AIzaSyA4A_Ujgbp_UmHVyofthBmwuhMGg4NSE9c
 VUE_APP_FIREBASE_AUTH_DOMAIN=mtgdashboard-91454.firebaseapp.com
@@ -42,13 +48,16 @@ VITE_API_SPECIAL_SET_ENDPOINT=/specialSets
 ```
 
 ## Manual launch
+
 # /client launch client
+
 ```
 npm install
 npm run serve
 ```
 
 # /server launch api
+
 ```
 npm install
 npm run dev
