@@ -30,21 +30,21 @@ services:
     networks:
       - app-network
 
-  server:
+  api:
     build:
-      context: ./server
+      context: ./api
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     tty: true
     volumes:
-      - ./server:/app
+      - ./api:/app
       - /app/node_modules # <---- this enables a much faster start/reload
     networks:
       - app-network
     environment:
       - NODE_ENV=development
-    command: npm run dev
+    command: npm run start
 
   client:
     build:
