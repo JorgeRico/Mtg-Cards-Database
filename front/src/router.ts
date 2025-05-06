@@ -20,7 +20,7 @@ const routes = [
     { path: '/forgot', component: ForgotView },
     { path: '/backoffice/sets', component: SetView },
     { path: '/backoffice/special/sets', component: SpecialSetView },
-    { path: '/backoffice/set/:id/cards', component: CardSetView },
+    { path: '/backoffice/sets/:id/cards', component: CardSetView },
     { path: '/backoffice/pending/cards', component: CardPendingView },
     { path: '/backoffice/playing/cards', component: CardOnDeckView },
     { path: '/backoffice/inside/logos', component: InsideLogosView },
