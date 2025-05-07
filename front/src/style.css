@@ -59,6 +59,13 @@ a:hover {
     text-decoration: underline; 
 }
 
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
 
 li {
     list-style: none;
@@ -140,6 +147,14 @@ button:focus {
     margin-top: 20px;
 }
 
+.mb10 {
+    margin-bottom: 10px;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
+
 .mb40 {
     margin-bottom: 40px;
 }
@@ -168,17 +183,17 @@ button:focus {
     margin-bottom: 1rem; 
 }
 
-.d-flex {
+/* .d-flex {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important; 
-}
+} */
 
-.justify-content-center {
+/* .justify-content-center {
     -webkit-box-pack: center !important;
     -ms-flex-pack: center !important;
     justify-content: center !important; 
-}
+} */
 
 .align-items-center {
     -webkit-box-align: center !important;
@@ -225,7 +240,6 @@ button:focus {
         width: 100%; 
     } 
 }
-
 
 .login-wrap h3 {
     font-weight: 300; 
@@ -299,158 +313,17 @@ button:focus {
     border-color: transparent; 
 }
 
-.btn {
-    cursor: pointer;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    display: inline-block;
-    font-weight: 400;
-    color: #212529;
-    text-align: center;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-color: transparent;
-    border: 1px solid transparent;
-    padding: 10px 20px;
-    font-size: 15px;
-    line-height: 1.5;
-    border-radius: 10px;
-    -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-    -o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; 
+.complete {
+    background: #28a745 !important;
 }
 
-.btn:hover, .btn:active, .btn:focus {
-    outline: none; 
+.softcomplete {
+    background: greenyellow !important;
 }
 
-.btn.btn-primary {
-    background: #f35588;
-    border: 1px solid #f35588;
-    color: #fff;
-    background: #f75959;
-    background: -moz-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, #f75959), color-stop(100%, #f35587));
-    background: -webkit-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
-    background: -o-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
-    background: -ms-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
-    background: -webkit-linear-gradient(315deg, #f75959 0%, #f35587 100%);
-    background: -o-linear-gradient(315deg, #f75959 0%, #f35587 100%);
-    background: linear-gradient(135deg, #f75959 0%, #f35587 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f75959', endColorstr='#f35587', GradientType=1 ); 
+.working {
+    background: darkorange !important;
 }
 
-.btn.btn-primary:hover {
-    border: 1px solid #f35588;
-    background: #f35588;
-    color: #fff; 
-}
- 
-.btn.btn-primary.btn-outline-primary {
-    border: 1px solid #f35588;
-    background: transparent;
-    color: #f35588; 
-}
 
-.btn.btn-primary.btn-outline-primary:hover {
-    border: 1px solid transparent;
-    background: #f35588;
-    color: #fff; 
-}
 
-.btn.btn-white {
-    background: #fff;
-    border: 1px solid #fff;
-    color: #fff; 
-}
-
-.btn.btn-white:hover {
-    border: 1px solid #fff;
-    background: transparent;
-    color: #fff; 
-}
-
-.btn.btn-white.btn-outline-white {
-    border: 1px solid #fff;
-    background: transparent;
-    color: #fff; 
-}
-
-.btn.btn-white.btn-outline-white:hover {
-    border: 1px solid transparent;
-    background: #fff;
-    color: #000; 
-}
-
-.checkbox-wrap {
-    display: block;
-    position: relative;
-    padding-left: 30px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none; 
-}
-  
-/* Hide the browser's default checkbox */
-.checkbox-wrap input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0; 
-}
-  
-/* Create a custom checkbox */
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0; 
-}
-  
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-    content: "\f0c8";
-    font-family: "FontAwesome";
-    position: absolute;
-    color: rgba(0, 0, 0, 0.1);
-    font-size: 20px;
-    margin-top: -4px;
-    -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s; 
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .checkmark:after {
-        -webkit-transition: none;
-        -o-transition: none;
-        transition: none; 
-    } 
-}
-  
-/* Show the checkmark when checked */
-.checkbox-wrap input:checked ~ .checkmark:after {
-    display: block;
-    content: "\f14a";
-    font-family: "FontAwesome";
-    color: rgba(0, 0, 0, 0.2); 
-}
-  
-/* Style the checkmark/indicator */
-.checkbox-primary {
-    color: #f35588; 
-}
-
-.checkbox-primary input:checked ~ .checkmark:after {
-    color: #f35588; 
-}

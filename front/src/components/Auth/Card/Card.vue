@@ -52,4 +52,28 @@
         font-weight: 900;
         color: #fff; 
     }
+
+    .btn.btn-white {
+        background: #fff;
+        border: 1px solid #fff;
+        color: #fff; 
+    }
+
+    .btn.btn-white:hover {
+        border: 1px solid #fff;
+        background: transparent;
+        color: #fff; 
+    }
+
+    .btn.btn-white.btn-outline-white {
+        border: 1px solid #fff;
+        background: transparent;
+        color: #fff; 
+    }
+
+    .btn.btn-white.btn-outline-white:hover {
+        border: 1px solid transparent;
+        background: #fff;
+        color: #000; 
+    }
 </style>

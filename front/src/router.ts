@@ -15,20 +15,60 @@ import InsideLogosView from './components/Backoffice/Logos/InsideLogos.vue'
 import OutsideLogosView from './components/Backoffice/Logos/OutsideLogos.vue'
 
 const routes = [
-    { path: '/', component: LoginView },
-    { path: '/register', component: RegisterView },
-    { path: '/forgot', component: ForgotView },
-    { path: '/backoffice/sets', component: SetView },
-    { path: '/backoffice/special/sets', component: SpecialSetView },
-    { path: '/backoffice/sets/:id/cards', component: CardSetView },
-    { path: '/backoffice/pending/cards', component: CardPendingView },
-    { path: '/backoffice/playing/cards', component: CardOnDeckView },
-    { path: '/backoffice/inside/logos', component: InsideLogosView },
-    { path: '/backoffice/outside/logos', component: OutsideLogosView },
+    { 
+        path: '/', 
+        name: 'home', 
+        component: LoginView
+    },
+    {  
+        path: '/register', 
+        name: 'register', 
+        component: RegisterView
+    },
+    { 
+        path: '/forgot', 
+        name: 'forgot', 
+        component: ForgotView
+    },
+    { 
+        path: '/backoffice/sets', 
+        name: 'sets',  
+        component: SetView
+    },
+    { 
+        path: '/backoffice/special/sets', 
+        name: 'specialSets',  
+        component: SpecialSetView
+    },
+    { 
+        path: '/backoffice/sets/:id/cards', 
+        name: 'setCards',  
+        component: CardSetView
+    },
+    { 
+        path: '/backoffice/pending/cards', 
+        name: 'pendingCards',  
+        component: CardPendingView
+    },
+    { 
+        path: '/backoffice/playing/cards', 
+        name: 'playingCards',  
+        component: CardOnDeckView
+    },
+    { 
+        path: '/backoffice/inside/logos', 
+        name: 'insideLogos',  
+        component: InsideLogosView
+    },
+    { 
+        path: '/backoffice/outside/logos', 
+        name: 'outsideLogos',  
+        component: OutsideLogosView
+    },
     { 
         path: '/:catchAll(.*)', 
+        name: 'NotFound',
         component: NotFoundView,
-        name: 'NotFound'
     }
 ]
 

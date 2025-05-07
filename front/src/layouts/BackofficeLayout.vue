@@ -26,6 +26,7 @@
     .main {
         min-height: 100vh;
         width: 100%;
+        padding: 1em 3em 5em 0.75em;
         overflow: hidden;
         transition: all 0.35s ease-in-out;
         background-color: #fafbfe;
