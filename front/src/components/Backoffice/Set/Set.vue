@@ -9,12 +9,17 @@
 
     const setInfo    = ref<Object>();
     const setItems   = ref<Object[]>();
-    const page       = ref<Number | null>(null);
+    const page       = ref<Number | null>(1);
     var limit        = 100;
     const totalPages = ref<Number | null>(0);
 
-    fetch(import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SETS)
-        .then(async response => {
+    function getSets() {
+        let url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SETS;
+        url += '?page=' + page.value;
+        // url = url + '?filter=' + this.filters;
+        
+
+        fetch(url).then(async response => {
             const data     = await response.json();
             setItems.value = await data.data;
             page.value     = await data.meta.page;
@@ -30,8 +35,10 @@
             // this.errorMessage = error;
             console.error("There was an error!", error);
         });
+    }
 
-    fetch(import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_NUMSETS)
+    function getSetInfo() {
+        fetch(import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_NUMSETS)
         .then(async response => {
             const dataSets = await response.json();
             setInfo.value  = await dataSets.data[0];
@@ -49,16 +56,44 @@
             // this.errorMessage = error;
             console.error("There was an error!", error);
         });
+    }
+
+    function handleCustomChange(index : number) {
+        page.value = index
+        console.log(page.value)
+        setItems.value   = [];
+
+        getSets();
+    }
+
+    getSets();
+    getSetInfo();
 </script>
 
 <template>
     <BackofficeLayout>
         <h1>Mtg Sets</h1>
-        <Info v-if=setInfo :data=setInfo></Info>
+        <Info 
+            v-if=setInfo 
+            :data=setInfo>
+        </Info>
         <Filters></Filters>
-        <Pagination v-if=totalPages :page=page :total=totalPages></Pagination>
-        <Table v-if=setItems :items=setItems></Table>
-        <Pagination v-if=totalPages :page=page :total=totalPages></Pagination>
+        <Pagination     
+            v-if=totalPages 
+            @custom-page-change="handleCustomChange"
+            :page=page 
+            :total=totalPages>
+        </Pagination>
+        <Table 
+            v-if=setItems 
+            :items=setItems>
+        </Table>
+        <Pagination     
+            v-if=totalPages 
+            @custom-page-change="handleCustomChange"
+            :page=page 
+            :total=totalPages>
+        </Pagination>
     </BackofficeLayout>
 </template>
 

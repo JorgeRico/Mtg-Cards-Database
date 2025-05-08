@@ -221,6 +221,10 @@ button:focus {
     text-align: center !important; 
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 @media (min-width: 768px) {
     .d-md-flex {
       display: -webkit-box !important;

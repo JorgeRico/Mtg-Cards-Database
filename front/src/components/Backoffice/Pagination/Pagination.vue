@@ -3,6 +3,16 @@
         page  : number,
         total : number
     }>()
+
+    type IEmit = {
+        (event: 'customPageChange', index: number): number
+    };
+    const emit = defineEmits<IEmit>();
+    
+    const handleChange = (index: number) => {
+        emit('customPageChange', index)
+    }
+
 </script>
 
 <template>
@@ -13,8 +23,8 @@
                     <a class="page-link" href="#" tabindex="-1">Previous</a>
                 </li>
                 <li class="page-item" v-for="index in props.total" :key="index">
-                    <a v-if="props.page==index" class="active page-link" href="#">{{ index }}</a>
-                    <a v-else class="page-link" href="#">{{ index }}</a>
+                    <a v-if="props.page==index" class="active page-link pointer" @click="handleChange(index)">{{ index }}</a>
+                    <a v-else class="page-link pointer" @click="handleChange(index)">{{ index }}</a>
                 </li>
                 <li class="page-item">
                     <a class="page-link" href="#">Next</a>
