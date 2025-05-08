@@ -319,15 +319,38 @@ button:focus {
 
 .complete {
     background: #28a745 !important;
+    
+    & a {
+        color: white;
+    }
+}
+
+td.complete{
+    color: white;
 }
 
 .softcomplete {
     background: greenyellow !important;
+
+    & a {
+        color: black;
+    }
+}
+
+td.softcomplete{
+    color: black;
 }
 
 .working {
     background: darkorange !important;
+
+    & a {
+        color: black;
+    }
 }
 
+td.working{
+    color: black;
+}
 
 

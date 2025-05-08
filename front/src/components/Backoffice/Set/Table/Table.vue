@@ -23,7 +23,7 @@
         </thead>
         <tbody>
             <tr v-for="item in props.items">
-                <Row v-if=item :item=item></Row>
+                <Row :key=item :item=item></Row>
             </tr>
         </tbody>
     </table>

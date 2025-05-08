@@ -1,18 +1,17 @@
 <script setup lang="ts">
     const props = defineProps<{
-        page  : number,
-        total : number
+        page  : Number,
+        total : Number
     }>()
 
     type IEmit = {
-        (event: 'customPageChange', index: number): number
+        (event: 'customPageChange', index: Number): Number
     };
     const emit = defineEmits<IEmit>();
     
-    const handleChange = (index: number) => {
+    const handleChange = (index: Number) => {
         emit('customPageChange', index)
     }
-
 </script>
 
 <template>

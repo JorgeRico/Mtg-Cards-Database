@@ -1,9 +1,9 @@
 <script setup lang="ts">
     const props = defineProps<{
-        title    : string,
-        subtitle : string,
-        urlLink  : string,
-        urlText  : string
+        title    : String,
+        subtitle : String,
+        urlLink  : String,
+        urlText  : String
     }>()
 </script>
 

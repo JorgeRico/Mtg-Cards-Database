@@ -1,14 +1,15 @@
 <script setup lang="ts">
     interface SetInfo {
-        numTotal             : number,
-        numTotalComplete     : number,
-        numTotalCards        : number,
-        numTotalPendingCards : number
-        numTotalCardsOwn     : number
+        numTotal             : Number,
+        numTotalComplete     : Number,
+        numTotalCards        : Number,
+        numTotalPendingCards : Number,
+        numTotalCardsOwn     : Number
     }
 
     const props = defineProps<{
-        data : SetInfo 
+        hasFilters : Boolean,
+        data       : SetInfo
     }>()
 </script>
 
@@ -17,7 +18,7 @@
         <div>
             <strong>Total Sets: </strong>{{ props.data.numTotal }}
         </div>
-        <div>
+        <div v-if="hasFilters == false">
             <strong>Total Complete Sets: </strong>{{ props.data.numTotalComplete }}
         </div>
         <br>
