@@ -106,7 +106,7 @@ module.exports = class SetCard {
     }
 
     orderBy(orderById) {
-        let orderBy = "";
+        let orderBy = "cardName ASC";
 
         if (orderById === 'id') {
             orderBy = "id ASC";
