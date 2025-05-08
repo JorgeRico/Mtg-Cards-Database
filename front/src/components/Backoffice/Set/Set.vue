@@ -2,13 +2,33 @@
     import BackofficeLayout from '@layouts/BackofficeLayout.vue';
     import Table from '@components/Backoffice/Set/Table/Table.vue';
     import Filters from '@components/Backoffice/Set/List/Filters.vue';
-    import Info from '@components/Backoffice/Set/List/Info.vue';
+    import Info from '@components/Backoffice/Set/Info/Set.vue';
     import Title from '@components/Backoffice/Set/List/Title.vue';
     import Pagination from '@components/Backoffice/Pagination/Pagination.vue';
     import { ref } from 'vue';
 
-    const setInfo    = ref<Object>();
-    const setItems   = ref<Object[]>();
+    interface SetData {
+        complete       : number,
+        setTotalCards  : number,
+        ownedCards     : number,
+        setLogo        : string
+        setReleaseDate : string,
+        setAbrv        : string,
+        id             : number,
+        setName        : string,
+        specialCards   : number
+    }
+
+    interface Info {
+        numTotal             : number,
+        numTotalComplete     : number,
+        numTotalCards        : number,
+        numTotalPendingCards : number,
+        numTotalCardsOwn     : number
+    }
+
+    const setInfo    = ref<Info>({ 'numTotal': 0, 'numTotalComplete': 0, 'numTotalCards': 0, 'numTotalPendingCards': 0, 'numTotalCardsOwn': 0 });
+    const setItems   = ref<SetData[]>([]);
     const page       = ref<Number>(1);
     const limit      = ref<any>(100);
     const totalPages = ref<Number>(0);
@@ -17,7 +37,7 @@
 
     // get set list
     function getSets() {
-        let url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SETS;
+        let url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SETS_ENDPOINT;
         url += '?page=' + page.value;
         url += '&filter=' + filters.value;
 
@@ -41,7 +61,7 @@
 
     // get section info
     function getSetInfo() {
-        let url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_NUMSETS;
+        let url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SETS_NUM_ENDPOINT;
         url += '?filter=' + filters.value;
 
         fetch(url)
@@ -76,7 +96,7 @@
         filters.value  = num;
         page.value     = 1;
         setItems.value = [];
-        setInfo.value  = {};
+        // setInfo.value  = ;
 
         if (num != 0) {
             hasFilters.value = true;
@@ -111,7 +131,7 @@
         <Filters 
             @custom-filter-change="handleCustomFilterChange">
         </Filters>
-        <Pagination     
+        <Pagination
             :key=totalPages 
             @custom-page-change="handleCustomChange"
             :page=page 
@@ -121,7 +141,7 @@
             :key=setItems 
             :items=setItems>
         </Table>
-        <Pagination     
+        <Pagination   
             :key=totalPages 
             @custom-page-change="handleCustomChange"
             :page=page

@@ -1,10 +1,10 @@
 <script setup lang="ts">
     interface SetInfo {
-        numTotal             : Number,
-        numTotalComplete     : Number,
-        numTotalCards        : Number,
-        numTotalPendingCards : Number,
-        numTotalCardsOwn     : Number
+        numTotal             : number,
+        numTotalComplete     : number,
+        numTotalCards        : number,
+        numTotalPendingCards : number,
+        numTotalCardsOwn     : number
     }
 
     const props = defineProps<{
