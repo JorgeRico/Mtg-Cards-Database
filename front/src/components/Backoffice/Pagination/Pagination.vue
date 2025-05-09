@@ -1,21 +1,21 @@
 <script setup lang="ts">
     const props = defineProps<{
-        page  : Number,
-        total : Number
+        page  : number,
+        total : number
     }>()
 
     type IEmit = {
-        (event: 'customPageChange', index: Number): Number
+        (event: 'customPageChange', index: number): number
     };
     const emit = defineEmits<IEmit>();
     
-    const handleChange = (index: Number) => {
+    const handleChange = (index: number) => {
         emit('customPageChange', index)
     }
 </script>
 
 <template>
-    <div class="left mt10 w-100">
+    <div class="left mt10 w100">
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
                 <li class="page-item disabled">

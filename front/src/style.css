@@ -127,7 +127,7 @@ button:focus {
     padding: 1.5rem !important; 
 }
 
-.mb-0 {
+.mb0 {
     margin-bottom: 0 !important; 
 }
 
@@ -209,11 +209,11 @@ button:focus {
     align-items: center !important; 
 }
 
-.w-50 {
+.w50 {
     width: 50% !important; 
 }
 
-.w-100 {
+.w100 {
     width: 100% !important; 
 }
 

@@ -1,16 +1,16 @@
 <script setup lang="ts">
     type IEmit = {
-        (event: 'customFilterChange', option: Number): Number
+        (event: 'customFilterChange', option: number): number
     };
     const emit = defineEmits<IEmit>();
     
-    const getSetListFiltered = (option: Number) => {
+    const getSetListFiltered = (option: number) => {
         emit('customFilterChange', option)
     }
 </script>
 
 <template>
-    <div class="right d-flex mb10 w-100 justify-content-end">
+    <div class="right d-flex mb10 w100 justify-content-end">
         <button type="button" class="btn btn-primary" @click="getSetListFiltered(0)">All sets</button>
         <button type="button" class="btn btn-success" @click="getSetListFiltered(1)">Complete sets</button>
         <button type="button" class="btn btn-warning" @click="getSetListFiltered(2)">Working sets</button>

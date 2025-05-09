@@ -13,7 +13,7 @@
         <Card title="Welcome to register" subtitle="You have an account?" urlLink="/" urlText="Sign in"></Card>
         <div class="login-wrap p-4 p-lg-5">
             <div class="d-flex">
-                <div class="w-100">
+                <div class="w100">
                     <h3 class="mb-4">Register</h3>
                 </div>
             </div>

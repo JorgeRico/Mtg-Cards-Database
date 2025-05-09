@@ -1,15 +1,15 @@
 <script setup lang="ts">
     const props = defineProps<{
-        title    : String,
-        subtitle : String,
-        urlLink  : String,
-        urlText  : String
+        title    : string,
+        subtitle : string,
+        urlLink  : string,
+        urlText  : string
     }>()
 </script>
 
 <template>
     <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center">
-        <div class="text w-100">
+        <div class="text w100">
             <h2>{{ props.title }}</h2>
             <p>{{ props.subtitle }}</p>
             <RouterLink :to="{path: props.urlLink}">

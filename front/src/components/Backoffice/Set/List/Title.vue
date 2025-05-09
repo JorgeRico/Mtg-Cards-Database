@@ -2,7 +2,7 @@
     import { ref } from 'vue';
 
     const props = defineProps<{
-        option : Number
+        option : number
     }>()
 
     const text = ref<String>("");

@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import BackofficeLayout from '@layouts/BackofficeLayout.vue';
     import Table from '@components/Backoffice/Card/Table/Table.vue';
+    import Info from '@components/Backoffice/Card/Table/Info.vue';
     import { useRoute } from 'vue-router'
     import { ref } from 'vue'
 
@@ -24,6 +25,7 @@
     }
 
     interface SetData {
+        id              : number,
         setName         : string,
         setReleaseDate  : string,
         setTotalCards   : number,
@@ -37,10 +39,9 @@
         oversizedCards  : number
     }
 
-    const setInfo    = ref<SetData>({ setName: '', setReleaseDate: '', setTotalCards: 0, ownedCards: 0, setLogo: '', numCardsOnADeck: 0, numPendingCards: 0, complete: false, specialCards: 0,  backCards: 0, oversizedCards: 0 });
+    const setInfo    = ref<SetData>({ id: 0, setName: '', setReleaseDate: '', setTotalCards: 0, ownedCards: 0, setLogo: '', numCardsOnADeck: 0, numPendingCards: 0, complete: false, specialCards: 0,  backCards: 0, oversizedCards: 0 });
     const setItems   = ref<CardData[]>([]);
     // const filters    = ref<Number>(0);
-    // const hasFilters = ref<Boolean>(false);
     
     // get set list
     function getSetData() {
@@ -48,7 +49,7 @@
 
         fetch(url).then(async response => {
             const data    = await response.json();
-            setInfo.value = await data.data;
+            setInfo.value = await data.data[0];
 
             // check for error response
             if (!response.ok) {
@@ -84,14 +85,6 @@
         });
     }
 
-    // // click on pagination option
-    // function handleCustomChange(index : Number) {
-    //     page.value     = index;
-    //     setItems.value = [];
-
-    //     getSets();
-    // }
-
     // init
     const initialize = () => {
         getCards();
@@ -103,8 +96,10 @@
 
 <template>
     <BackofficeLayout>
-        <h1>card set template</h1>
-        <p>Looking for Product: {{ id }}</p>
+        <Info 
+            :key=setInfo
+            :item=setInfo>
+        </Info>
         <Table 
             :key=setItems 
             :items=setItems>
