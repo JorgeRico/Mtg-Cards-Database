@@ -38,10 +38,30 @@
         {{ props.item.cardName }}
     </td>
     <td :class=className>
-        <div>on a deck: {{ props.item.isOnADeck }}</div>
-        <div>need upgrade: {{ props.item.needUpgrade}}</div>
-        <div>pending to arrive: {{ props.item.pendingToArrive}}</div>
-        <div>own: {{ props.item.own}}</div>
+        <div class="mb10">
+            <span>on a deck: </span> 
+            <a href="#" :class="props.item.isOnADeck==true ? 'disable-link' : ''">yes</a> 
+            <span class="ml5 mr5">|</span>
+            <a href="#" :class="props.item.isOnADeck==false ? 'disable-link' : ''">no</a>
+        </div>
+        <div class="mb10">
+            <span>need upgrade: </span>
+            <a href="#" :class="props.item.needUpgrade==true ? 'disable-link' : ''">yes</a>
+            <span class="ml5 mr5">|</span>
+            <a href="#" :class="props.item.needUpgrade==false ? 'disable-link' : ''">no</a>
+        </div>
+        <div class="mb10">
+            <span>pending to arrive: </span>
+            <a href="#" :class="props.item.pendingToArrive==true ? 'disable-link' : ''">yes</a>
+            <span class="ml5 mr5">|</span>
+            <a href="#" :class="props.item.pendingToArrive==false ? 'disable-link' : ''">no</a>
+        </div>
+        <div class="mb10">
+            <span>own: </span>
+            <a href="#" :class="props.item.own==true ? 'disable-link' : ''">yes</a>
+            <span class="ml5 mr5">|</span>
+            <a href="#" :class="props.item.own==false ? 'disable-link' : ''">no</a>
+        </div>
     </td>
 </template>
 
