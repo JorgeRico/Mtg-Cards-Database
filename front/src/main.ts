@@ -10,8 +10,18 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { fas } from '@fortawesome/free-solid-svg-icons'
 library.add(fas)
 dom.watch();
+// Toast messages
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
+// APP
 const app = createApp(App)
 app.use(router)
 app.component("font-awesome-icon", FontAwesomeIcon)
+app.use(Toast, {
+    transition: "Vue-Toastification__bounce",
+    maxToasts: 20,
+    newestOnTop: true,
+    shareAppContext: true
+});
 app.mount('#app')

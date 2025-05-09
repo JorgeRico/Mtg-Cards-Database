@@ -14,13 +14,13 @@
         cardJsonLink    : string,
         cardUri         : string,
         cardImg         : string,
-        special         : boolean,
-        own             : boolean,
-        pendingToArrive : boolean,
-        isOnADeck       : boolean,
-        isBackCard      : boolean,
-        needUpgrade     : boolean,
-        isOversized     : boolean
+        special         : number,
+        own             : number,
+        pendingToArrive : number,
+        isOnADeck       : number,
+        isBackCard      : number,
+        needUpgrade     : number,
+        isOversized     : number
     }
 
     interface SetData {
