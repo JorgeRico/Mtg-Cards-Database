@@ -25,7 +25,7 @@ function updateOwnSetCard(id, own, idSet) {
 function updateAllOwnSetCard(own, idSet) {
     var query =
         `UPDATE mtgCard 
-        SET own = "${own}"
+        SET own = "${own}", pendingToArrive = 0
         WHERE idSet = ${idSet}`;
 
     return query;
@@ -40,29 +40,14 @@ function updateCompleteSet(complete, idSet) {
     return query;
 }
 
-function updateAllPending(idSet, pendingToArrive) {
-    var query =
-        `UPDATE mtgCard 
-        SET pendingToArrive = ${pendingToArrive}
-        WHERE idSet = ${idSet}`;
-
-    return query;
-}
-
 function updatePendingToArriveCard(pendingToArrive, id, idSet) {
+    var own = 0;
+    if (pendingToArrive == 0) {
+        own = 1;
+    }
     var query =
         `UPDATE mtgCard 
-        SET pendingToArrive = "${pendingToArrive}", own = 0
-        WHERE id = ${id}
-        AND idSet = ${idSet}`;
-
-    return query;
-}
-
-function updateBetterGrade(id, idSet, value) {
-    var query =
-        `UPDATE mtgCard 
-        SET needUpgrade = "${value}"
+        SET pendingToArrive = "${pendingToArrive}", own = "${own}"
         WHERE id = ${id}
         AND idSet = ${idSet}`;
 
@@ -74,6 +59,16 @@ function updatePendingToArriveAllCards(pendingToArrive, idSet) {
             `UPDATE mtgCard 
             SET pendingToArrive = "${pendingToArrive}", own = 0
             WHERE idSet = ${idSet}`;
+
+    return query;
+}
+
+function updateBetterGrade(id, idSet, value) {
+    var query =
+        `UPDATE mtgCard 
+        SET needUpgrade = "${value}"
+        WHERE id = ${id}
+        AND idSet = ${idSet}`;
 
     return query;
 }
@@ -94,7 +89,6 @@ module.exports = {
     updateOwnSetCard,
     updateAllOwnSetCard,
     updateCompleteSet,
-    updateAllPending,
     updatePendingToArriveCard,
     updateBetterGrade,
     updatePendingToArriveAllCards,

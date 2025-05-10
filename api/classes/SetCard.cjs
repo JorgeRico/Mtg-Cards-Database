@@ -36,10 +36,6 @@ module.exports = class SetCard {
         return this.update(queries.updateCompleteSet(complete, idSet));
     }
 
-    updateAllPending(idSet, pendingToArrive) {
-        return this.update(queries.updateAllPending(idSet, pendingToArrive));
-    }
-
     updatePendingToArriveCard(pendingToArrive, id, idSet) {
         return this.update(queries.updatePendingToArriveCard(pendingToArrive, id, idSet));
     }
@@ -68,7 +64,7 @@ module.exports = class SetCard {
             // all set cards
             message = await this.updateAllOwnSetCard(value.own, idSet);
             message = await this.updateCompleteSet(value.own, idSet);
-            message = await this.updateAllPending(idSet, 0);
+            message = await this.updatePendingToArriveAllCards(idSet, 0);
         }
 
         return { message };
