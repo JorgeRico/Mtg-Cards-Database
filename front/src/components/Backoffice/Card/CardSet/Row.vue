@@ -65,6 +65,10 @@
 
             if (key == 'own') {
                 props.item.own = value;
+                
+                if (value == 1) {
+                    props.item.pendingToArrive = 0;
+                }
                 setClassName(value)
             }
             if (key == 'needUpgrade') {
@@ -75,6 +79,10 @@
             }
             if (key == 'pendingToArrive') {
                 props.item.pendingToArrive = value;
+                if (value == 1) {
+                    props.item.own = 0;
+                }
+                setClassName(props.item.own);
             }
 
             // check for error response

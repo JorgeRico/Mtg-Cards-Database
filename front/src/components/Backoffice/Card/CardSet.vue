@@ -1,8 +1,8 @@
 <script setup lang="ts">
     import BackofficeLayout from '@layouts/BackofficeLayout.vue';
-    import Table from '@components/Backoffice/Card/Table/Table.vue';
-    import Filters from '@components/Backoffice/Card/Table/Filters.vue';
-    import Info from '@components/Backoffice/Card/Table/Info.vue';
+    import Table from '@components/Backoffice/Card/CardSet/Table.vue';
+    import Filters from '@components/Backoffice/Card/CardSet/Filters.vue';
+    import Info from '@components/Backoffice/Card/CardSet/Info.vue';
     import { useRoute } from 'vue-router';
     import { ref } from 'vue';
     import { useToast } from 'vue-toastification';
