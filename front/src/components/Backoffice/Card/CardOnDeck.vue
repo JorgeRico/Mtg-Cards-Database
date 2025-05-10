@@ -17,7 +17,8 @@
     }
 
     const setItems = ref<CardData[]>([]);
-    
+    const total    = ref<number>(0);
+
     // // get set list
     function getData() {
         let url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ON_DECKS_ENDPOINT;
@@ -25,6 +26,7 @@
         fetch(url).then(async response => {
             const data     = await response.json();
             setItems.value = await data.data;
+            total.value    = await data.data.length;
 
             // check for error response
             if (!response.ok) {
@@ -50,6 +52,8 @@
 
 <template>
     <BackofficeLayout>
+        <h1>Cards on decks</h1>
+        <p class="mb40"><strong>num cards:</strong> {{ total }}</p>
         <Table
             :key=setItems 
             :isPendingCard=false

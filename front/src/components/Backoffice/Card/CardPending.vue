@@ -17,6 +17,7 @@
     }
 
     const setItems = ref<CardData[]>([]);
+    const total    = ref<number>(0);
     
     // // get set list
     function getData() {
@@ -25,6 +26,7 @@
         fetch(url).then(async response => {
             const data     = await response.json();
             setItems.value = await data.data;
+            total.value    = await data.data.length;
 
             // check for error response
             if (!response.ok) {
@@ -50,6 +52,8 @@
 
 <template>
     <BackofficeLayout>
+        <h1>Cards pending to arrive</h1>
+        <p class="mb40"><strong>num cards:</strong> {{ total }}</p>
         <Table
             :key=setItems 
             :isPendingCard=true
