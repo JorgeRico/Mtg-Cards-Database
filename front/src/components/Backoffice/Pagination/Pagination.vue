@@ -21,7 +21,7 @@
                 <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1">Previous</a>
                 </li>
-                <li class="page-item" v-for="index in props.total" :key="index">
+                <li class="page-item" v-for="index in props.total" :key=index>
                     <a v-if="props.page==index" class="active page-link pointer" @click="handleChange(index)">{{ index }}</a>
                     <a v-else class="page-link pointer" @click="handleChange(index)">{{ index }}</a>
                 </li>

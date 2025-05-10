@@ -36,7 +36,6 @@
         fetch(url).then(async response => {
             const data     = await response.json();
             setItems.value = await data.data;
-            page.value     = await data.meta.page;
 
             // check for error response
             if (!response.ok) {
@@ -75,7 +74,7 @@
     }
 
     // click on pagination option
-    function handleCustomChange(index : Number) {
+    function handleCustomChange(index : number) {
         page.value     = index;
         setItems.value = [];
 
