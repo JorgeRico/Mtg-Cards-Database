@@ -13,6 +13,8 @@ dom.watch();
 // Toast messages
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+// bootstrap
+import * as bootstrap from 'bootstrap';
 
 // APP
 const app = createApp(App)
@@ -24,4 +26,5 @@ app.use(Toast, {
     newestOnTop: true,
     shareAppContext: true
 });
+app.component('bootstrap', bootstrap)
 app.mount('#app')

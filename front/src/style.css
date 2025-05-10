@@ -163,6 +163,10 @@ button:focus {
     margin-left: 5px;
 }
 
+.ml10 {
+    margin-left: 10px;
+}
+
 .mr5 {
     margin-right: 5px;
 }
