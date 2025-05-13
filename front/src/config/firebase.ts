@@ -26,6 +26,7 @@ const helpers = {
 
         await signInWithEmailAndPassword(auth, email, password).then((response) => {
             router.push({name: 'sets'})
+
         }).catch(function(error) {
             switch (error.code) {
                 case 'auth/invalid-email':
@@ -41,19 +42,21 @@ const helpers = {
                     errorMessage = 'Too many attempts, try in 1 hour';
                     break;
             }
-            console.log('error')
+
             toast.error(errorMessage);
         })
     },
     async recover(email: string) {    
         const toast = useToast();
           
-        await sendPasswordResetEmail(auth, email).then((response) => {
-            // context.commit('successMessage', 'Recibirás un email con las instrucciones para cambiar tu contraseña');
-            console.log('Send recover password success')
+        return await sendPasswordResetEmail(auth, email).then((response) => {
             toast.success("Check your e-mail to proceed to change your password");
+
+            return true;
         }).catch(function(error) {
             toast.error('Wrong email');
+            
+            return false;
         })
     },
     async logout(){
@@ -68,9 +71,10 @@ const helpers = {
         var errorMessage = null;
         const toast      = useToast();
 
-        await createUserWithEmailAndPassword(auth, email, password).then((response) => {
-            // context.commit('successMessage', 'User created correctly');
+        return await createUserWithEmailAndPassword(auth, email, password).then((response) => {
             toast.success('User created correctly');
+            
+            return true;
         }).catch(function(error) {
             switch (error.code) {
                 case 'auth/invalid-email':
@@ -84,6 +88,8 @@ const helpers = {
                     break;
             }
             toast.error(errorMessage);
+            
+            return false;
         })
     }
 }

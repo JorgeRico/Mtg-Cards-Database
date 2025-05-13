@@ -5,6 +5,8 @@
     import { TextField, PasswordField } from '@asigloo/vue-dynamic-forms';
     import { ref } from 'vue';
 
+    const hide = ref<Boolean>(false);
+
     const form = ref({
         id: 'register-form',
         fields: {
@@ -23,7 +25,9 @@
         var email    = document.querySelector<HTMLInputElement>('input[name="email"]')?.value;
         var password = document.querySelector<HTMLInputElement>('input[name="password"]')?.value;
             
+        hide.value = true;
         helpers.signup(email, password);
+        setTimeout(() => { hide.value = false; }, 2000);
     }
 </script>
 
@@ -36,12 +40,15 @@
                     <h3 class="mb-4">Register</h3>
                 </div>
             </div>
-            <dynamic-form :form=form @submit.prevent="checkRegister" class="signin-form">
+            <dynamic-form :form=form @submit.prevent="checkRegister" class="signin-form mb40">
                 <input :label="form.fields.email.label" class="form-control mb-3">
                 <input :label="form.fields.password.label" class="form-control mb-3">
             </dynamic-form>
-            <div class="form-group">
-                <button type="submit" class="form-control btn-auth submit px-3 mt10" @click="checkRegister">Register</button>
+            <div class="form-group" v-if="hide==false">
+                <button type="submit" class="form-control btn-auth submit px-3 mt20" @click="checkRegister">Register</button>
+            </div>
+            <div class="form-group" v-else>
+                <button type="submit" disabled class="form-control submit px-3 mt20">Register</button>
             </div>
         </div>
     </AuthLayout>

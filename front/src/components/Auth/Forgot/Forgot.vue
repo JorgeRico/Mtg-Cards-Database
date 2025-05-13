@@ -1,11 +1,28 @@
 <script setup lang="ts">
     import AuthLayout from '@layouts/AuthLayout.vue';
     import Card from '@components/Auth/Card/Card.vue';
+    import helpers from '@config/firebase.ts';
+    import { TextField } from '@asigloo/vue-dynamic-forms';
+    import { ref } from 'vue';
 
-    defineExpose({
-        AuthLayout,
-        Card
+    const form = ref({
+        id: 'forgot-form',
+        fields: {
+            email: TextField({
+                label: 'Username',
+                placeholder: 'Username',
+            })
+        },
     });
+
+    const hide = ref<Boolean>(false);
+
+    async function handleForgot() {
+        var email  = document.querySelector<HTMLInputElement>('input[name="email"]')?.value;
+        hide.value = true;
+        await helpers.recover(email);
+        setTimeout(() => { hide.value = false; }, 2000);
+    }
 </script>
 
 <template>
@@ -17,15 +34,15 @@
                     <h3 class="mb-4">Forgot Password</h3>
                 </div>
             </div>
-            <form action="#" class="signin-form">
-                <div class="form-group mb-3 mt20">
-                    <label class="label" for="email">E-mail</label>
-                    <input type="text" class="form-control mt5" placeholder="E-mail" required>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="form-control btn-auth submit px-3 mt10 mb40">Recover password</button>
-                </div>
-            </form>
+            <dynamic-form :form=form @submit.prevent="handleForgot" class="signin-form">
+                <input :label="form.fields.email.label" class="form-control mb-3">
+            </dynamic-form>
+            <div class="form-group" v-if="hide==false">
+                <button type="submit" class="form-control btn-auth submit px-3 mt10 mb40" @click="handleForgot">Recover password</button>
+            </div>
+            <div class="form-group" v-else>
+                <button type="submit" disabled class="form-control submit px-3 mt10 mb40">Recover password</button>
+            </div>
         </div>
     </AuthLayout>
 </template>
