@@ -104,25 +104,5 @@
 </template>
 
 <style lang="css" scoped>
-    .btn-reset {
-        background: #f35588 !important;
-        border: 1px solid #f35588 !important;
-        color: #fff !important;
-        background: #f75959 !important;
-        background: -moz-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
-        background: -webkit-gradient(left top, right bottom, color-stop(0%, #f75959), color-stop(100%, #f35587));
-        background: -webkit-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
-        background: -o-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
-        background: -ms-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
-        background: -webkit-linear-gradient(315deg, #f75959 0%, #f35587 100%);
-        background: -o-linear-gradient(315deg, #f75959 0%, #f35587 100%);
-        background: linear-gradient(135deg, #f75959 0%, #f35587 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f75959', endColorstr='#f35587', GradientType=1 ); 
-    }
-
-    .btn-reset:hover {
-        border: 1px solid #f35588 !important;
-        background: #f35588 !important;
-        color: #fff !important; 
-    }
+    
 </style>
