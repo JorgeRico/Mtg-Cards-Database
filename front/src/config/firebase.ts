@@ -1,12 +1,9 @@
-//Import the required methods
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from 'firebase/auth';
 import router from '../router';
 import { useToast } from 'vue-toastification';
 
-
-//The config we copied from firebase(Replace with your config)
 const firebaseConfig = {
     apiKey            : import.meta.env.VITE_FIREBASE_API_KEY,
     authDomain        : import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -19,17 +16,15 @@ const firebaseConfig = {
 //initialize the firebase app
 initializeApp(firebaseConfig)
 
-// //initialize firebase auth
+//initialize firebase auth
 const auth = getAuth()
 
 const helpers = {
     async login(email: string, password: string) {
         var errorMessage = null;
-        const toast = useToast();
+        const toast      = useToast();
 
-        
-        await signInWithEmailAndPassword(auth, email, password)
-        .then((response) => {
+        await signInWithEmailAndPassword(auth, email, password).then((response) => {
             router.push({name: 'sets'})
         }).catch(function(error) {
             switch (error.code) {
@@ -53,8 +48,7 @@ const helpers = {
     async recover(email: string) {    
         const toast = useToast();
           
-        await sendPasswordResetEmail(auth, email)
-        .then((response) => {
+        await sendPasswordResetEmail(auth, email).then((response) => {
             // context.commit('successMessage', 'Recibirás un email con las instrucciones para cambiar tu contraseña');
             console.log('Send recover password success')
             toast.success("Check your e-mail to proceed to change your password");
@@ -63,20 +57,18 @@ const helpers = {
         })
     },
     async logout(){
-        // firebase signout
-        await signOut(auth);
-        // Destroy user
-        // context.commit('setUser', null)
-        // Redirecto to home
-        router.push({name: 'home'})
+        await signOut(auth).then(() => {
+            // Sign-out successful.
+            router.push({name: 'home'})
+        }).catch((error) => {
+            console.log(error)
+        });
     },
     async signup(email: string, password: string){
         var errorMessage = null;
-        const toast = useToast();
+        const toast      = useToast();
 
-        
-        await createUserWithEmailAndPassword(auth, email, password)
-        .then((response) => {
+        await createUserWithEmailAndPassword(auth, email, password).then((response) => {
             // context.commit('successMessage', 'User created correctly');
             console.log('register success')
         }).catch(function(error) {
