@@ -5,6 +5,8 @@
     import { TextField, PasswordField } from '@asigloo/vue-dynamic-forms';
     import { ref } from 'vue';
 
+    const hide = ref<Boolean>(false);
+
     const form = ref({
         id: 'login-form',
         fields: {
@@ -22,8 +24,10 @@
     function checkLogin() {
         var email    = document.querySelector<HTMLInputElement>('input[name="email"]')?.value;
         var password = document.querySelector<HTMLInputElement>('input[name="password"]')?.value;
-            
+
+        hide.value   = true;
         helpers.login(email, password);
+        setTimeout(() => { hide.value = false; }, 2000);
     }
 </script>
 
@@ -40,8 +44,11 @@
                 <input :label="form.fields.email.label" class="form-control mb-3">
                 <input :label="form.fields.password.label" class="form-control mb-3">
             </dynamic-form>
-            <div class="form-group">
+            <div class="form-group" v-if="hide==false">
                 <button type="submit" class="form-control btn-auth submit px-3 mt10" @click="checkLogin">Sign In</button>
+            </div>
+            <div class="form-group" v-else>
+                <button type="submit" disabled class="form-control submit px-3 mt10">Sign In</button>
             </div>
             <div class="form-group d-md-flex">
                 <div class="w50 text-left">
