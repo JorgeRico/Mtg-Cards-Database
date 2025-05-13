@@ -70,7 +70,7 @@ const helpers = {
 
         await createUserWithEmailAndPassword(auth, email, password).then((response) => {
             // context.commit('successMessage', 'User created correctly');
-            console.log('register success')
+            toast.success('User created correctly');
         }).catch(function(error) {
             switch (error.code) {
                 case 'auth/invalid-email':

@@ -1,11 +1,30 @@
 <script setup lang="ts">
     import AuthLayout from '@layouts/AuthLayout.vue';
     import Card from '@components/Auth/Card/Card.vue';
+    import helpers from '@config/firebase.ts';
+    import { TextField, PasswordField } from '@asigloo/vue-dynamic-forms';
+    import { ref } from 'vue';
 
-    defineExpose({
-        AuthLayout,
-        Card
+    const form = ref({
+        id: 'register-form',
+        fields: {
+            email: TextField({
+                label: 'Username',
+                placeholder: 'Username',
+            }),
+            password: PasswordField({
+                label: 'Password',
+                placeholder: 'Password',
+            }),
+        },
     });
+
+    function checkRegister() {
+        var email    = document.querySelector<HTMLInputElement>('input[name="email"]')?.value;
+        var password = document.querySelector<HTMLInputElement>('input[name="password"]')?.value;
+            
+        helpers.signup(email, password);
+    }
 </script>
 
 <template>
@@ -17,19 +36,23 @@
                     <h3 class="mb-4">Register</h3>
                 </div>
             </div>
-            <form action="#" class="signin-form">
-                <div class="form-group mb-3">
+            <!-- <form action="#" class="signin-form"> -->
+                <!-- <div class="form-group mb-3">
                     <label class="label" for="name">Username</label>
                     <input type="text" class="form-control mt5" placeholder="Username" required>
                 </div>
                 <div class="form-group mb-3">
                     <label class="label" for="password">Password</label>
-                <input type="password" class="form-control mt5" placeholder="Password" required>
-                </div>
+                <input type="password" class="form-control mt5" placeholder="Password" required> -->
+                <dynamic-form :form=form @submit.prevent="checkRegister" class="signin-form">
+                    <input :label="form.fields.email.label" class="form-control mb-3">
+                    <input :label="form.fields.password.label" class="form-control mb-3">
+                </dynamic-form>
+                <!-- </div> -->
                 <div class="form-group">
-                    <button type="submit" class="form-control btn-auth submit px-3 mt10">Register</button>
+                    <button type="submit" class="form-control btn-auth submit px-3 mt10" @click="checkRegister">Register</button>
                 </div>
-            </form>
+            <!-- </form> -->
         </div>
     </AuthLayout>
 </template>
