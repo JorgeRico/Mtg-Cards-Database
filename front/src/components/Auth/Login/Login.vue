@@ -1,12 +1,30 @@
 <script setup lang="ts">
     import AuthLayout from '@layouts/AuthLayout.vue';
     import Card from '@components/Auth/Card/Card.vue';
+    import helpers from '@config/firebase.ts';
+    import { TextField, PasswordField } from '@asigloo/vue-dynamic-forms';
+    import { ref } from 'vue';
 
-    defineExpose({
-        AuthLayout,
-        Card
+    const form = ref({
+        id: 'login-form',
+        fields: {
+            email: TextField({
+                label: 'Username',
+                placeholder: 'Username',
+            }),
+            password: PasswordField({
+                label: 'Password',
+                placeholder: 'Password',
+            }),
+        },
     });
 
+    function checkLogin() {
+        var email    = document.querySelector<HTMLInputElement>('input[name="email"]')?.value;
+        var password = document.querySelector<HTMLInputElement>('input[name="password"]')?.value;
+            
+        helpers.login(email, password);
+    }
 </script>
 
 <template>
@@ -18,30 +36,25 @@
                     <h3 class="mb-4">Sign In</h3>
                 </div>
             </div>
-            <form action="#" class="signin-form">
-                <div class="form-group mb-3">
-                    <label class="label" for="name">Username</label>
-                    <input type="text" class="form-control mt5" placeholder="Username" required>
+            <dynamic-form :form=form @submit.prevent="checkLogin" class="signin-form">
+                <input :label="form.fields.email.label" class="form-control mb-3">
+                <input :label="form.fields.password.label" class="form-control mb-3">
+            </dynamic-form>
+            <div class="form-group">
+                <button type="submit" class="form-control btn-auth submit px-3 mt10" @click="checkLogin">Sign In</button>
+            </div>
+            <div class="form-group d-md-flex">
+                <div class="w50 text-left">
+                    <label class="checkbox-wrap checkbox-primary mb0">
+                        <span class="ml25">Remember Me</span>
+                        <input class="hide" type="checkbox" checked>
+                        <span class="checkmark"></span>
+                    </label>
                 </div>
-                <div class="form-group mb-3">
-                    <label class="label" for="password">Password</label>
-                    <input type="password" class="form-control mt5" placeholder="Password" required>
+                <div class="w50 text-right">
+                    <RouterLink to="/forgot">Forgot Password</RouterLink>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="form-control btn-auth submit px-3 mt10">Sign In</button>
-                </div>
-                <div class="form-group d-md-flex">
-                    <div class="w50 text-left">
-                        <label class="checkbox-wrap checkbox-primary mb0">Remember Me
-                            <input type="checkbox" checked>
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="w50 text-right">
-                        <RouterLink to="/forgot">Forgot Password</RouterLink>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </AuthLayout>
 </template>
@@ -80,5 +93,51 @@
     border: 1px solid transparent;
     background: #f35588;
     color: #fff; 
+}
+
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0; 
+}
+  
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "\f0c8";
+    font-family: "FontAwesome";
+    position: absolute;
+    color: rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    margin-top: -4px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s; 
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .checkmark:after {
+        -webkit-transition: none;
+        -o-transition: none;
+        transition: none; 
+    } 
+}
+  
+/* Show the checkmark when checked */
+.checkbox-wrap input:checked ~ .checkmark:after {
+    display: block;
+    content: "\f14a";
+    font-family: "FontAwesome";
+    color: rgba(0, 0, 0, 0.2); 
+}
+  
+/* Style the checkmark/indicator */
+.checkbox-primary {
+    color: #f35588; 
+}
+
+.checkbox-primary input:checked ~ .checkmark:after {
+    color: #f35588; 
 }
 </style>

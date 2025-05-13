@@ -1,4 +1,9 @@
 <script setup lang="ts">
+    import helpers from '@config/firebase.ts';
+
+    async function checkLogout() {
+        helpers.logout()
+    }
 
 </script>
 
@@ -52,7 +57,7 @@
                 </li>
             </ul>
             <div class="sidebar-footer">
-                <RouterLink to="/" class="sidebar-link">
+                <RouterLink :to="{}" @click="checkLogout" class="sidebar-link">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Logout</span>
                 </RouterLink>

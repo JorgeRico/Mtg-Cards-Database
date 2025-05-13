@@ -9,7 +9,6 @@
     const props = defineProps<{
         items : Logo[]
     }>()
-    console.log(props.items)
 </script>
 
 <template>

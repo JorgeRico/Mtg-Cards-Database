@@ -14,14 +14,12 @@ dom.watch();
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 // bootstrap
-import * as bootstrap from 'bootstrap';
+// import * as bootstrap from 'bootstrap';
 // dinamics forms
 import { createDynamicForms } from '@asigloo/vue-dynamic-forms';
 const VueDynamicForms = createDynamicForms({
   // Global Options go here
 });
-
-
 
 // APP
 const app = createApp(App)
@@ -33,6 +31,6 @@ app.use(Toast, {
     newestOnTop: true,
     shareAppContext: true
 });
-app.use(VueDynamicForms);
-app.component('bootstrap', bootstrap)
+app.use(VueDynamicForms)
+// app.component('bootstrap', bootstrap)
 app.mount('#app')

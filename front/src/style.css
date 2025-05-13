@@ -171,6 +171,10 @@ button:focus {
     margin-left: 10px;
 }
 
+.ml25 {
+    margin-left: 25px;
+}
+
 .mr5 {
     margin-right: 5px;
 }
@@ -198,18 +202,6 @@ button:focus {
 .form-group {
     margin-bottom: 1rem; 
 }
-
-/* .d-flex {
-    display: -webkit-box !important;
-    display: -ms-flexbox !important;
-    display: flex !important; 
-} */
-
-/* .justify-content-center {
-    -webkit-box-pack: center !important;
-    -ms-flex-pack: center !important;
-    justify-content: center !important; 
-} */
 
 .align-items-center {
     -webkit-box-align: center !important;

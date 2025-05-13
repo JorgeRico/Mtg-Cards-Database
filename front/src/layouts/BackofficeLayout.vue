@@ -2,7 +2,6 @@
     import NavBar from '@components/NavBar/NavBar.vue';
     import Footer from '@components/Backoffice/Footer/Footer.vue';
     import Header from '@components/Backoffice/Header/Header.vue';
-
 </script>
 
 <template>
