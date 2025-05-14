@@ -119,11 +119,31 @@
     </td>
     <td :class=className :key="props.item.own">
         <div class="mb10">
-            <span>on a deck: </span> 
+            <span class="left text-center cardIcon">
+                <i class="fa-solid fa-chess-queen"></i>
+            </span>
+            <span class="left cardOption ml10 mr10">special card: </span>
+            <RouterLink 
+                :to="{}" 
+                :class="props.item.special==1 ? 'disable-link gold' : ''">
+                yes
+            </RouterLink>
+            <span class="ml5 mr5">|</span>
+            <RouterLink 
+                :to="{}" 
+                :class="props.item.special==0 ? 'disable-link' : ''">
+                no
+            </RouterLink>
+        </div>
+        <div class="mb10">
+            <span class="left text-center cardIcon">
+                <i class="fa-solid fa-chess-board"></i>
+            </span>
+            <span class="left cardOption ml10 mr10">on a deck: </span> 
             <RouterLink 
                 :to="{}" 
                 @click="setIsOnADeck(1)"
-                :class="props.item.isOnADeck==1 ? 'disable-link' : ''">
+                :class="props.item.isOnADeck==1 ? 'disable-link gold' : ''">
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
@@ -135,11 +155,14 @@
             </RouterLink>
         </div>
         <div class="mb10">
-            <span>need upgrade: </span>
+            <span class="left text-center cardIcon">
+                <i class="fa-solid fa-chess-pawn"></i>
+            </span>
+            <span class="left cardOption ml10 mr10">need upgrade: </span>
             <RouterLink 
                 :to="{}" 
                 @click="setNeedUpgrade(1)"
-                :class="props.item.needUpgrade==1 ? 'disable-link' : ''">
+                :class="props.item.needUpgrade==1 ? 'disable-link gold' : ''">
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
@@ -151,11 +174,14 @@
             </RouterLink>
         </div>
         <div class="mb10">
-            <span>pending to arrive: </span>
+            <span class="left text-center cardIcon">
+                <i class="fa-solid fa-circle-arrow-right"></i>
+            </span>
+            <span class="left cardOption ml10 mr10">pending to arrive: </span>
             <RouterLink 
                 :to="{}" 
                 @click="setPendingYesNo(1)"
-                :class="props.item.pendingToArrive==1 ? 'disable-link' : ''">
+                :class="props.item.pendingToArrive==1 ? 'disable-link gold' : ''">
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
@@ -167,11 +193,14 @@
             </RouterLink>
         </div>
         <div class="mb10">
-            <span>own: </span>
+            <span class="left text-center cardIcon">
+                <i class="fa-solid fa-chess-rook"></i>
+            </span>
+            <span class="left cardOption ml10 mr10">own: </span>
             <RouterLink 
                 :to="{}" 
                 @click="setOwnYesNo(1)"
-                :class="props.item.own==1 ? 'disable-link' : ''">
+                :class="props.item.own==1 ? 'disable-link gold' : ''">
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
@@ -188,5 +217,28 @@
 <style lang="css" scoped>
     .cardImg {
         width: 100px;
+    }
+
+    .cardIcon {
+        width: 20px;
+    }
+
+    .cardOption {
+        width: 130px;
+    }
+
+    .gold {
+        color: gold !important;
+        text-shadow: -1px 1px 8px black;
+    }
+
+    td {
+        background: lightgray;
+        padding: 20px 0 10px 0;
+    }
+
+    td:first-child {
+        width: 20px;
+        text-align: center;
     }
 </style>

@@ -86,4 +86,13 @@
     .cardImg {
         width: 100px;
     }
+
+    td:first-child {
+        width: 20px;
+        text-align: center;
+    }
+
+    td {
+        padding: 20px 0 10px 0;
+    }
 </style>

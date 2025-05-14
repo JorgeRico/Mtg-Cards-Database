@@ -27,5 +27,8 @@
 </template>
 
 <style lang="css" scoped>
-    
+    th {
+        background: black;
+        color: white;
+    }
 </style>

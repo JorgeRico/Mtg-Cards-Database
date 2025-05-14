@@ -32,14 +32,24 @@
     <p class="mb0"><strong>Num cards on Decks</strong>: <strong>{{ props.item.numCardsOnADeck }}</strong></p>
     <p><strong>Owned cards</strong>: <strong>{{ props.item.ownedCards }}</strong></p>
 
-    <p v-if="props.item.complete==true">
+    <p v-if="props.item.complete==true" class="completeSet">
         <strong>Complete set</strong>: <strong>YES</strong>
     </p>
-    <p v-else>
+    <p v-else class="uncompleteSet">
         <strong>Complete set</strong>: <strong>NO</strong>
     </p> 
 </template>
 
 <style lang="css" scoped>
-    
+    .completeSet {
+        color: seagreen;
+        text-shadow: 8px 1px 15px black;
+        font-size: 20px;
+    }
+
+    .uncompleteSet {
+        color: red;
+        text-shadow: 8px 1px 15px black;
+        font-size: 20px;
+    }
 </style>

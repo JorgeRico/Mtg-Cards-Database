@@ -55,5 +55,15 @@
 <style lang="css" scoped>
     .logo {
         width: 25px;
+        margin: 0 auto;
+    }
+
+    td:first-child {
+        width: 20px;
+        text-align: center;
+    }
+
+    td {
+        padding: 10px;
     }
 </style>
