@@ -1,17 +1,12 @@
 import { createWebHashHistory, createRouter } from 'vue-router';
 // auth views
 import LoginView from './components/Auth/Login/Login.vue';
-
 import RegisterView from './components/Auth/Register/Register.vue';
-
 import ForgotView from './components/Auth/Forgot/Forgot.vue';
-
 // not found view
 import NotFoundView from './components/NotFound/NotFound.vue';
-
 // backoffice views
 import SetView from './components/Backoffice/Set/Set.vue';
-
 import SpecialSetView from './components/Backoffice/Set/SpecialSet.vue';
 import CardSetView from './components/Backoffice/Card/CardSet.vue';
 import CardOnDeckView from './components/Backoffice/Card/CardOnDeck.vue';
@@ -20,7 +15,6 @@ import CardUpgradeView from './components/Backoffice/Card/CardUpgrade.vue';
 import InsideLogosView from './components/Backoffice/Logos/InsideLogos.vue';
 import OutsideLogosView from './components/Backoffice/Logos/OutsideLogos.vue';
 import OnlineSetView from './components/Backoffice/Set/OnlineSet.vue';
-
 
 const routes = [
     { 

@@ -4,14 +4,14 @@ var router       = express.Router();
 
 /* GET Num Sets */
 router.get('/numSets', async function (req, res) {
-    specialSet = new SpecialSet();
-    res.status(200).send(JSON.stringify(await specialSet.getTotalNumSets()));
+    specialSetObject = new SpecialSet();
+    res.status(200).send(JSON.stringify(await specialSetObject.getTotalNumSets()));
 });
 
 /* GET Cards Set listing. */
 router.get('/', async function (req, res) {
-    specialSet = new SpecialSet();
-    res.status(200).send(JSON.stringify(await specialSet.getMultipleSets(req.query.filter, req.query.page)));
+    specialSetObject = new SpecialSet();
+    res.status(200).send(JSON.stringify(await specialSetObject.getMultipleSets(req.query.filter, req.query.page)));
 });
 
 module.exports = router;

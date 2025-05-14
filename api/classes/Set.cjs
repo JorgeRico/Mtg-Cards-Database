@@ -50,4 +50,18 @@ module.exports = class Set {
             // return { message };
         }
     }
+
+    async updateSetOnlineSet(id, value) {
+        try {
+            const resultSet  = await this.db.doQuery(queries.updateSetOnlineSet(id, value.onlineSet));
+            const resultCard = await this.db.doQuery(queries.updateSetOnlineSetCards(id, value.onlineSet));
+
+            if (resultSet.affectedRows && resultCard.affectedRows) {
+                return this.successMessage;
+            }
+        } catch (err) {
+            return this.errorMessage;
+            // return { message };
+        }
+    }
 }

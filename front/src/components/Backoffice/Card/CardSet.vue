@@ -39,10 +39,11 @@
         complete        : boolean,
         specialCards    : number,
         backCards       : number,
-        oversizedCards  : number
+        oversizedCards  : number,
+        onlineSet       : number
     }
 
-    const setInfo    = ref<SetData>({ id: 0, setName: '', setReleaseDate: '', setTotalCards: 0, ownedCards: 0, setLogo: '', numCardsOnADeck: 0, numPendingCards: 0, complete: false, specialCards: 0,  backCards: 0, oversizedCards: 0 });
+    const setInfo    = ref<SetData>({ id: 0, setName: '', setReleaseDate: '', setTotalCards: 0, ownedCards: 0, setLogo: '', numCardsOnADeck: 0, numPendingCards: 0, complete: false, specialCards: 0,  backCards: 0, oversizedCards: 0, onlineSet: 0 });
     const setItems   = ref<CardData[]>([]);
     
     // get set list

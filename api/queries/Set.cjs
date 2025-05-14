@@ -73,6 +73,7 @@ function getSingleSet(id) {
         (s.setTotalCards - (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.isMolCard = 1)) as setTotalCards, 
         s.setReleaseDate, 
         s.complete,
+        s.onlineSet,
         (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.own = 1) as ownedCards,
         (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.isOnADeck = 1) as numCardsOnADeck,
         (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.pendingToArrive = 1) as numPendingCards,
@@ -94,9 +95,29 @@ function updateSetComplete(id, value) {
     return query;
 }
 
+function updateSetOnlineSet(id, value) {
+    var query =
+        `UPDATE mtgSet 
+        SET onlineSet = "${value}"
+        WHERE id = ${id}`;
+
+    return query;
+}
+
+function updateSetOnlineSetCards(id, value) {
+    var query =
+        `UPDATE mtgCard 
+        SET isMolCard = "${value}"
+        WHERE idSet = ${id}`;
+
+    return query;
+}
+
 module.exports = {
     updateSetComplete,
     getSingleSet,
     getMultipleSets,
-    getTotalNumSets
+    getTotalNumSets,
+    updateSetOnlineSet,
+    updateSetOnlineSetCards
 };

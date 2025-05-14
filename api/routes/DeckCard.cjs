@@ -4,8 +4,8 @@ var router     = express.Router();
 
 /* GET Cards Set listing. */
 router.get('/', async function (req, res) {
-    deckCard = new DeckCard();
-    res.status(200).send(JSON.stringify(await deckCard.getOnADeckCards()));
+    deckCardObject = new DeckCard();
+    res.status(200).send(JSON.stringify(await deckCardObject.getOnADeckCards()));
 });
 
 module.exports = router;
