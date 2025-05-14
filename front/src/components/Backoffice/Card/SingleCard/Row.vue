@@ -21,13 +21,19 @@
     const props = defineProps<{
         item          : CardData,
         index         : number,
-        isPendingCard : boolean
+        isPendingCard : boolean,
+        isUpgrade     : boolean,
+        isOnADeck     : boolean
     }>()
 
     function changeOptionValue(value: number) {
         if (props.isPendingCard == true) {
             updateCardDataInfo('pendingToArrive', value);
-        } else {
+        }
+        if (props.isUpgrade == true) {
+            updateCardDataInfo('needUpgrade', value);
+        }
+        if (props.isOnADeck == true) {
             updateCardDataInfo('isOnADeck', value);
         }
     }
@@ -77,7 +83,8 @@
     <td :class=className>
         <RouterLink :to="{}" @click="changeOptionValue(0)">
             <span v-if="props.isPendingCard == true">Pending to arrive</span>
-            <span v-else>Card on a deck</span>
+            <span v-if="props.isOnADeck == true">Card on a deck</span>
+            <span v-if="props.isUpgrade == true">Card needs upgrade</span>
         </RouterLink>
     </td>
 </template>

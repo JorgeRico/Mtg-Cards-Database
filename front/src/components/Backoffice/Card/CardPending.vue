@@ -57,6 +57,8 @@
         <Table
             :key=setItems 
             :isPendingCard=true
+            :isUpgrade=false
+            :isOnADeck=false
             :items=setItems>
         </Table>
     </BackofficeLayout>

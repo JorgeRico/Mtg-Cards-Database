@@ -3,7 +3,9 @@
 
     const props = defineProps<{
         items         : Object[],
-        isPendingCard : boolean
+        isPendingCard : boolean,
+        isUpgrade     : boolean,
+        isOnADeck     : boolean
     }>()
 </script>
 
@@ -20,7 +22,7 @@
         </thead>
         <tbody>
             <tr v-for="(item, index) in props.items">
-                <Row :key=item :item=item :index=index :isPendingCard=props.isPendingCard></Row>
+                <Row :key=item :item=item :index=index :isPendingCard=props.isPendingCard :isOnADeck=props.isOnADeck :isUpgrade=props.isUpgrade></Row>
             </tr>
         </tbody>
     </table>

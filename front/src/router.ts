@@ -11,6 +11,7 @@ import SpecialSetView from './components/Backoffice/Set/SpecialSet.vue'
 import CardSetView from './components/Backoffice/Card/CardSet.vue'
 import CardOnDeckView from './components/Backoffice/Card/CardOnDeck.vue'
 import CardPendingView from './components/Backoffice/Card/CardPending.vue'
+import CardUpgradeView from './components/Backoffice/Card/CardUpgrade.vue'
 import InsideLogosView from './components/Backoffice/Logos/InsideLogos.vue'
 import OutsideLogosView from './components/Backoffice/Logos/OutsideLogos.vue'
 
@@ -54,6 +55,11 @@ const routes = [
         path: '/backoffice/playing/cards', 
         name: 'playingCards',  
         component: CardOnDeckView
+    },
+    {
+        path: '/backoffice/upgrade/cards',
+        name: 'upgradeCards',
+        component: CardUpgradeView
     },
     { 
         path: '/backoffice/inside/logos', 

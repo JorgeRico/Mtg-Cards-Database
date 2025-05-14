@@ -21,7 +21,7 @@
 
     // // get set list
     function getData() {
-        let url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ON_DECKS_ENDPOINT;
+        let url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_BETTER_GRADED_ENDPOINT;
 
         fetch(url).then(async response => {
             const data     = await response.json();
@@ -52,13 +52,13 @@
 
 <template>
     <BackofficeLayout>
-        <h1>Cards on decks</h1>
+        <h1>Cards to upgrade</h1>
         <p class="mb40"><strong>num cards:</strong> {{ total }}</p>
         <Table
             :key=setItems 
             :isPendingCard=false
-            :isUpgrade=false
-            :isOnADeck=true
+            :isUpgrade=true
+            :isOnADeck=false
             :items=setItems>
         </Table>
     </BackofficeLayout>
