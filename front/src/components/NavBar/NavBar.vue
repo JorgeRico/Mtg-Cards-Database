@@ -1,9 +1,4 @@
 <script setup lang="ts">
-    import helpers from '@config/firebase.ts';
-
-    async function checkLogout() {
-        helpers.logout()
-    }
 
 </script>
 
@@ -68,12 +63,6 @@
                 </RouterLink>
             </li>
         </ul>
-        <div class="sidebar-footer">
-            <RouterLink :to="{}" @click="checkLogout" class="sidebar-link">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span>Logout</span>
-            </RouterLink>
-        </div>
     </aside>
 </template>
 
@@ -101,12 +90,7 @@
         width: max-content;
     }
 
-    .sidebar-footer {
-        position: absolute;
-        bottom: 10px;
-    }
-
-    .sidebar-item, .sidebar-item span, .sidebar-footer, .sidebar-footer span {
+    .sidebar-item, .sidebar-item span {
         font-size: 1.3rem;
         cursor: pointer;
         color: #FFF;
@@ -114,7 +98,7 @@
         width: max-content;
     }
 
-    .sidebar-item svg, .sidebar-footer svg {
+    .sidebar-item svg {
         color: white;
     }
 
