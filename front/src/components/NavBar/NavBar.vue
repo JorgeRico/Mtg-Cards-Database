@@ -18,32 +18,38 @@
             <!-- Sidebar Navigation Link -->
             <li class="sidebar-item">
                 <RouterLink :to="{name: 'sets'}" class="sidebar-link">
-                    <i class="fa-solid fa-toolbox"></i>
+                    <i class="fa-solid fa-database"></i>
                     <span>Sets</span>
                 </RouterLink>
             </li>
             <li class="sidebar-item">
                 <RouterLink :to="{name: 'specialSets'}" class="sidebar-link">
-                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <i class="fa-solid fa-crown"></i>
                     <span>Special Sets</span>
                 </RouterLink>
             </li>
             <li class="sidebar-item">
                 <RouterLink :to="{name: 'pendingCards'}" class="sidebar-link">
-                    <i class="fa-solid fa-screwdriver"></i>
+                    <i class="fa-solid fa-file-import"></i>
                     <span>Pending Cards</span>
                 </RouterLink>
             </li>
             <li class="sidebar-item">
                 <RouterLink :to="{name: 'playingCards'}" class="sidebar-link">
-                    <i class="fa-solid fa-screwdriver"></i>
+                    <i class="fa-solid fa-rectangle-list"></i>
                     <span>Cards on Deck</span>
                 </RouterLink>
             </li>
             <li class="sidebar-item">
                 <RouterLink :to="{name: 'upgradeCards'}" class="sidebar-link">
-                    <i class="fa-solid fa-screwdriver"></i>
+                    <i class="fa-solid fa-square-up-right"></i>
                     <span>Upgrade cards</span>
+                </RouterLink>
+            </li>
+            <li class="sidebar-item">
+                <RouterLink :to="{name: 'onlineSets'}" class="sidebar-link">
+                    <i class="fa-solid fa-eye-low-vision"></i>
+                    <span>Online sets</span>
                 </RouterLink>
             </li>
             <li class="sidebar-item">
@@ -51,13 +57,13 @@
             </li>
             <li class="sidebar-item">
                 <RouterLink :to="{name: 'outsideLogos'}" class="sidebar-link">
-                    <i class="fa-solid fa-film"></i>
+                    <i class="fa-solid fa-boxes-stacked"></i>
                     <span>Outside Logos</span>
                 </RouterLink>
             </li>
             <li class="sidebar-item">
                 <RouterLink :to="{name: 'insideLogos'}" class="sidebar-link">
-                    <i class="fa-solid fa-images"></i>
+                    <i class="fa-solid fa-book-open"></i>
                     <span>Inside Logos</span>
                 </RouterLink>
             </li>

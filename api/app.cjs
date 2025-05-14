@@ -12,6 +12,8 @@ const setCardRouter     = require('#routes/SetCard.cjs');
 const pendingCardRouter = require('#routes/PendingCard.cjs');
 const deckCardRouter    = require('#routes/DeckCard.cjs');
 const upgradeCardRouter = require('#routes/UpgradeCard.cjs');
+const onlineSetRouter = require('#routes/OnlineSet.cjs');
+
 
 // express api
 const app = express();
@@ -36,3 +38,5 @@ app.use('/setCards', setCardRouter);
 app.use('/pendingCards', pendingCardRouter);
 app.use('/cardsOnADeck', deckCardRouter);
 app.use('/betterGradedCards', upgradeCardRouter);
+app.use('/onlineSets', onlineSetRouter);
+
