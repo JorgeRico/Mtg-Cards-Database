@@ -2,6 +2,13 @@
     import NavBar from '@components/NavBar/NavBar.vue';
     import Footer from '@components/Backoffice/Footer/Footer.vue';
     import Header from '@components/Backoffice/Header/Header.vue';
+    import helpers from '@config/firebase.ts';
+    
+    const initialize = () => {
+        helpers.watchAuthState()
+    };
+
+    initialize();
 </script>
 
 <template>

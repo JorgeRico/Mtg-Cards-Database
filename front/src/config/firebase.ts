@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, type Unsubscribe } from 'firebase/auth';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from 'firebase/auth';
 import router from '../router';
 import { useToast } from 'vue-toastification';
@@ -18,8 +18,16 @@ initializeApp(firebaseConfig)
 
 //initialize firebase auth
 const auth = getAuth()
+let unwatchAuthState: Unsubscribe = () => {}
 
 const helpers = {
+    watchAuthState() {
+        unwatchAuthState = onAuthStateChanged(auth, user => {
+            if (!user) {
+                router.push({name: 'home'})
+            }
+        })
+    },
     async login(email: string, password: string) {
         var errorMessage = null;
         const toast      = useToast();
