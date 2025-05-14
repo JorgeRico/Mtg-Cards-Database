@@ -12,6 +12,15 @@ function getMultipleSetCards(id, orderBy, pagination, offset) {
     return query;
 }
 
+function updateSpecialCard(id, isSpecial) {
+    var query =
+        `UPDATE mtgCard 
+        SET special = "${isSpecial}"
+        WHERE id = ${id}`;
+
+    return query;
+}
+
 function updateOwnSetCard(id, own, idSet) {
     var query =
         `UPDATE mtgCard 
@@ -92,5 +101,6 @@ module.exports = {
     updatePendingToArriveCard,
     updateBetterGrade,
     updatePendingToArriveAllCards,
-    updateCardIsOnADeck
+    updateCardIsOnADeck,
+    updateSpecialCard
 };

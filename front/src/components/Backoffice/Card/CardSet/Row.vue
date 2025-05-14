@@ -50,6 +50,10 @@
         updateCardDataInfo('needUpgrade', value);
     }
 
+    function setIsSpecial(value: number) {
+        updateCardDataInfo('isSpecial', value);
+    }
+
     function updateCardDataInfo(key: string, value: number) {
         var url  = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + props.item.idSet + '/cards/' + props.item.id;
 
@@ -84,6 +88,9 @@
                 }
                 setClassName(props.item.own);
             }
+            if (key == 'isSpecial') {
+                props.item.special = value;
+            }
 
             // check for error response
             if (!response.ok) {
@@ -92,7 +99,7 @@
                 toast.error(data.message);
                 return Promise.reject(error);
             }
-            toast.success(data.message)
+            toast.success('Successfully updated')
         })
         .catch(error => {
             console.error('There was an error!', error);
@@ -125,12 +132,14 @@
             <span class="left cardOption ml10 mr10">special card: </span>
             <RouterLink 
                 :to="{}" 
+                @click="setIsSpecial(1)"
                 :class="props.item.special==1 ? 'disable-link gold' : ''">
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
             <RouterLink 
                 :to="{}" 
+                @click="setIsSpecial(0)"
                 :class="props.item.special==0 ? 'disable-link' : ''">
                 no
             </RouterLink>

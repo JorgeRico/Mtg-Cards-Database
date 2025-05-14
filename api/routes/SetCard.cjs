@@ -28,6 +28,10 @@ router.put("/:idSet/cards/:idCard", async function (req, res, next) {
         if (req.body.needUpgrade != null) {
             res.status(201).json(await card.updateCardBetterGrade(req.params.idCard, req.params.idSet, req.body));
         }
+
+        if (req.body.isSpecial != null) {
+            res.status(201).json(await card.updateCardSpecial(req.params.idCard, req.params.idSet, req.body));
+        }
     } catch (err) {
         console.error(`Error while updating`, err.message);
         next(err);
