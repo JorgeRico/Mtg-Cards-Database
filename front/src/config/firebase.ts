@@ -27,12 +27,13 @@ const helpers = {
                 router.push({name: 'home'})
             }
         })
+        console.log(unwatchAuthState)
     },
     async login(email: string, password: string) {
         var errorMessage = null;
         const toast      = useToast();
 
-        await signInWithEmailAndPassword(auth, email, password).then((response) => {
+        await signInWithEmailAndPassword(auth, email, password).then(() => {
             router.push({name: 'sets'})
 
         }).catch(function(error) {
@@ -57,11 +58,11 @@ const helpers = {
     async recover(email: string) {    
         const toast = useToast();
           
-        return await sendPasswordResetEmail(auth, email).then((response) => {
+        return await sendPasswordResetEmail(auth, email).then(() => {
             toast.success("Check your e-mail to proceed to change your password");
 
             return true;
-        }).catch(function(error) {
+        }).catch(function() {
             toast.error('Wrong email');
             
             return false;
@@ -79,7 +80,7 @@ const helpers = {
         var errorMessage = null;
         const toast      = useToast();
 
-        return await createUserWithEmailAndPassword(auth, email, password).then((response) => {
+        return await createUserWithEmailAndPassword(auth, email, password).then(() => {
             toast.success('User created correctly');
             
             return true;

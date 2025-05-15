@@ -1,12 +1,27 @@
-api server
-http://localhost:8080/
+# Express js Api
 
-Swagger
-generate
+#### Manual launch
+
+```
+# /server
+# npm install
+# npm run start
+```
+
+- <http://localhost:8080/>
+
+#### Swagger
+- generate
+
+````
 npm run swagger-autogen
+````
 
-docs
+- docs
+
+```
 http://localhost:8080/api-docs/
+```
 
-
-https://expressjs.com/
+#### Sources
+- <https://expressjs.com/>

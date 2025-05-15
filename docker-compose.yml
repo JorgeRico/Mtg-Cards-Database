@@ -1,7 +1,6 @@
-version: "3"
-
 services:
   app-db:
+    container_name: app-db
     image: mysql:5.7
     command: mysqld --sql_mode=STRICT_TRANS_TABLES
     ports:
@@ -15,11 +14,11 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     volumes:
-      - ./data/:/docker-entrypoint-initdb.d
+      - ./database/:/docker-entrypoint-initdb.d
 
   # Dashboard DB Container
   dashboard:
-    container_name: phpmyadmin2
+    container_name: phpmyadmin-mtg
     image: phpmyadmin/phpmyadmin:latest
     ports:
       - "18081:80"
@@ -35,36 +34,57 @@ services:
       context: ./api
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "8080:8080"
     tty: true
     volumes:
       - ./api:/app
       - /app/node_modules # <---- this enables a much faster start/reload
     networks:
       - app-network
+    depends_on:
+      - app-db
     environment:
-      - NODE_ENV=development
-    command: npm run start
-
-  client:
+      - API_URL=http://localhost
+      - API_PORT=8080
+      - DB_HOST=host.docker.internal
+      - DB_PORT=3308
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_NAME=app-db
+  front:
     build:
-      context: ./client
+      context: ./front
       dockerfile: Dockerfile
     container_name: vue-app
     restart: always
     ports:
       - "5173:5173"
     volumes:
-      - ./client:/app
+      - ./front:/app
       - /app/node_modules # <---- this enables a much faster start/reload
     environment:
-      - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true # <---- this enables the hot reloading
+      - VITE_API_SERVER=http://localhost:8080
+      - VITE_API_SETS_ENDPOINT=/sets
+      - VITE_API_SETS_NUM_ENDPOINT=/sets/numsets
+      - VITE_API_SPECIALSETS_ENDPOINT=/specialSets
+      - VITE_API_SPECIALSETS_NUM_ENDPOINT=/specialSets/numSets
+      - VITE_API_SET_CARDS_ENDPOINT=/setCards
+      - VITE_API_SET_CARDS_ON_DECKS_ENDPOINT=/cardsOnADeck
+      - VITE_API_PENDING_CARDS_ENDPOINT=/pendingCards
+      - VITE_API_SET_CARDS_BETTER_GRADED_ENDPOINT=/betterGradedCards
+      - VITE_API_ONLINESETS_ENDPOINT=/onlineSets
+      - VITE_API_ONLINESETS_NUM_ENDPOINT=/onlineSets/numSets
+      - VITE_FIREBASE_API_KEY=AIzaSyA4A_Ujgbp_UmHVyofthBmwuhMGg4NSE9c
+      - VITE_FIREBASE_AUTH_DOMAIN=mtgdashboard-91454.firebaseapp.com
+      - VITE_FIREBASE_PROJECT_ID=mtgdashboard-91454
+      - VITE_FIREBASE_STORAGE_BUCKET=mtgdashboard-91454.appspot.com
+      - VITE_FIREBASE_MESSAGING_SENDER_ID=311271406950
+      - VITE_FIREBASE_APP_ID=1:311271406950:web:c570ff5a8e7012a8d4dca7
     depends_on:
-      - server
+      - api
     networks:
       - app-network
-    command: npm run dev
 
 volumes:
   app_db_volume:

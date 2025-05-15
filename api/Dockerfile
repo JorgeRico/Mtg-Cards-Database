@@ -1,8 +1,7 @@
-FROM node:16-alpine
-ENV NODE_ENV=development
+FROM node:20.17.0
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
-RUN npm install -g http-errors
 COPY . .
-EXPOSE 3000
+EXPOSE 8080
+CMD [ "node", "app.cjs" ]

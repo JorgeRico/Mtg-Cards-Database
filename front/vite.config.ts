@@ -12,4 +12,7 @@ export default defineConfig({
           { find: "@config", replacement: "/src/config" }
         ]
     },
+    // server: {
+    //     host: '0.0.0.0'
+    // }
 })

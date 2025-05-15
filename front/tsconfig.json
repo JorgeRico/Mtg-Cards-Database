@@ -13,5 +13,6 @@
             "@layouts/*": ["/src/layouts/*"],
             "@config/*": ["/src/config/*"],
         },
+        "noUnusedLocals": false,
     },
 }
