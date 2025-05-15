@@ -228,6 +228,11 @@
         width: 100px;
     }
 
+    .cardImg:hover {
+        margin-left: 50px;
+        transform: scale(3.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+
     .cardIcon {
         width: 20px;
     }
