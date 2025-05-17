@@ -12,11 +12,11 @@ function getMultipleSetCards(id, orderBy, pagination, offset) {
     return query;
 }
 
-function updateSpecialCard(id, isSpecial) {
+function updateSpecialCard(id, idSet, isSpecial) {
     var query =
         `UPDATE mtgCard 
         SET special = "${isSpecial}"
-        WHERE id = ${id}`;
+        WHERE id = ${id} AND idSet = ${idSet} `;
 
     return query;
 }

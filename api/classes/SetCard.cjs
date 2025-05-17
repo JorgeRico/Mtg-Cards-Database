@@ -24,8 +24,8 @@ module.exports = class SetCard {
         };
     }
 
-    updateCardSpecial(id, isSpecial) {
-        return this.update(queries.updateSpecialCard(id, isSpecial));
+    updateCardSpecial(id, idSet, value) {
+        return this.update(queries.updateSpecialCard(id, idSet, value.isSpecial));
     }
 
     updateOwnSetCard(id, own, idSet) {
