@@ -13,23 +13,30 @@ module.exports = class Database {
     }
 
     connection() {
-        return mysql.createPool({
-            host     : this.host,
-            port     : this.port,
-            user     : this.user,
-            password : this.password,
-            database : this.database
-        })
+        if (!this.db) {
+            return mysql.createPool({
+                host     : this.host,
+                port     : this.port,
+                user     : this.user,
+                password : this.password,
+                database : this.database
+            });
+        }
     }
 
     async doQuery(query) {
         let pro = new Promise((resolve, reject) => {
-
             this.db.query(query, function (err, result) {
                 if (err) throw err; // errors
                 resolve(result);
             });
         })
+
+        setTimeout(() => {
+            this.db.end();
+            this.db = null;  
+        }, 1000);
+
         return pro.then((val) => {
             return val;
         })
