@@ -1,5 +1,5 @@
 require('dotenv').config();
-var mysql = require('mysql');
+var mysql = require('mysql2');
 
 module.exports = class Database {
     constructor() {
@@ -13,7 +13,7 @@ module.exports = class Database {
     }
 
     connection() {
-        return mysql.createConnection({
+        return mysql.createPool({
             host     : this.host,
             port     : this.port,
             user     : this.user,
