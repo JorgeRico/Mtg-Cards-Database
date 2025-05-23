@@ -19,7 +19,9 @@ module.exports = class Database {
                 port     : this.port,
                 user     : this.user,
                 password : this.password,
-                database : this.database
+                database : this.database,
+                keepAliveInitialDelay: 10000, // 0 by default.
+                enableKeepAlive: true, // false by default.
             });
         }
     }
@@ -31,11 +33,6 @@ module.exports = class Database {
                 resolve(result);
             });
         })
-
-        setTimeout(() => {
-            this.db.end();
-            this.db = null;  
-        }, 1000);
 
         return pro.then((val) => {
             return val;
