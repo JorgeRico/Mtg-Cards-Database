@@ -10,14 +10,14 @@
     
     const initialize = () => {
         helpers.watchAuthState();
-        var offsetHeight = document.getElementById('app').offsetHeight;
+        var offsetHeight = document.getElementById('app')?.offsetHeight;
 
         // top link button show hide
         window.addEventListener('scroll', () => {
-            if (scrollY > offsetHeight) {
-                document.getElementById('topLink').classList.remove("hide")
+            if (offsetHeight != undefined && scrollY > offsetHeight) {
+                document.getElementById('topLink')?.classList.remove("hide")
             } else {
-                document.getElementById('topLink').classList.add("hide")
+                document.getElementById('topLink')?.classList.add("hide")
             }
         })
     };
@@ -34,7 +34,7 @@
             <div class="content">
                 <slot></slot>
             </div>
-            <RouterLink :to="{}" @click="scrollBehavior(1)" id="topLink" class="hide">
+            <RouterLink :to="{}" @click="scrollBehavior()" id="topLink" class="hide">
                 <i class="fa-solid fa-circle-up"></i>
             </RouterLink>
             <Footer></Footer>
