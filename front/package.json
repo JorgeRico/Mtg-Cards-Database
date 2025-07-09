@@ -16,20 +16,20 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.6",
-    "firebase": "^11.7.1",
+    "bootstrap": "^5.3.7",
+    "firebase": "^11.10.0",
     "i": "^0.3.7",
-    "npm": "^11.3.0",
-    "vue": "^3.5.13",
+    "npm": "^11.4.2",
+    "vue": "^3.5.17",
     "vue-router": "^4.5.1",
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
-    "@types/node": "^22.15.3",
-    "@vitejs/plugin-vue": "^5.2.2",
+    "@types/node": "^24.0.12",
+    "@vitejs/plugin-vue": "^6.0.0",
     "@vue/tsconfig": "^0.7.0",
-    "typescript": "~5.7.2",
-    "vite": "^6.3.1",
-    "vue-tsc": "^2.2.8"
+    "typescript": "~5.8.3",
+    "vite": "^7.0.3",
+    "vue-tsc": "^3.0.1"
   }
 }

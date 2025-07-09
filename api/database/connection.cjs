@@ -27,16 +27,20 @@ module.exports = class Database {
     }
 
     async doQuery(query) {
-        let pro = new Promise((resolve, reject) => {
-            this.db.query(query, function (err, result) {
-                if (err) throw err; // errors
-                resolve(result);
-            });
-        })
+        try {
+            let pro = new Promise((resolve, reject) => {
+                this.db.query(query, function (err, result) {
+                    resolve(result);
+                });
+            
+            })
 
-        return pro.then((val) => {
-            return val;
-        })
+            return pro.then((val) => {
+                return val;
+            })
+        } catch (err) {   
+            print(err)
+        }
     }
 
     getPagination() {
