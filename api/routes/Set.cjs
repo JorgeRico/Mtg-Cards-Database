@@ -3,21 +3,36 @@ var express = require('express');
 var router  = express.Router();
 
 /* GET Num Sets - Pagination info. */
-router.get('/numSets', async function (req, res) {
-    setObject = new Set();
-    res.status(200).send(JSON.stringify(await setObject.getTotalNumSets(req.query.filter)));
+router.get('/numSets', async function (req, res, next) {
+    try {
+        setObject = new Set();
+        res.status(200).send(JSON.stringify(await setObject.getTotalNumSets(req.query.filter)));
+    } catch (err) {
+        console.error(`Error !!!`, err.message);
+        next(err);
+    }
 });
 
 /* GET Cards Set listing. */
-router.get('/', async function (req, res) {
-    setObject = new Set();
-    res.status(200).send(JSON.stringify(await setObject.getMultipleSets(req.query.filter, req.query.page)));
+router.get('/', async function (req, res, next) {
+    try {
+        setObject = new Set();
+        res.status(200).send(JSON.stringify(await setObject.getMultipleSets(req.query.filter, req.query.page)));
+    } catch (err) {
+        console.error(`Error !!!`, err.message);
+        next(err);
+    }
 });
 
 /* GET Single Set */
-router.get('/:id', async function (req, res) {
-    setObject = new Set();
-    res.status(200).send(JSON.stringify(await setObject.getSingleSet(req.params.id)));
+router.get('/:id', async function (req, res, next) {
+    try {
+        setObject = new Set();
+        res.status(200).send(JSON.stringify(await setObject.getSingleSet(req.params.id)));
+    } catch (err) {
+        console.error(`Error !!!`, err.message);
+        next(err);
+    }
 });
 
 router.put("/:id", async function (req, res, next) {

@@ -3,9 +3,14 @@ var express   = require('express');
 var router    = express.Router();
 
 /* GET Cards Set listing. */
-router.get('/:id', async function (req, res) {
-    card = new SetCard();
-    res.status(200).send(JSON.stringify(await card.getMultipleSetCards(req.params.id, req.query.filter)));
+router.get('/:id', async function (req, res, next) {
+    try {
+        card = new SetCard();
+        res.status(200).send(JSON.stringify(await card.getMultipleSetCards(req.params.id, req.query.filter)));
+    } catch (err) {
+        console.error(`Error !!!`, err.message);
+        next(err);
+    }
 });
 
 /* PUT Card */
