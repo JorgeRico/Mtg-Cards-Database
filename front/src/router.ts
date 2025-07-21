@@ -12,6 +12,8 @@ import CardSetView from './components/Backoffice/Card/CardSet.vue';
 import CardOnDeckView from './components/Backoffice/Card/CardOnDeck.vue';
 import CardPendingView from './components/Backoffice/Card/CardPending.vue';
 import CardUpgradeView from './components/Backoffice/Card/CardUpgrade.vue';
+import CardSearchView from './components/Backoffice/Card/CardSearch.vue';
+
 import InsideLogosView from './components/Backoffice/Logos/InsideLogos.vue';
 import OutsideLogosView from './components/Backoffice/Logos/OutsideLogos.vue';
 import OnlineSetView from './components/Backoffice/Set/OnlineSet.vue';
@@ -61,6 +63,11 @@ const routes = [
         path: '/backoffice/upgrade/cards',
         name: 'upgradeCards',
         component: CardUpgradeView
+    },
+    {
+        path: '/backoffice/cards/search',
+        name: 'searchCards',
+        component: CardSearchView
     },
     {
         path: '/backoffice/sets/online',
