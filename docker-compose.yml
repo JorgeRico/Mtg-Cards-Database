@@ -75,6 +75,7 @@ services:
       - VITE_API_SET_CARDS_BETTER_GRADED_ENDPOINT=/betterGradedCards
       - VITE_API_ONLINESETS_ENDPOINT=/onlineSets
       - VITE_API_ONLINESETS_NUM_ENDPOINT=/onlineSets/numSets
+      - VITE_API_SEARCH_CARDS_ENDPOINT=/searchCard
       - VITE_FIREBASE_API_KEY=AIzaSyA4A_Ujgbp_UmHVyofthBmwuhMGg4NSE9c
       - VITE_FIREBASE_AUTH_DOMAIN=mtgdashboard-91454.firebaseapp.com
       - VITE_FIREBASE_PROJECT_ID=mtgdashboard-91454
