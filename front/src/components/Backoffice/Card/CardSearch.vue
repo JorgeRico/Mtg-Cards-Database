@@ -1,15 +1,12 @@
 <script setup lang="ts">
     import BackofficeLayout from '@layouts/BackofficeLayout.vue';
-    import Table from '@components/Backoffice/Card/CardSet/Search/Table.vue';
-    // import Filters from '@components/Backoffice/Card/CardSet/Filters.vue';
-    // import Info from '@components/Backoffice/Card/CardSet/Info.vue';
-    // import { useRoute } from 'vue-router';
+    import Table from '@components/Backoffice/Card/Search/Table.vue';
+    import { useRoute } from 'vue-router';
     import { ref } from 'vue';
-    // import { useToast } from 'vue-toastification';
+    import { useToast } from 'vue-toastification';
 
-    // const toast = useToast();
-    // const route = useRoute();
-    // const id    = ref(route.params.id);
+    const toast = useToast();
+    const route = useRoute();
 
     interface CardData {
         id              : number,
@@ -31,7 +28,7 @@
 
     const setItems = ref<CardData[]>([]);
     const total    = ref<number>(0);
-    const cardName = ref<string>('mox opal');
+    const cardName = ref<string>(route.query.cardName ? route.query.cardName.toString() : '');
 
     // get set list
     function getCards() {
@@ -47,11 +44,13 @@
             if (!response.ok) {
                 // get error message from body or default to response statusText
                 const error = response.statusText;
-                return Promise.reject(error);
+                // return Promise.reject(error);
+                toast.error(error)
             }
         })
         .catch(error => {
             // this.errorMessage = error;
+            toast.error("There was an error!")
             console.error("There was an error!", error);
         });
     }

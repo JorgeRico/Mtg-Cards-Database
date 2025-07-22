@@ -27,7 +27,7 @@ const helpers = {
                 router.push({name: 'home'})
             }
         })
-        console.log(unwatchAuthState)
+        // console.log(unwatchAuthState)
     },
     async login(email: string, password: string) {
         var errorMessage = null;
