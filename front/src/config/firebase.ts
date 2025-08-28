@@ -27,7 +27,9 @@ const helpers = {
                 router.push({name: 'home'})
             }
         })
-        console.log(unwatchAuthState)
+        if (!unwatchAuthState) {
+            console.log("problems watching auth state")
+        }
     },
     async login(email: string, password: string) {
         var errorMessage = null;
