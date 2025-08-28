@@ -6,9 +6,13 @@ var router  = express.Router();
 router.get('/numSets', async function (req, res, next) {
     try {
         setObject = new Set();
-        res.status(200).send(JSON.stringify(await setObject.getTotalNumSets(req.query.filter)));
+        if (await setObject.getTotalNumSets(req.query.filter) === undefined) {
+            res.status(404).send("error");
+        } else {
+            res.status(200).send(JSON.stringify(await setObject.getTotalNumSets(req.query.filter)));
+        }
     } catch (err) {
-        console.error(`Error !!!`, err.message);
+        res.status(404).send("error");
         next(err);
     }
 });
@@ -17,9 +21,14 @@ router.get('/numSets', async function (req, res, next) {
 router.get('/', async function (req, res, next) {
     try {
         setObject = new Set();
-        res.status(200).send(JSON.stringify(await setObject.getMultipleSets(req.query.filter, req.query.page)));
+       
+        if (await setObject.getMultipleSets(req.query.filter, req.query.page) === undefined) {
+            res.status(404).send("error");
+        } else {
+            res.status(200).send(JSON.stringify(await setObject.getMultipleSets(req.query.filter, req.query.page)));
+        }
     } catch (err) {
-        console.error(`Error !!!`, err.message);
+        res.status(404).send("error");
         next(err);
     }
 });
@@ -28,9 +37,13 @@ router.get('/', async function (req, res, next) {
 router.get('/:id', async function (req, res, next) {
     try {
         setObject = new Set();
-        res.status(200).send(JSON.stringify(await setObject.getSingleSet(req.params.id)));
+        if (await setObject.getSingleSet(req.params.id) === undefined) {
+            res.status(404).send("error");
+        } else {
+            res.status(200).send(JSON.stringify(await setObject.getSingleSet(req.params.id)));
+        }
     } catch (err) {
-        console.error(`Error !!!`, err.message);
+        res.status(404).send("error");
         next(err);
     }
 });
@@ -39,12 +52,20 @@ router.put("/:id", async function (req, res, next) {
     try {
         setObject = new Set();
         if (req.body.onlineSet != null) {
-            res.status(201).json(await setObject.updateSetOnlineSet(req.params.id, req.body));
+            if (await setObject.updateSetOnlineSet(req.params.id, req.body) === undefined) {
+                res.status(404).send("error");
+            } else {
+                res.status(201).json(await setObject.updateSetOnlineSet(req.params.id, req.body));
+            }
         } else {
-            res.status(201).json(await setObject.updateSetComplete(req.params.id, req.body));
+            if (await setObject.updateSetComplete(req.params.id, req.body) === undefined) {
+                res.status(404).send("error");
+            } else {
+                res.status(201).json(await setObject.updateSetComplete(req.params.id, req.body));
+            }
         }
     } catch (err) {
-        console.error(`Error while updating`, err.message);
+        res.status(404).send("error");
         next(err);
     }
 });

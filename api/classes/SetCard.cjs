@@ -118,11 +118,13 @@ module.exports = class SetCard {
         try {
             const result = await this.db.doQuery(query);
 
-            if (result.affectedRows) {
+            if (result.affectedRows >= 1) {
                 return this.successMessage;
+            } else {
+                return false;
             }
         } catch (err) {
-            return this.errorMessage;
+            return false;
         }
     }
 };

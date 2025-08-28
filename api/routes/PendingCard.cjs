@@ -6,9 +6,13 @@ var router        = express.Router();
 router.get('/', async function (req, res, next) {
     try {
         pendingCardObject = new PendingCard();
-        res.status(200).send(JSON.stringify(await pendingCardObject.getPendingCards()));
+        if (await pendingCardObject.getPendingCards() === undefined) {
+            res.status(404).send("error");
+        } else {
+            res.status(200).send(JSON.stringify(await pendingCardObject.getPendingCards()));
+        }
     } catch (err) {
-        console.error(`Error !!!`, err.message);
+        res.status(404).send("error");
         next(err);
     }
 });

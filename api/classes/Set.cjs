@@ -42,12 +42,13 @@ module.exports = class Set {
         try {
             const result = await this.db.doQuery(queries.updateSetComplete(id, value.complete));
 
-            if (result.affectedRows) {
-                return this.successMessage;
+            if (result.affectedRows >= 1) {
+                return true;
+            } else {
+                return false;
             }
         } catch (err) {
             return this.errorMessage;
-            // return { message };
         }
     }
 
@@ -56,12 +57,13 @@ module.exports = class Set {
             const resultSet  = await this.db.doQuery(queries.updateSetOnlineSet(id, value.onlineSet));
             const resultCard = await this.db.doQuery(queries.updateSetOnlineSetCards(id, value.onlineSet));
 
-            if (resultSet.affectedRows && resultCard.affectedRows) {
+            if (resultSet.affectedRows >= 1 && resultCard.affectedRows) {
                 return this.successMessage;
+            } else {
+                return false;
             }
         } catch (err) {
             return this.errorMessage;
-            // return { message };
         }
     }
 }

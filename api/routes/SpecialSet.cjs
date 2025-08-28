@@ -6,9 +6,13 @@ var router       = express.Router();
 router.get('/numSets', async function (req, res, next) {
     try {
         specialSetObject = new SpecialSet();
-        res.status(200).send(JSON.stringify(await specialSetObject.getTotalNumSets()));
+        if (await specialSetObject.getTotalNumSets() === undefined) {
+            res.status(404).send("error");
+        } else {
+            res.status(200).send(JSON.stringify(await specialSetObject.getTotalNumSets()));
+        }
     } catch (err) {
-        console.error(`Error !!!`, err.message);
+        res.status(404).send("error");
         next(err);
     }
 });
@@ -17,9 +21,13 @@ router.get('/numSets', async function (req, res, next) {
 router.get('/', async function (req, res, next) {
     try {
         specialSetObject = new SpecialSet();
-        res.status(200).send(JSON.stringify(await specialSetObject.getMultipleSets(req.query.filter, req.query.page)));
+        if (await specialSetObject.getMultipleSets(req.query.filter, req.query.page) === undefined) {
+            res.status(404).send("error");
+        } else {
+            res.status(200).send(JSON.stringify(await specialSetObject.getMultipleSets(req.query.filter, req.query.page)));
+        }
     } catch (err) {
-        console.error(`Error !!!`, err.message);
+        res.status(404).send("error");
         next(err);
     }
 });

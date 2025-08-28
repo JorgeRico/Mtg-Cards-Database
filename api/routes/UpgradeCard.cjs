@@ -6,9 +6,13 @@ var router        = express.Router();
 router.get('/', async function (req, res, next) {
     try {
         upgradeCardObject = new UpgradeCard();
-        res.status(200).send(JSON.stringify(await upgradeCardObject.getNeedUpgradeCards()));
+        if (await upgradeCardObject.getNeedUpgradeCards() === undefined) {
+            res.status(404).send("error");
+        } else {
+            res.status(200).send(JSON.stringify(await upgradeCardObject.getNeedUpgradeCards()));
+        }
     } catch (err) {
-        console.error(`Error !!!`, err.message);
+        res.status(404).send("error");
         next(err);
     }
 });

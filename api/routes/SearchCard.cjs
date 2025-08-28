@@ -8,7 +8,7 @@ router.get('/', async function (req, res, next) {
         cardObject = new SearchCard();
         res.status(200).send(JSON.stringify(await cardObject.searchCard(req.query.cardName)));
     } catch (err) {
-        console.error(`Error !!!`, err.message);
+        res.status(404).send("error");
         next(err);
     }
 });

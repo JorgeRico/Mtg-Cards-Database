@@ -6,9 +6,13 @@ var router       = express.Router();
 router.get('/numSets', async function (req, res, next) {
     try {
         onlineSetObject = new OnlineSet();
-        res.status(200).send(JSON.stringify(await onlineSetObject.getTotalNumSets()));
+        if (await onlineSetObject.getTotalNumSets() === undefined) {
+            res.status(404).send("error");
+        } else {
+            res.status(200).send(JSON.stringify(await onlineSetObject.getTotalNumSets()));
+        }
     } catch (err) {
-        console.error(`Error !!!`, err.message);
+        res.status(404).send("error");
         next(err);
     }
 });
@@ -17,9 +21,13 @@ router.get('/numSets', async function (req, res, next) {
 router.get('/', async function (req, res, next) {
     try {
         onlineSetObject = new OnlineSet();
-        res.status(200).send(JSON.stringify(await onlineSetObject.getMultipleSets(req.query.filter, req.query.page)));
+        if (await onlineSetObject.getMultipleSets(req.query.filter, req.query.page) === undefined) {
+            res.status(404).send("error");
+        } else {
+            res.status(200).send(JSON.stringify(await onlineSetObject.getMultipleSets(req.query.filter, req.query.page)));
+        }
     } catch (err) {
-        console.error(`Error !!!`, err.message);
+        res.status(404).send("error");
         next(err);
     }
 });
