@@ -65,6 +65,7 @@
 
         fetch(url, requestOptions).then(async response => {
             const data = await response.json();
+            console.log('updated!!!!')
             console.log(data)
 
             if (key == 'own') {
@@ -98,8 +99,9 @@
                 const error = response.status;
                 toast.error(data.message);
                 return Promise.reject(error);
+            } else {
+                toast.success('Successfully updated')
             }
-            toast.success('Successfully updated')
         })
         .catch(error => {
             console.error('There was an error!', error);

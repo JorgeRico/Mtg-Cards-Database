@@ -6,6 +6,9 @@
     import Title from '@components/Backoffice/Set/List/Title.vue';
     import Pagination from '@components/Backoffice/Pagination/Pagination.vue';
     import { ref } from 'vue';
+    import { useToast } from 'vue-toastification';
+
+    const toast = useToast();
 
     interface SetData {
         complete       : number,
@@ -42,19 +45,16 @@
         url += '&filter=' + filters.value;
 
         fetch(url).then(async response => {
-            const data     = await response.json();
-            setItems.value = await data.data;
-
-            // check for error response
-            if (!response.ok) {
-                // get error message from body or default to response statusText
-                const error = response.statusText;
-                return Promise.reject(error);
+            try {
+                const data     = await response.json();
+                setItems.value = await data.data;
+            } catch (error) {
+                toast.error('DB error: No data found')
+                return;
             }
         })
         .catch(error => {
-            // this.errorMessage = error;
-            console.error("There was an error!", error);
+            toast.error("There was an error!", error);
         });
     }
 
@@ -63,22 +63,18 @@
         let url = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SETS_NUM_ENDPOINT;
         url += '?filter=' + filters.value;
 
-        fetch(url)
-        .then(async response => {
-            const dataSets   = await response.json();
-            setInfo.value    = await dataSets.data[0];
-            totalPages.value = Math.ceil(await dataSets.data[0].numTotal / limit.value );
-
-            // check for error response
-            if (!response.ok) {
-                // get error message from body or default to response statusText
-                const error = response.statusText;
-                return Promise.reject(error);
+        fetch(url).then(async response => {
+            try {
+                const dataSets   = await response.json();
+                setInfo.value    = await dataSets.data[0];
+                totalPages.value = Math.ceil(await dataSets.data[0].numTotal / limit.value );
+            } catch (error) {
+                toast.error('DB error: No data found')
+                return;
             }
         })
         .catch(error => {
-            // this.errorMessage = error;
-            console.error("There was an error!", error);
+            toast.error("There was an error!", error);
         });
     }
 

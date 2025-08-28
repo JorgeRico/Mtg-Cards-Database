@@ -57,8 +57,9 @@
                 const error = response.status;
                 toast.error(data.message);
                 return Promise.reject(error);
+            } else {
+                toast.success(data.message)
             }
-            toast.success(data.message)
         })
         .catch(error => {
             console.error('There was an error!', error);

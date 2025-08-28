@@ -4,6 +4,9 @@
     import Info from '@components/Backoffice/Set/Info/SpecialSet.vue';
     import Pagination from '@components/Backoffice/Pagination/Pagination.vue';
     import { ref } from 'vue';
+    import { useToast } from 'vue-toastification';
+
+    const toast = useToast();
 
     interface SetData {
         complete       : number,
@@ -34,19 +37,16 @@
         url += '?page=' + page.value;
 
         fetch(url).then(async response => {
-            const data     = await response.json();
-            setItems.value = await data.data;
-
-            // check for error response
-            if (!response.ok) {
-                // get error message from body or default to response statusText
-                const error = response.statusText;
-                return Promise.reject(error);
+            try {
+                const data     = await response.json();
+                setItems.value = await data.data;
+            } catch (error) {
+                toast.error('DB error: No data found')
+                return;
             }
         })
         .catch(error => {
-            // this.errorMessage = error;
-            console.error("There was an error!", error);
+            toast.error("There was an error!", error);
         });
     }
 
@@ -56,20 +56,17 @@
 
         fetch(url)
         .then(async response => {
-            const dataSets   = await response.json();
-            setInfo.value    = await dataSets.data[0];
-            totalPages.value = Math.ceil(await dataSets.data[0].numTotal / limit.value );
-
-            // check for error response
-            if (!response.ok) {
-                // get error message from body or default to response statusText
-                const error = response.statusText;
-                return Promise.reject(error);
+            try {
+                const dataSets   = await response.json();
+                setInfo.value    = await dataSets.data[0];
+                totalPages.value = Math.ceil(await dataSets.data[0].numTotal / limit.value );
+            } catch (error) {
+                toast.error('DB error: No data found')
+                return;
             }
         })
         .catch(error => {
-            // this.errorMessage = error;
-            console.error("There was an error!", error);
+            toast.error("There was an error!", error);
         });
     }
 
