@@ -48,6 +48,12 @@
                 </RouterLink>
             </li>
             <li class="sidebar-item">
+                <RouterLink :to="{name: 'searchCards'}" class="sidebar-link">
+                    <i class="fa-solid fa-search"></i>
+                    <span>Search cards</span>
+                </RouterLink>
+            </li>
+            <li class="sidebar-item">
                 <hr>
             </li>
             <li class="sidebar-item">
