@@ -27,7 +27,7 @@
     const setItems    = ref<CardData[]>([]);
     const total       = ref<number>(0);
     const searchCards = ref('');
-    const result = ref('');
+    const result      = ref('');
 
     // get set list
     function getCards() {
@@ -43,7 +43,7 @@
             const data     = await response.json();
             setItems.value = await data.data;
             total.value    = await data.data.length;
-            result.value         = searchCards.value
+            result.value   = searchCards.value
 
             // check for error response
             if (!response.ok) {

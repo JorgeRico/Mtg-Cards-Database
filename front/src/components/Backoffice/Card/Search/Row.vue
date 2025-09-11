@@ -1,4 +1,5 @@
 <script setup lang="ts">
+    import helpers from '../../../../config/helpers.ts';
     import { ref } from 'vue';
 
     const className = ref<String>('');
@@ -25,17 +26,31 @@
         item  : CardData,
         index : number
     }>()
-    
-    function setClassName(value: number) {
-        if (value == 1) {
-            className.value = 'complete';
-        } else {
-            className.value = '';
-        }
+
+    function setOwnYesNo(value: number, item: CardData) {
+        helpers.updateCardDataInfo('own', value, item);
+        className.value = helpers.setClassName('own', item.own, true);
+    }
+
+    function setIsOnADeck(value: number, item: CardData) {
+        helpers.updateCardDataInfo('isOnADeck', value, item);
+    }
+
+    function setPendingYesNo(value: number, item: CardData) {
+        helpers.updateCardDataInfo('pendingToArrive', value, item);
+        className.value = helpers.setClassName('pendingToArrive', item.pendingToArrive, true);
+    }
+
+    function setNeedUpgrade(value: number, item: CardData) {
+        helpers.updateCardDataInfo('needUpgrade', value, item);
+    }
+
+    function setIsSpecial(value: number, item: CardData) {
+        helpers.updateCardDataInfo('isSpecial', value, item);
     }
 
     const initialize = () => {
-        setClassName(props.item.own);
+        className.value = helpers.setClassName('own', props.item.own, false);
     };
 
     initialize();
@@ -62,13 +77,17 @@
             <span class="left cardOption ml10 mr10">special card: </span>
             <RouterLink 
                 :to="{}" 
-                :class="props.item.special==1 ? 'disable-link gold' : ''">
+                :class="props.item.special==1 ? 'disable-link gold' : ''"
+                @click="setIsSpecial(1, props.item)"
+                >
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
             <RouterLink 
                 :to="{}" 
-                :class="props.item.special==0 ? 'disable-link' : ''">
+                :class="props.item.special==0 ? 'disable-link' : ''"
+                @click="setIsSpecial(0, props.item)"
+                >
                 no
             </RouterLink>
         </div>
@@ -79,13 +98,17 @@
             <span class="left cardOption ml10 mr10">on a deck: </span> 
             <RouterLink 
                 :to="{}" 
-                :class="props.item.isOnADeck==1 ? 'disable-link gold' : ''">
+                :class="props.item.isOnADeck==1 ? 'disable-link gold' : ''"
+                @click="setIsOnADeck(1, props.item)"
+                >
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
             <RouterLink 
                 :to="{}" 
-                :class="props.item.isOnADeck==0 ? 'disable-link' : ''">
+                :class="props.item.isOnADeck==0 ? 'disable-link' : ''"
+                @click="setIsOnADeck(0, props.item)"
+                >
                 no
             </RouterLink>
         </div>
@@ -96,13 +119,17 @@
             <span class="left cardOption ml10 mr10">need upgrade: </span>
             <RouterLink 
                 :to="{}" 
-                :class="props.item.needUpgrade==1 ? 'disable-link gold' : ''">
+                :class="props.item.needUpgrade==1 ? 'disable-link gold' : ''"
+                @click="setNeedUpgrade(1, props.item)"
+                >
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
             <RouterLink 
                 :to="{}" 
-                :class="props.item.needUpgrade==0 ? 'disable-link' : ''">
+                :class="props.item.needUpgrade==0 ? 'disable-link' : ''"
+                @click="setNeedUpgrade(0, props.item)"
+                >
                 no
             </RouterLink>
         </div>
@@ -113,13 +140,17 @@
             <span class="left cardOption ml10 mr10">pending to arrive: </span>
             <RouterLink 
                 :to="{}" 
-                :class="props.item.pendingToArrive==1 ? 'disable-link gold' : ''">
+                :class="props.item.pendingToArrive==1 ? 'disable-link gold' : ''"
+                @click="setPendingYesNo(1, props.item)"
+                >
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
             <RouterLink 
                 :to="{}" 
-                :class="props.item.pendingToArrive==0 ? 'disable-link' : ''">
+                :class="props.item.pendingToArrive==0 ? 'disable-link' : ''"
+                @click="setPendingYesNo(0, props.item)"
+                >
                 no
             </RouterLink>
         </div>
@@ -130,13 +161,17 @@
             <span class="left cardOption ml10 mr10">own: </span>
             <RouterLink 
                 :to="{}" 
-                :class="props.item.own==1 ? 'disable-link gold' : ''">
+                :class="props.item.own==1 ? 'disable-link gold' : ''"
+                @click="setOwnYesNo(1, props.item)"
+                >
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
             <RouterLink 
                 :to="{}" 
-                :class="props.item.own==0 ? 'disable-link' : ''">
+                :class="props.item.own==0 ? 'disable-link' : ''"
+                @click="setOwnYesNo(0, props.item)"
+                >
                 no
             </RouterLink>
         </div>

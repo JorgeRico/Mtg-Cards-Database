@@ -2,6 +2,9 @@
     import BackofficeLayout from '@layouts/BackofficeLayout.vue';
     import Table from '@components/Backoffice/Card/SingleCard/Table.vue';
     import { ref } from 'vue';
+    import { useToast } from 'vue-toastification';
+
+    const toast = useToast();
 
     interface CardData {
         id              : number,
@@ -38,6 +41,7 @@
         .catch(error => {
             // this.errorMessage = error;
             console.error("There was an error!", error);
+            toast.error('There was an error!');
         });
     }
 
