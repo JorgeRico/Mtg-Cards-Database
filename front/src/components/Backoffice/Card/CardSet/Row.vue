@@ -1,8 +1,7 @@
 <script setup lang="ts">
+    import helpers from '../../../../config/helpers.ts';
     import { ref } from 'vue';
-    import { useToast } from 'vue-toastification';
 
-    const toast     = useToast()
     const className = ref<String>('');
 
     interface CardData {
@@ -19,98 +18,39 @@
         isBackCard      : number,
         needUpgrade     : number,
         isOversized     : number,
+        setName         : string,
+        setLogo         : string
     }
 
     const props = defineProps<{
         item  : CardData,
         index : number
     }>()
-    
-    function setClassName(value: number) {
-        if (value == 1) {
-            className.value = 'complete';
-        } else {
-            className.value = '';
-        }
+
+    function setOwnYesNo(value: number, item: CardData) {
+        helpers.updateCardDataInfo('own', value, item);
+        className.value = helpers.setClassName('own', item.own, true);
     }
 
-    function setOwnYesNo(value: number) {
-        updateCardDataInfo('own', value);
+    function setIsOnADeck(value: number, item: CardData) {
+        helpers.updateCardDataInfo('isOnADeck', value, item);
     }
 
-    function setIsOnADeck(value: number) {
-        updateCardDataInfo('isOnADeck', value);
+    function setPendingYesNo(value: number, item: CardData) {
+        helpers.updateCardDataInfo('pendingToArrive', value, item);
+        className.value = helpers.setClassName('pendingToArrive', item.pendingToArrive, true);
     }
 
-    function setPendingYesNo(value: number) {
-        updateCardDataInfo('pendingToArrive', value);
+    function setNeedUpgrade(value: number, item: CardData) {
+        helpers.updateCardDataInfo('needUpgrade', value, item);
     }
 
-    function setNeedUpgrade(value: number) {
-        updateCardDataInfo('needUpgrade', value);
-    }
-
-    function setIsSpecial(value: number) {
-        updateCardDataInfo('isSpecial', value);
-    }
-
-    function updateCardDataInfo(key: string, value: number) {
-        var url  = import.meta.env.VITE_API_SERVER + import.meta.env.VITE_API_SET_CARDS_ENDPOINT + '/' + props.item.idSet + '/cards/' + props.item.id;
-
-        const requestOptions = {
-            method  : 'PUT',
-            headers : { 'Content-Type': 'application/json' },
-            body    : JSON.stringify({ [key]: value})
-        };
-
-        fetch(url, requestOptions).then(async response => {
-            const data = await response.json();
-            console.log('updated!!!!')
-            console.log(data)
-
-            if (key == 'own') {
-                props.item.own = value;
-                
-                if (value == 1) {
-                    props.item.pendingToArrive = 0;
-                }
-                setClassName(value)
-            }
-            if (key == 'needUpgrade') {
-                props.item.needUpgrade = value;
-            }
-            if (key == 'isOnADeck') {
-                props.item.isOnADeck = value;
-            }
-            if (key == 'pendingToArrive') {
-                props.item.pendingToArrive = value;
-                if (value == 1) {
-                    props.item.own = 0;
-                }
-                setClassName(props.item.own);
-            }
-            if (key == 'isSpecial') {
-                props.item.special = value;
-            }
-
-            // check for error response
-            if (!response.ok) {
-                // get error message from body or default to response status
-                const error = response.status;
-                toast.error(data.message);
-                return Promise.reject(error);
-            } else {
-                toast.success('Successfully updated')
-            }
-        })
-        .catch(error => {
-            console.error('There was an error!', error);
-            toast.error('There was an error!');
-        });
+    function setIsSpecial(value: number, item: CardData) {
+        helpers.updateCardDataInfo('isSpecial', value, item);
     }
 
     const initialize = () => {
-        setClassName(props.item.own);
+        className.value = helpers.setClassName('own', props.item.own, false);
     };
 
     initialize();
@@ -134,14 +74,14 @@
             <span class="left cardOption ml10 mr10">special card: </span>
             <RouterLink 
                 :to="{}" 
-                @click="setIsSpecial(1)"
+                @click="setIsSpecial(1, props.item)"
                 :class="props.item.special==1 ? 'disable-link gold' : ''">
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
             <RouterLink 
                 :to="{}" 
-                @click="setIsSpecial(0)"
+                @click="setIsSpecial(0, props.item)"
                 :class="props.item.special==0 ? 'disable-link' : ''">
                 no
             </RouterLink>
@@ -153,14 +93,14 @@
             <span class="left cardOption ml10 mr10">on a deck: </span> 
             <RouterLink 
                 :to="{}" 
-                @click="setIsOnADeck(1)"
+                @click="setIsOnADeck(1, props.item)"
                 :class="props.item.isOnADeck==1 ? 'disable-link gold' : ''">
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
             <RouterLink 
                 :to="{}" 
-                @click="setIsOnADeck(0)"
+                @click="setIsOnADeck(0, props.item)"
                 :class="props.item.isOnADeck==0 ? 'disable-link' : ''">
                 no
             </RouterLink>
@@ -172,14 +112,14 @@
             <span class="left cardOption ml10 mr10">need upgrade: </span>
             <RouterLink 
                 :to="{}" 
-                @click="setNeedUpgrade(1)"
+                @click="setNeedUpgrade(1, props.item)"
                 :class="props.item.needUpgrade==1 ? 'disable-link gold' : ''">
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
             <RouterLink 
                 :to="{}" 
-                @click="setNeedUpgrade(0)"
+                @click="setNeedUpgrade(0, props.item)"
                 :class="props.item.needUpgrade==0 ? 'disable-link' : ''">
                 no
             </RouterLink>
@@ -191,14 +131,14 @@
             <span class="left cardOption ml10 mr10">pending to arrive: </span>
             <RouterLink 
                 :to="{}" 
-                @click="setPendingYesNo(1)"
+                @click="setPendingYesNo(1, props.item)"
                 :class="props.item.pendingToArrive==1 ? 'disable-link gold' : ''">
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
             <RouterLink 
                 :to="{}" 
-                @click="setPendingYesNo(0)"
+                @click="setPendingYesNo(0, props.item)"
                 :class="props.item.pendingToArrive==0 ? 'disable-link' : ''">
                 no
             </RouterLink>
@@ -210,14 +150,14 @@
             <span class="left cardOption ml10 mr10">own: </span>
             <RouterLink 
                 :to="{}" 
-                @click="setOwnYesNo(1)"
+                @click="setOwnYesNo(1, props.item)"
                 :class="props.item.own==1 ? 'disable-link gold' : ''">
                 yes
             </RouterLink>
             <span class="ml5 mr5">|</span>
             <RouterLink 
                 :to="{}" 
-                @click="setOwnYesNo(0)"
+                @click="setOwnYesNo(0, props.item)"
                 :class="props.item.own==0 ? 'disable-link' : ''">
                 no
             </RouterLink>
