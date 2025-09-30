@@ -5,7 +5,8 @@ module.exports = class Set {
     constructor() {
         this.db             = new Database();
         this.errorMessage   = "Error on updating";
-        this.successMessage = "Updated successfully";;
+        this.successMessage = "Updated successfully";
+        this.nothingMessage = "Nothing";
     }
 
     /* GET Pagination info function - num sets + filters */
@@ -43,9 +44,9 @@ module.exports = class Set {
             const result = await this.db.doQuery(queries.updateSetComplete(id, value.complete));
 
             if (result.affectedRows >= 1) {
-                return true;
+                return this.successMessage;
             } else {
-                return false;
+                return this.nothingMessage;
             }
         } catch (err) {
             return this.errorMessage;
@@ -60,7 +61,7 @@ module.exports = class Set {
             if (resultSet.affectedRows >= 1 && resultCard.affectedRows) {
                 return this.successMessage;
             } else {
-                return false;
+                return this.nothingMessage;
             }
         } catch (err) {
             return this.errorMessage;

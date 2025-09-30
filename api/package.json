@@ -1,18 +1,19 @@
 {
     "type": "module",
     "scripts": {
-        "start": "node app.cjs",
-        "dev": "node --run -- --watch",
-        "test": "node --test",
+        "start": "dotenvx run --quiet -- node app.cjs",
+        "dev": "dotenvx run -- node --run -- --watch",
+        "test": "dotenvx run -- node --test",
         "swagger-autogen": "node ./docs/swagger.cjs"
     },
     "dependencies": {
         "cors": "^2.8.5",
-        "dotenv": "^17.2.2",
+        "dotenv": "^17.2.3",
         "express": "^5.1.0",
-        "mysql2": "^3.14.4",
+        "mysql2": "^3.15.1",
         "swagger-autogen": "^2.23.7",
-        "swagger-ui-express": "^5.0.1"
+        "swagger-ui-express": "^5.0.1",
+        "@dotenvx/dotenvx": "^1.45.1"
     },
     "imports": {
         "#queries/*": "./queries/*",

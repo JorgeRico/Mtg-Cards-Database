@@ -7,6 +7,7 @@ module.exports = class SetCard {
         this.pagination     = 10000;
         this.errorMessage   = "Error on updating";
         this.successMessage = "Updated successfully";
+        this.nothingMessage = "Nothing";
     }
 
     /* GET Cards function */
@@ -121,10 +122,10 @@ module.exports = class SetCard {
             if (result.affectedRows >= 1) {
                 return this.successMessage;
             } else {
-                return false;
+                return this.nothingMessage;
             }
         } catch (err) {
-            return false;
+            return this.errorMessage;
         }
     }
 };
