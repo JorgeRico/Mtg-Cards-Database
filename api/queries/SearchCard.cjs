@@ -9,6 +9,7 @@ function searchCard(cardName) {
         FROM mtgCard c
         INNER JOIN mtgSet s ON s.id = c.idSet
         WHERE c.cardName LIKE "%${cardName}%"
+        AND c.isMolCard = 0
         ORDER BY c.id ASC`;
     
         return query;
