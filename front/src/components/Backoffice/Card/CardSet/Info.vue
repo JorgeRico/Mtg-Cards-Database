@@ -53,6 +53,7 @@
 
 <template>
     <h1>{{ props.item.setName }}</h1>
+    <div class="logo" v-html="props.item.setLogo"></div>
     <p class="mb0"><strong>idSet:</strong> {{ props.item.id }}</p>
     <p><strong>Release date</strong>: {{ props.item.setReleaseDate }}</p>
 
@@ -99,5 +100,10 @@
         color: red;
         text-shadow: 8px 1px 15px black;
         font-size: 20px;
+    }
+
+    .logo {
+        width: 100px;
+        margin-bottom: 1rem;
     }
 </style>
