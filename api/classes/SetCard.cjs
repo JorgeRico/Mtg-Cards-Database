@@ -5,9 +5,7 @@ module.exports = class SetCard {
     constructor() {
         this.db             = new Database();
         this.pagination     = 10000;
-        this.errorMessage   = "Error on updating";
         this.successMessage = "Updated successfully";
-        this.nothingMessage = "Nothing";
     }
 
     /* GET Cards function */
@@ -25,37 +23,53 @@ module.exports = class SetCard {
         };
     }
 
-    updateCardSpecial(id, idSet, value) {
-        return this.update(queries.updateSpecialCard(id, idSet, value.isSpecial));
+    async updateCardSpecial(id, idSet, value) {
+        var message = await this.update(queries.updateSpecialCard(id, idSet, value.isSpecial));
+        
+        return { message };
     }
 
-    updateOwnSetCard(id, own, idSet) {
-        return this.update(queries.updateOwnSetCard(id, own, idSet));
+    async updateOwnSetCard(id, own, idSet) {
+        var message = await this.update(queries.updateOwnSetCard(id, own, idSet));
+
+        return { message };
     }
 
-    updateAllOwnSetCard(own, idSet) {
-        return this.update(queries.updateAllOwnSetCard(own, idSet));
+    async updateAllOwnSetCard(own, idSet) {
+        var message = await this.update(queries.updateAllOwnSetCard(own, idSet));
+
+        return { message };
     }
 
-    updateCompleteSet(complete, idSet) {
-        return this.update(queries.updateCompleteSet(complete, idSet));
+    async updateCompleteSet(complete, idSet) {
+        var message = await this.update(queries.updateCompleteSet(complete, idSet));
+
+        return { message };
     }
 
-    updatePendingToArriveCard(pendingToArrive, id, idSet) {
-        return this.update(queries.updatePendingToArriveCard(pendingToArrive, id, idSet));
+    async updatePendingToArriveCard(pendingToArrive, id, idSet) {
+        var message = await this.update(queries.updatePendingToArriveCard(pendingToArrive, id, idSet));
+
+        return { message };
     }
 
-    updateBetterGrade(id, idSet, value) {
-        return this.update(queries.updateBetterGrade(id, idSet, value));
+    async updateBetterGrade(id, idSet, value) {
+        var message = await this.update(queries.updateBetterGrade(id, idSet, value));
+
+        return { message };
     }
 
-    updatePendingToArriveAllCards(pendingToArrive, idSet) {
-        return this.update(queries.updatePendingToArriveAllCards(pendingToArrive, idSet));
+    async updatePendingToArriveAllCards(pendingToArrive, idSet) {
+        var message = await this.update(queries.updatePendingToArriveAllCards(pendingToArrive, idSet));
+
+        return { message };
     }
 
     /* UPDATE Card is on a deck - single card */
-    updateCardIsOnADeck(id, idSet, value) {
-        return this.update(queries.updateCardIsOnADeck(id, idSet, value));
+    async updateCardIsOnADeck(id, idSet, value) {
+        var message = await this.update(queries.updateCardIsOnADeck(id, idSet, value));
+        
+        return { message };
     }
 
     /* UPDATE Card own - single card */
@@ -68,11 +82,13 @@ module.exports = class SetCard {
         } else {
             // all set cards
             message = await this.updateAllOwnSetCard(value.own, idSet);
+            if ( message === false ) return { message }; 
             message = await this.updateCompleteSet(value.own, idSet);
+            if ( message === false ) return { message };
             message = await this.updatePendingToArriveAllCards(idSet, 0);
         }
 
-        return { message };
+        return message;
     }
 
     /* UPDATE Card pending to arrive - single card */
@@ -87,18 +103,18 @@ module.exports = class SetCard {
             message = await this.updatePendingToArriveAllCards(value.pendingToArrive, idSet);
         }
 
-        if (value.pendingToArrive == 1) {
-            message = this.updateCompleteSet(0, idSet)
-        }
+        // if (value.pendingToArrive == 1) {
+        //     message = this.updateCompleteSet(0, idSet)
+        // }
 
-        return { message };
+        return message;
     }
 
     /* UPDATE Card better grading - single card */
     async updateCardBetterGrade(id, idSet, value) {
         var message = await this.updateBetterGrade(id, idSet, value.needUpgrade)
         
-        return { message };
+        return message;
     }
 
     orderBy(orderById) {
@@ -117,15 +133,37 @@ module.exports = class SetCard {
     
     async update(query){
         try {
-            const result = await this.db.doQuery(query);
+            await this.db.doQuery(query);
 
-            if (result.affectedRows >= 1) {
-                return this.successMessage;
-            } else {
-                return this.nothingMessage;
-            }
+            return this.successMessage;            
         } catch (err) {
-            return this.errorMessage;
+            return false;
         }
+    }
+
+    countNotNullParams(values) {
+        var total = 0;
+
+        if (values.own != null) {
+            total++;
+        }
+
+        if (values.isOnADeck != null) {
+            total++;
+        }
+
+        if (values.pendingToArrive != null) {
+            total++;
+        }
+
+        if (values.needUpgrade != null) {
+            total++;
+        }
+
+        if (values.isSpecial != null) {
+            total++;
+        }
+
+        return total;
     }
 };

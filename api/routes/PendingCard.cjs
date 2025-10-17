@@ -2,17 +2,41 @@ const PendingCard = require("#classes/PendingCard.cjs");
 var express       = require('express');
 var router        = express.Router();
 
-/* GET Cards Set listing. */
+/**
+* @swagger
+* /pendingCards:
+*   get:
+*     tags: [Pending Card]
+*     summary: Retrieve a list of pending cards
+*     responses:
+*       200:
+*         description: Successful response
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 data:
+*                   type: array
+*                   example: 
+*                     [{"id":70264,"idSet":760,"cardName":"Roll for Initiative // Roll for Initiative (cont'd)","cardImg":"https://cards.scryfall.io/normal/front/d/1/d1628a06-753c-423a-8eea-e29667dd95f7.jpg?1664728738","special":0,"setName":"Commander Legends: Battle for Baldur's Gate Minigames (MCLB)","setLogo":"<svg aria-hidden=\"true\" focusable=\"false\" viewbox=\"0 0 145 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7.527 112.634c3.763 11.828 11.111 25.27 22.043 40.323 11.7 15.6 23.311 26.552 34.835 32.858l.38.207h7.527V200h-2.42c-39.247-26.613-62.096-65.86-63.44-73.656-.896-5.197-.538-9.767 1.075-13.71Zm129.57 0c1.613 3.943 1.971 8.513 1.075 13.71-1.344 7.796-24.194 47.043-63.44 73.656h-2.42v-13.978h7.527l.38-.207c11.524-6.306 23.135-17.259 34.835-32.858 10.932-15.054 18.28-28.495 22.043-40.323ZM72.312 21.237l-6.72 19.892-23.657 13.979-20.967-5.377 14.516 16.667v27.957l-14.516 16.667 21.236-5.646 23.119 14.248 6.989 22.043 6.99-22.043 23.117-14.248 21.237 5.646-14.516-16.667V66.398l14.516-16.667-20.968 5.377-23.656-13.979-6.72-19.892Zm24.193 73.387V66.398L72.312 51.613 48.118 66.398v28.226l24.194 14.516 24.193-14.516ZM0 43.01c16.855 22.887 17.902 43.403 3.14 61.547l-.452.55L0 43.01Zm144.624 0-2.689 62.097-.452-.55c-14.761-18.144-13.714-38.66 3.14-61.547ZM43.817 96.774V63.71l28.495-17.205 28.494 17.205v33.064l-28.494 17.473-28.495-17.473Zm22.58 82.527c-25.447-17.563-43.637-42.204-54.569-73.925 14.194-19.693 10.823-43.427-10.113-71.2l-.64-.843L43.28 0c6.032 12.42 15.577 18.515 28.635 18.288l.397-.008.397.008C85.767 18.515 95.312 12.42 101.344 0l42.204 33.333-.64.843c-20.935 27.773-24.306 51.507-10.112 71.2-10.932 31.72-29.122 56.362-54.57 73.925H66.398Z\" fill=\"#000\" fill-rule=\"nonzero\"></path></svg>","own":0,"pendingToArrive":1,"isOnADeck":0}]
+*       404:
+*         description: Error not found
+*       401:
+*         description: System error
+*/
 router.get('/', async function (req, res, next) {
     try {
         pendingCardObject = new PendingCard();
-        if (await pendingCardObject.getPendingCards() === undefined) {
-            res.status(404).send("error");
+        var message       = await pendingCardObject.getPendingCards();
+
+        if (message === undefined) {
+            res.status(404).send("Error not found");
         } else {
-            res.status(200).send(JSON.stringify(await pendingCardObject.getPendingCards()));
+            res.status(200).send(message);
         }
     } catch (err) {
-        res.status(404).send("error");
+        res.status(401).send({"message": "System error"});
         next(err);
     }
 });

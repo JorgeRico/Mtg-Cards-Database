@@ -4,9 +4,7 @@ const Database = require("#database/connection.cjs");
 module.exports = class Set {
     constructor() {
         this.db             = new Database();
-        this.errorMessage   = "Error on updating";
         this.successMessage = "Updated successfully";
-        this.nothingMessage = "Nothing";
     }
 
     /* GET Pagination info function - num sets + filters */
@@ -41,30 +39,22 @@ module.exports = class Set {
 
     async updateSetComplete(id, value) {
         try {
-            const result = await this.db.doQuery(queries.updateSetComplete(id, value.complete));
+            await this.db.doQuery(queries.updateSetComplete(id, value.complete));
 
-            if (result.affectedRows >= 1) {
-                return this.successMessage;
-            } else {
-                return this.nothingMessage;
-            }
+            return this.successMessage;
         } catch (err) {
-            return this.errorMessage;
+            return false;
         }
     }
 
     async updateSetOnlineSet(id, value) {
         try {
-            const resultSet  = await this.db.doQuery(queries.updateSetOnlineSet(id, value.onlineSet));
-            const resultCard = await this.db.doQuery(queries.updateSetOnlineSetCards(id, value.onlineSet));
+            await this.db.doQuery(queries.updateSetOnlineSet(id, value.onlineSet));
+            await this.db.doQuery(queries.updateSetOnlineSetCards(id, value.onlineSet));
 
-            if (resultSet.affectedRows >= 1 && resultCard.affectedRows) {
-                return this.successMessage;
-            } else {
-                return this.nothingMessage;
-            }
+            return this.successMessage;
         } catch (err) {
-            return this.errorMessage;
+            return false;
         }
     }
 }

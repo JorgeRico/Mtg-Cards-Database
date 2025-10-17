@@ -2,17 +2,43 @@ const DeckCard = require("#classes/DeckCard.cjs");
 var express    = require('express');
 var router     = express.Router();
 
-/* GET Cards Set listing. */
+/**
+* @swagger
+* /cardsOnADeck:
+*   get:
+*     tags: [Card on a deck]
+*     summary: Retrieve a list of cards on decks
+*     responses:
+*       200:
+*         description: Successful response
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 data:
+*                   type: array
+*                   example: 
+*                     [{"id":2613,"idSet":10,"cardName":"Karakas","cardJsonLink":"31d2422a-bb7d-4cdd-9aac-e5a936a4be3b","cardUri":"https://api.scryfall.com/cards/31d2422a-bb7d-4cdd-9aac-e5a936a4be3b","cardImg":"https://cards.scryfall.io/normal/front/3/1/31d2422a-bb7d-4cdd-9aac-e5a936a4be3b.jpg?1562858252","special":0,"own":1,"pendingToArrive":0,"isOnADeck":1,"isBackCard":0,"needUpgrade":0,"isOversized":0,"setName":"Legends (LEG)","setLogo":"<svg aria-hidden=\"true\" focusable=\"false\" viewbox=\"0 0 896 1024\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M760.238 320.952H652.035c-3.826-8.311-6.569-14.37-6.569-14.37H250.533s-2.912 6.313-6.569 14.37H135.845l-19.26-24.17 38.117-39.03h586.595l38.117 39.03-19.176 24.17zm-89.687 75.807l32.056 33.801H193.392l31.971-33.801H670.55zm-79.229 307.986V563.252l16.027-21.429h48.575l16.029 21.429.085 90.177-80.717 51.316zm-183.755 95.598v-237.09l16.029-21.429h48.573l16.029 21.429.085 176.463-80.717 60.628zm-183.692 95.576V563.252l16.029-21.429h48.49l16.114 21.429.084 271.954-80.717 60.713zM-.418 151.292l50.084 115.772 52.55 37.2 23.83 31.037h111.372l-24.172 53.315-31.461 33.312-33.056 87.095V932.44h36.202l46.577-24.233 77.889-58.545h34.801l71.086-37.031 77.805-58.46h34.459l71.491-37.287 77.146-49.084h17.367l53.719-27.976V509.107L714.3 422.014l-31.546-33.312-24.172-53.4h110.606l24.596-31.037 52.55-37.052 50.084-115.92H-.418z\"></path></svg>"}]
+*       404:
+*         description: Error not found
+*       401:
+*         description: System error
+*/
 router.get('/', async function (req, res, next) {
     try {
         deckCardObject = new DeckCard();
-        if (await deckCardObject.getOnADeckCards() === undefined) {
-            res.status(404).send("error");
+        var message    = await deckCardObject.getOnADeckCards();
+
+        if (message === undefined) {
+            res.status(401).send({"message": "Error on not found"});
+            return;
         } else {
-            res.status(200).send(JSON.stringify(await deckCardObject.getOnADeckCards()));
+            res.status(200).send(message);
+            return;
         }
     } catch (err) {
-        res.status(404).send("error");
+        res.status(401).send({"message": "System error"});
         next(err);
     }
 });

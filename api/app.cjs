@@ -2,8 +2,11 @@
 require('dotenv').config();
 
 // load express
-const express = require('express');
-const cors    = require('cors');
+const express     = require('express');
+const cors        = require('cors');
+
+const swaggerUi   = require('swagger-ui-express');
+const swaggerDocs = require('./swagger.cjs')
 
 // load routers
 const setRouter         = require('#routes/Set.cjs');
@@ -42,4 +45,5 @@ app.use('/betterGradedCards', upgradeCardRouter);
 app.use('/onlineSets', onlineSetRouter);
 app.use('/searchCards', searchCardRouter);
 
-
+// swagger url
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));

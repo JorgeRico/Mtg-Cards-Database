@@ -1,6 +1,5 @@
 require('dotenv').config();
 var mysql = require('mysql2');
-
 module.exports = class Database {
     constructor() {
         this.host       = process.env.DB_HOST;
