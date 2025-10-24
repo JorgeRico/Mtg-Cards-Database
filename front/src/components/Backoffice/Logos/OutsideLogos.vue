@@ -238,8 +238,8 @@
                 <input :label="form.fields.year.label" class="form-control mb20">
             </dynamic-form>
             <Keyrune></Keyrune>
-            <button class="btn btn-primary mt40" @click="handleSubmit">Submit</button>
-            <button class="btn btn-reset right mt40" @click="handleReset">Reset values</button>
+            <button class="btn btn-reset mt40" @click="handleReset">Reset values</button>
+            <button class="btn btn-primary right mt40" @click="handleSubmit">Submit</button>
         </div>
         <Logos :key=setList :items="setList"></Logos>
     </BackofficeLayout>
