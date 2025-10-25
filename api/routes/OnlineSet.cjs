@@ -34,11 +34,11 @@ router.get('/numSets', async function (req, res, next) {
             res.status(404).send({"message": "Error on not found"});
             return;
         } else {
-            res.status(200).send(message);
+            res.status(200).json(message);
             return;
         }
     } catch (err) {
-        res.status(401).send({"message": "System error"});
+        res.status(500).json({"message": "System error"});
         next(err);
     }
 });
@@ -82,11 +82,11 @@ router.get('/', async function (req, res, next) {
             res.status(404).send({"message": "Error on not found"});
             return;
         } else {
-            res.status(200).send(message);
+            res.status(200).json(message);
             return;
         }
     } catch (err) {
-        res.status(401).send({"message": "System error"});
+        res.status(500).json({"message": "System error"});
         next(err);
     }
 });

@@ -31,12 +31,12 @@ router.get('/', async function (req, res, next) {
         var message       = await upgradeCardObject.getNeedUpgradeCards();
 
         if (message === undefined) {
-            res.status(404).send("Error not found");
+            res.status(404).send(JSON.stringify({"message": "No data found"}));
         } else {
-            res.status(200).send(message);
+            res.status(200).json(message);
         }
     } catch (err) {
-        res.status(401).send({"message": "System error"});
+        res.status(500).json({"message": "System error"});
         next(err);
     }
 });

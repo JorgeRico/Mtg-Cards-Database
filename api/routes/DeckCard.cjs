@@ -31,14 +31,14 @@ router.get('/', async function (req, res, next) {
         var message    = await deckCardObject.getOnADeckCards();
 
         if (message === undefined) {
-            res.status(401).send({"message": "Error on not found"});
+            res.status(401).json({"message": "Error on not found"});
             return;
         } else {
-            res.status(200).send(message);
+            res.status(200).json(message);
             return;
         }
     } catch (err) {
-        res.status(401).send({"message": "System error"});
+        res.status(500).json({"message": "System error"});
         next(err);
     }
 });

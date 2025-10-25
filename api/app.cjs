@@ -25,15 +25,18 @@ app.use(cors({
   origin: '*'
 }));
 
+// disable x-powered-by header
+app.disable('x-powered-by');
+
 // running terminal message
 app.listen(process.env.API_PORT, () => {
     console.log(`Server running at ${process.env.API_URL}:${process.env.API_PORT}`);
 });
 
 // for parsing application/json
-app.use(express.json())
+app.use(express.json());
 // for parsing application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true })) 
+app.use(express.urlencoded({ extended: true })) ;
 
 // use routers
 app.use('/sets', setRouter);
@@ -47,3 +50,8 @@ app.use('/searchCards', searchCardRouter);
 
 // swagger url
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+// not found endpoint handler
+app.use((req, res, next) => {
+    res.status(404).json({"message": "Endpoint not found"});
+});

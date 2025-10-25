@@ -41,11 +41,11 @@ router.get('/:id', async function (req, res, next) {
             res.status(401).send({"message": "Error on updating own"});
             return;
         } else {
-            res.status(200).send(message);
+            res.status(200).json(message);
             return;
         }
     } catch (err) {
-        res.status(401).send({"message": "System error"});
+        res.status(500).json({"message": "System error"});
         next(err);
     }
 });
@@ -173,7 +173,7 @@ router.put("/:idSet/cards/:idCard", async function (req, res, next) {
             }
         }
     } catch (err) {
-        res.status(401).send({"message": "System error"});
+        res.status(500).json({"message": "System error"});
         next(err);
     }
 });
@@ -251,7 +251,7 @@ router.put("/:idSet/cards", async function (req, res, next) {
             }
         }
     } catch (err) {
-        res.status(401).send({"message": "System error"});
+        res.status(500).json({"message": "System error"});
         next(err);
     }
 });

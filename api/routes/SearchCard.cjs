@@ -33,10 +33,11 @@ var router       = express.Router();
 router.get('/', async function (req, res, next) {
     try {
         cardObject = new SearchCard();
+        var message = await cardObject.searchCard(req.query.cardName)
 
-        res.status(200).send(await cardObject.searchCard(req.query.cardName));
+        res.status(200).json(message);
     } catch (err) {
-        res.status(401).send({"message": "System error"});
+        res.status(500).json({"message": "System error"});
         next(err);
     }
 });
