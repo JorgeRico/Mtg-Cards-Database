@@ -3,6 +3,8 @@
     import Footer from '@components/Backoffice/Footer/Footer.vue';
     import Header from '@components/Backoffice/Header/Header.vue';
     import helpers from '@config/firebase.ts';
+    import router from '../router';
+    import Cookies from 'js-cookie';
 
     function scrollBehavior() {
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -11,6 +13,10 @@
     const initialize = () => {
         helpers.watchAuthState();
         var offsetHeight = document.getElementById('app')?.offsetHeight;
+
+        if (Cookies.get('authToken') == undefined) {
+            router.push({name: 'home'})
+        }
 
         // top link button show hide
         window.addEventListener('scroll', () => {
@@ -23,7 +29,6 @@
     };
 
     initialize();
-    
 </script>
 
 <template>

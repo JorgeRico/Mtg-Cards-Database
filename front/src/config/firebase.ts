@@ -3,6 +3,7 @@ import { getAuth, onAuthStateChanged, type Unsubscribe } from 'firebase/auth';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from 'firebase/auth';
 import router from '../router';
 import { useToast } from 'vue-toastification';
+import Cookies from 'js-cookie';
 
 const firebaseConfig = {
     apiKey            : import.meta.env.VITE_FIREBASE_API_KEY,
@@ -24,6 +25,7 @@ const helpers = {
     watchAuthState() {
         unwatchAuthState = onAuthStateChanged(auth, user => {
             if (!user) {
+                Cookies.remove('authToken');
                 router.push({name: 'home'})
             }
         })
@@ -35,9 +37,11 @@ const helpers = {
         var errorMessage = null;
         const toast      = useToast();
 
-        await signInWithEmailAndPassword(auth, email, password).then(() => {
-            router.push({name: 'sets'})
-
+        await signInWithEmailAndPassword(auth, email, password).then((res) => {
+            res.user.getIdToken(true).then((token) => {
+                Cookies.set('authToken', token);
+                router.push({name: 'sets'})
+            })
         }).catch(function(error) {
             switch (error.code) {
                 case 'auth/invalid-email':
@@ -73,6 +77,7 @@ const helpers = {
     async logout(){
         await signOut(auth).then(() => {
             // Sign-out successful.
+            Cookies.remove('authToken');
             router.push({name: 'home'})
         }).catch((error) => {
             console.log(error)
