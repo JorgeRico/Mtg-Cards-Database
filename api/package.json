@@ -1,8 +1,8 @@
 {
     "type": "module",
     "scripts": {
-        "start": "dotenvx run --quiet -- node app.cjs",
-        "dev": "dotenvx run -- node --run -- --watch",
+        "start": "node app.cjs",
+        "dev": "node app.cjs --watch",
         "test": "dotenvx run -- node --test",
         "swagger-jsdoc": "node swagger.cjs"
     },
