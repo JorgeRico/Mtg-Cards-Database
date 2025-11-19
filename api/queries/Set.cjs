@@ -48,11 +48,11 @@ function getMultipleSets(pagination, offset, filterParam = null) {
         s.setAbrv, 
         s.setLink, 
         s.setLogo, 
-        (s.setTotalCards - (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.isMolCard = 1)) as setTotalCards, 
+        (s.setTotalCards - (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.isMolCard = 1 and card.id > 0)) as setTotalCards, 
         s.setReleaseDate, 
         s.complete,
-        (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) as ownedCards,
-        (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) as specialCards
+        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1 and card.id > 0) as ownedCards,
+        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) as specialCards
         FROM mtgSet s
         ${filter}
         ORDER BY s.setReleaseDate DESC
@@ -70,16 +70,16 @@ function getSingleSet(id) {
         s.setAbrv, 
         s.setLink, 
         s.setLogo,
-        (s.setTotalCards - (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.isMolCard = 1)) as setTotalCards, 
+        (s.setTotalCards - (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.isMolCard = 1)) as setTotalCards, 
         s.setReleaseDate, 
         s.complete,
         s.onlineSet,
-        (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.own = 1) as ownedCards,
-        (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.isOnADeck = 1) as numCardsOnADeck,
-        (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.pendingToArrive = 1) as numPendingCards,
-        (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.special = 1) as specialCards,
-        (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.isBackCard = 1) as backCards,
-        (SELECT count(*) FROM mtgCard card WHERE card.idSet = ${id} AND card.isOversized = 1) as oversizedCards
+        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = ${id} AND card.own = 1) as ownedCards,
+        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = ${id} AND card.isOnADeck = 1) as numCardsOnADeck,
+        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = ${id} AND card.pendingToArrive = 1) as numPendingCards,
+        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = ${id} AND card.special = 1) as specialCards,
+        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = ${id} AND card.isBackCard = 1) as backCards,
+        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = ${id} AND card.isOversized = 1) as oversizedCards
         FROM mtgSet s
         WHERE s.id = ${id} `;
 

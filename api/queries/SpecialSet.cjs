@@ -18,11 +18,11 @@ function getMultipleSets(pagination, offset) {
         s.setAbrv, 
         s.setLink, 
         s.setLogo,
-        (s.setTotalCards - (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.isMolCard = 1)) as setTotalCards, 
+        (s.setTotalCards - (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.isMolCard = 1)) as setTotalCards, 
         s.setReleaseDate, 
         s.complete,
-        (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) as ownedCards,
-        (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) as specialCards
+        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) as ownedCards,
+        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) as specialCards
         FROM mtgSet s
         ${specialSetFilterQuery()}
         ORDER BY s.setReleaseDate DESC
