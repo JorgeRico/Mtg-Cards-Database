@@ -50,6 +50,11 @@ module.exports = class Set {
     async updateSetOnlineSet(id, value) {
         try {
             await this.db.doQuery(queries.updateSetOnlineSet(id, value.onlineSet));
+            const totalCardsData = await this.db.doQuery(queries.getSetTotalCards(id));
+            if (totalCardsData[0].setTotalCards > 0) {
+                const totalCards = value.onlineSet == 1 ? totalCardsData[0].setTotalCards : 0;
+                await this.db.doQuery(queries.updateSetOnlineSetMolCards(id, totalCards));
+            }
             await this.db.doQuery(queries.updateSetOnlineSetCards(id, value.onlineSet));
 
             return this.successMessage;

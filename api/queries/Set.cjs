@@ -48,15 +48,17 @@ function getMultipleSets(pagination, offset, filterParam = null) {
         s.setAbrv, 
         s.setLink, 
         s.setLogo, 
-        (s.setTotalCards - (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.isMolCard = 1 and card.id > 0)) as setTotalCards, 
+        (s.setTotalCards - s.setTotalMolCards) as setTotalCards, 
         s.setReleaseDate, 
         s.complete,
-        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1 and card.id > 0) as ownedCards,
+        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) as ownedCards,
         (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) as specialCards
         FROM mtgSet s
         ${filter}
         ORDER BY s.setReleaseDate DESC
         LIMIT ${offset},${pagination}`;
+
+    console.log(query);
     
     return query;
 }
@@ -70,7 +72,7 @@ function getSingleSet(id) {
         s.setAbrv, 
         s.setLink, 
         s.setLogo,
-        (s.setTotalCards - (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.isMolCard = 1)) as setTotalCards, 
+        (s.setTotalCards - s.setTotalMolCards) as setTotalCards, 
         s.setReleaseDate, 
         s.complete,
         s.onlineSet,
@@ -113,11 +115,32 @@ function updateSetOnlineSetCards(id, value) {
     return query;
 }
 
+function updateSetOnlineSetMolCards(id, value) {
+    var query =
+        `UPDATE mtgSet
+        SET setTotalMolCards = "${value}"
+        WHERE id = ${id}`;
+
+    return query;
+}
+
+function getSetTotalCards(id) {
+    var query =
+        `SELECT 
+        s.setTotalCards 
+        FROM mtgSet s
+        WHERE s.id = ${id} `;
+
+    return query;
+}
+
 module.exports = {
     updateSetComplete,
     getSingleSet,
     getMultipleSets,
     getTotalNumSets,
     updateSetOnlineSet,
-    updateSetOnlineSetCards
+    updateSetOnlineSetCards,
+    updateSetOnlineSetMolCards,
+    getSetTotalCards
 };
