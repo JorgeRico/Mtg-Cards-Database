@@ -79,6 +79,8 @@ module.exports = class SetCard {
 
         const totalMolCardsData = await this.db.doQuery(queriesSet.getSetTotalMolCards(idSet));
 
+        console.log(totalMolCardsData)
+
         let totalCards = 0;
         if (value.isMolCard == 1) {
             totalCards = totalMolCardsData[0].setTotalMolCards + 1;

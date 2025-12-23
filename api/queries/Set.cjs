@@ -52,8 +52,8 @@ function getMultipleSets(pagination, offset, filterParam = null) {
         s.setReleaseDate, 
         s.setTotalMolCards,
         s.complete,
-        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) as ownedCards,
-        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) as specialCards
+        s.setTotalOwnedCards as ownedCards,
+        s.setTotalSpecialCards as specialCards
         FROM mtgSet s
         ${filter}
         ORDER BY s.setReleaseDate DESC

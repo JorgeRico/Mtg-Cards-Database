@@ -22,8 +22,8 @@ function getMultipleSets(pagination, offset) {
         s.setTotalMolCards,
         s.setReleaseDate, 
         s.complete,
-        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) as ownedCards,
-        (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) as specialCards
+        s.setTotalOwnedCards as ownedCards,
+        s.setTotalSpecialCards as specialCards
         FROM mtgSet s
         ${specialSetFilterQuery()}
         ORDER BY s.setReleaseDate DESC
@@ -34,7 +34,7 @@ function getMultipleSets(pagination, offset) {
 }
 
 function specialSetFilterQuery() {
-    return 'WHERE s.onlineSet = 0 AND (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) >= 1';
+    return 'WHERE s.onlineSet = 0 AND s.setTotalSpecialCards >= 1';
 }
 
 module.exports = { 
