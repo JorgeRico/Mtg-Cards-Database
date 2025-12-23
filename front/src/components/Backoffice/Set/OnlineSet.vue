@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import BackofficeLayout from '@layouts/BackofficeLayout.vue';
-    import Table from '@components/Backoffice/Set/Table/Table.vue';
-    import Info from '@components/Backoffice/Set/Info/SpecialSet.vue';
+    import Table from '@components/Backoffice/Set/Table/Online/Table.vue';
+    import Info from '@components/Backoffice/Set/Info/MolSet.vue';
     import Pagination from '@components/Backoffice/Pagination/Pagination.vue';
     import { ref } from 'vue';
     import { useToast } from 'vue-toastification';
@@ -9,23 +9,23 @@
     const toast = useToast();
 
     interface SetData {
-        complete       : number,
-        setTotalCards  : number,
-        ownedCards     : number,
-        setLogo        : string
-        setReleaseDate : string,
-        setAbrv        : string,
-        id             : number,
-        setName        : string,
-        specialCards   : number
+        complete         : number,
+        setTotalCards    : number,
+        ownedCards       : number,
+        setLogo          : string
+        setReleaseDate   : string,
+        setAbrv          : string,
+        id               : number,
+        setName          : string,
+        specialCards     : number,
+        setTotalMolCards : number
     }
 
     interface Info {
-        numTotal         : number,
-        numTotalComplete : number
+        numTotal : number
     }
 
-    const setInfo    = ref<Info>({ 'numTotal': 0, 'numTotalComplete': 0 });
+    const setInfo    = ref<Info>({ 'numTotal': 0});
     const setItems   = ref<SetData[]>([]);
     const page       = ref<Number>(1);
     const limit      = ref<any>(100);
@@ -89,7 +89,7 @@
 <template>
     <BackofficeLayout>
         <h1>
-            <strong>Mtg Special sets</strong>
+            <strong>Mtg Online sets</strong>
         </h1>
         <Info 
             :key=setInfo
