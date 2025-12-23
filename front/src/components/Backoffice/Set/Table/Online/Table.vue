@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import Row from "@components/Backoffice/Set/Table/Row.vue"
+    import Row from "@components/Backoffice/Set/Table/Online/Row.vue"
 
     const props = defineProps<{
         items: Object[]

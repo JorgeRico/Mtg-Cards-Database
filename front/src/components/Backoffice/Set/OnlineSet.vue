@@ -40,6 +40,7 @@
             try {
                 const data     = await response.json();
                 setItems.value = await data.data;
+
             } catch (error) {
                 toast.error('DB error: No data found')
                 return;

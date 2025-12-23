@@ -77,7 +77,7 @@
     <p class="mb0"><strong>Num Special cards</strong>: <strong> {{ props.item.specialCards }} </strong></p>
     <p class="mb0"><strong>Num Back side cards</strong>: <strong> {{ props.item.backCards }} </strong></p>
     <p class="mb0"><strong>Num Oversized cards</strong>: <strong> {{ props.item.oversizedCards }} </strong></p>
-    <p class="mb0"><strong>Mol cards</strong>: <strong>{{ props.item.setTotalMolCards }}</strong></p>
+    <p class="mb0"><strong>Num Mol cards</strong>: <strong>{{ props.item.setTotalMolCards }}</strong></p>
     <p class="mb0"><strong>Num Waiting to arrive cards</strong>: <strong>{{ props.item.numPendingCards }}</strong></p>
     <p class="mb0"><strong>Num cards on Decks</strong>: <strong>{{ props.item.numCardsOnADeck }}</strong></p>
     <p><strong>Owned cards</strong>: <strong>{{ props.item.ownedCards }}</strong></p>

@@ -1,14 +1,15 @@
 <script setup lang="ts">
     interface SetInfo {
-        complete       : number,
-        setTotalCards  : number,
-        ownedCards     : number,
-        setLogo        : string
-        setReleaseDate : string,
-        setAbrv        : string,
-        id             : number,
-        setName        : string,
-        specialCards   : number
+        complete         : number,
+        setTotalCards    : number,
+        ownedCards       : number,
+        setLogo          : string
+        setReleaseDate   : string,
+        setAbrv          : string,
+        id               : number,
+        setName          : string,
+        specialCards     : number,
+        setTotalMolCards : number
     }
 
     const props = defineProps<{
@@ -42,9 +43,7 @@
         </RouterLink>
     </td>
     <td :class=className>{{ props.item.setTotalCards }}</td>
-    <td :class=className>{{ props.item.ownedCards }}</td>
-    <td :class=className>{{ props.item.setTotalCards - props.item.specialCards }}</td>
-    <td :class=className>{{ props.item.specialCards }}</td>
+    <td :class=className>{{ props.item.setTotalMolCards }}</td>
     <td :class=className>
         <RouterLink :to="{ name: 'setCards', params: { id: props.item.id }}">
             <span>edit</span>
