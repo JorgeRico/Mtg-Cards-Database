@@ -50,6 +50,7 @@ function getMultipleSets(pagination, offset, filterParam = null) {
         s.setLogo, 
         (s.setTotalCards - s.setTotalMolCards) as setTotalCards, 
         s.setReleaseDate, 
+        s.setTotalMolCards,
         s.complete,
         (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) as ownedCards,
         (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) as specialCards
@@ -71,6 +72,7 @@ function getSingleSet(id) {
         s.setLink, 
         s.setLogo,
         (s.setTotalCards - s.setTotalMolCards) as setTotalCards, 
+        s.setTotalMolCards,
         s.setReleaseDate, 
         s.complete,
         s.onlineSet,
@@ -132,6 +134,16 @@ function getSetTotalCards(id) {
     return query;
 }
 
+function getSetTotalMolCards(id) {
+    var query =
+        `SELECT 
+        s.setTotalMolCards 
+        FROM mtgSet s
+        WHERE s.id = ${id} `;
+
+    return query;
+}
+
 module.exports = {
     updateSetComplete,
     getSingleSet,
@@ -140,5 +152,6 @@ module.exports = {
     updateSetOnlineSet,
     updateSetOnlineSetCards,
     updateSetOnlineSetMolCards,
-    getSetTotalCards
+    getSetTotalCards,
+    getSetTotalMolCards
 };

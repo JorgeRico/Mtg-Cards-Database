@@ -2,11 +2,10 @@
 function getMultipleSetCards(id, orderBy, pagination, offset) {
     var query =
         `SELECT 
-        c.id, c.idSet, c.cardName, c.cardJsonLink, c.cardUri, c.cardImg, c.special, c.own, c.pendingToArrive, c.isOnADeck, c.isBackCard, c.needUpgrade, c.isOversized, s.setName, s.setLogo
+        c.id, c.idSet, c.cardName, c.cardJsonLink, c.cardUri, c.cardImg, c.special, c.isMolCard, c.own, c.pendingToArrive, c.isOnADeck, c.isBackCard, c.needUpgrade, c.isOversized, s.setName, s.setLogo
         FROM mtgCard c
         INNER JOIN mtgSet s ON s.id = c.idSet 
-        WHERE c.idSet = ${id} 
-        AND c.isMolCard = 0
+        WHERE c.idSet = ${id}
         ORDER BY c.${orderBy}
         LIMIT ${offset},${pagination}`;
 
@@ -94,6 +93,15 @@ function updateCardIsOnADeck(id, idSet, value) {
     return query;
 }
 
+function updateIsMolCard(id, idSet, value) {
+    var query =
+        `UPDATE mtgCard 
+        SET isMolCard = "${value.isMolCard}"
+        WHERE id = ${id} AND idSet = ${idSet} `;
+
+    return query;
+}
+
 module.exports = {
     getMultipleSetCards,
     updateOwnSetCard,
@@ -103,5 +111,6 @@ module.exports = {
     updateBetterGrade,
     updatePendingToArriveAllCards,
     updateCardIsOnADeck,
-    updateSpecialCard
+    updateSpecialCard,
+    updateIsMolCard
 };

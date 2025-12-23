@@ -19,6 +19,7 @@ function getMultipleSets(pagination, offset) {
         s.setLink, 
         s.setLogo,
         (s.setTotalCards - s.setTotalMolCards) as setTotalCards, 
+        s.setTotalMolCards,
         s.setReleaseDate, 
         s.complete,
         (SELECT count(card.id) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) as ownedCards,

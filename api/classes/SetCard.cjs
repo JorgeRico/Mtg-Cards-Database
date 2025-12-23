@@ -1,5 +1,6 @@
-const queries  = require("#queries/SetCard.cjs");
-const Database = require("#database/connection.cjs");
+const queries    = require("#queries/SetCard.cjs");
+const queriesSet = require("#queries/Set.cjs");
+const Database   = require("#database/connection.cjs");
 
 module.exports = class SetCard {
     constructor() {
@@ -72,6 +73,26 @@ module.exports = class SetCard {
         return { message };
     }
 
+    /* UPDATE Card is mol - single card */
+    async updateIsMolCard(id, idSet, value) {
+        var message = await this.update(queries.updateIsMolCard(id, idSet, value));
+
+        const totalMolCardsData = await this.db.doQuery(queriesSet.getSetTotalMolCards(idSet));
+
+        let totalCards = 0;
+        if (value.isMolCard == 1) {
+            totalCards = totalMolCardsData[0].setTotalMolCards + 1;
+        } else {
+            totalCards = totalMolCardsData[0].setTotalMolCards - 1;
+        }
+
+        if (totalCards < 0) totalCards = 0;
+
+        await this.db.doQuery(queriesSet.updateSetOnlineSetMolCards(idSet, totalCards));
+        
+        return { message };
+    }
+    
     /* UPDATE Card own - single card */
     async updateCardOwn(id, idSet, value) {
         let message = "";
@@ -161,6 +182,10 @@ module.exports = class SetCard {
         }
 
         if (values.isSpecial != null) {
+            total++;
+        }
+
+        if (values.isMolCard != null) {
             total++;
         }
 

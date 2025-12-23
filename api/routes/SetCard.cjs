@@ -137,6 +137,18 @@ router.put("/:idSet/cards/:idCard", async function (req, res, next) {
             }
         }
 
+        if (req.body.isMolCard != null) {
+            var message = await card.updateIsMolCard(req.params.idCard, req.params.idSet, req.body);
+
+            if (message === false) {
+                res.status(401).send({"message": "Error on updating is mol card"});
+                return;
+            } else {
+                res.status(200).json(message);
+                return;
+            }
+        }
+
         if (req.body.pendingToArrive != null) {
             var message = await card.updateCardPendingToArrive(req.params.idCard, req.params.idSet, req.body);
 
