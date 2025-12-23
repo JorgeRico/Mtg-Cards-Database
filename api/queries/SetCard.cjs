@@ -35,7 +35,7 @@ function updateAllOwnSetCard(own, idSet) {
     var query =
         `UPDATE mtgCard 
         SET own = "${own}", pendingToArrive = 0
-        WHERE idSet = ${idSet}`;
+        WHERE idSet = ${idSet} AND isMolCard = 0`;
 
     return query;
 }
@@ -102,6 +102,16 @@ function updateIsMolCard(id, idSet, value) {
     return query;
 }
 
+function countTotalOwnedCards(id) {
+    var query =
+        `SELECT 
+        count(card.id) as totalOwnedCards
+        FROM mtgCard card
+        WHERE card.idSet = ${id} AND card.own = 1 `;
+
+    return query;
+}
+
 module.exports = {
     getMultipleSetCards,
     updateOwnSetCard,
@@ -112,5 +122,6 @@ module.exports = {
     updatePendingToArriveAllCards,
     updateCardIsOnADeck,
     updateSpecialCard,
-    updateIsMolCard
+    updateIsMolCard,
+    countTotalOwnedCards
 };

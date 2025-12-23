@@ -115,10 +115,28 @@ function updateSetOnlineSetCards(id, value) {
     return query;
 }
 
-function updateSetOnlineSetMolCards(id, value) {
+function updateSetMolCards(id, value) {
     var query =
         `UPDATE mtgSet
         SET setTotalMolCards = "${value}"
+        WHERE id = ${id}`;
+
+    return query;
+}
+
+function updateSetOwnedCards(id, value) {
+    var query =
+        `UPDATE mtgSet
+        SET setTotalOwnedCards = "${value}"
+        WHERE id = ${id}`;
+
+    return query;
+}
+
+function updateSetSpecialCards(id, value) {
+    var query =
+        `UPDATE mtgSet
+        SET setTotalSpecialCards = "${value}"
         WHERE id = ${id}`;
 
     return query;
@@ -144,6 +162,26 @@ function getSetTotalMolCards(id) {
     return query;
 }
 
+function getSetTotalOwnedCards(id) {
+    var query =
+        `SELECT 
+        s.setTotalOwnedCards 
+        FROM mtgSet s
+        WHERE s.id = ${id} `;
+
+    return query;
+}
+
+function getSetTotalSpecialCards(id) {
+    var query =
+        `SELECT 
+        s.setTotalSpecialCards 
+        FROM mtgSet s
+        WHERE s.id = ${id} `;
+
+    return query;
+}
+
 module.exports = {
     updateSetComplete,
     getSingleSet,
@@ -151,7 +189,11 @@ module.exports = {
     getTotalNumSets,
     updateSetOnlineSet,
     updateSetOnlineSetCards,
-    updateSetOnlineSetMolCards,
+    updateSetMolCards,
     getSetTotalCards,
-    getSetTotalMolCards
+    getSetTotalMolCards,
+    updateSetOwnedCards,
+    updateSetSpecialCards,
+    getSetTotalOwnedCards,
+    getSetTotalSpecialCards
 };
