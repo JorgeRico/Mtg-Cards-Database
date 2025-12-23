@@ -22,7 +22,8 @@ function getMultipleSets(pagination, offset) {
         s.setReleaseDate, 
         s.complete,
         (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.own = 1) as ownedCards,
-        (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) as specialCards
+        (SELECT count(*) FROM mtgCard card WHERE card.idSet = s.id AND card.special = 1) as specialCards,
+        s.setTotalMolCards
         FROM mtgSet s
         WHERE s.onlineSet = 1
         ORDER BY s.setReleaseDate DESC

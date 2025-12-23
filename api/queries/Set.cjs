@@ -57,8 +57,6 @@ function getMultipleSets(pagination, offset, filterParam = null) {
         ${filter}
         ORDER BY s.setReleaseDate DESC
         LIMIT ${offset},${pagination}`;
-
-    console.log(query);
     
     return query;
 }
