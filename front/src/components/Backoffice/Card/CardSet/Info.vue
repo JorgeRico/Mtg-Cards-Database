@@ -1,4 +1,12 @@
 <script setup lang="ts">
+    const emit = defineEmits<{
+        (event: 'customRefresh'): void
+    }>()
+
+    const refresh = () => {
+        emit('customRefresh')
+    }
+
     interface SetData {
         id               : number,
         setName          : string,
@@ -81,6 +89,8 @@
     <p class="mb0"><strong>Num Waiting to arrive cards</strong>: <strong>{{ props.item.numPendingCards }}</strong></p>
     <p class="mb0"><strong>Num cards on Decks</strong>: <strong>{{ props.item.numCardsOnADeck }}</strong></p>
     <p><strong>Owned cards</strong>: <strong>{{ props.item.ownedCards }}</strong></p>
+
+    <p class="pointer underline" @click="refresh">Refresh data info</p>
     
     <p v-if="props.item.complete==true" class="completeSet">
         <strong>Complete set</strong>: <strong>YES</strong>
@@ -91,6 +101,10 @@
 </template>
 
 <style lang="css" scoped>
+    .underline {
+        text-decoration: underline;
+    }
+    
     .completeSet {
         color: seagreen;
         text-shadow: 8px 1px 15px black;

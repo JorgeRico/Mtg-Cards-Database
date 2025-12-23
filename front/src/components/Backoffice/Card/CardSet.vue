@@ -161,8 +161,10 @@
     <BackofficeLayout>
         <Info 
             :key=setInfo
-            :item=setInfo>
+            :item=setInfo
+            @custom-refresh="getSetData">
         </Info>
+
         <div class="text-right mb40 right w100">
             <Filters
                 @custom-filter-id-change="handleCustomFilterIdChange"
