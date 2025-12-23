@@ -25,7 +25,6 @@ const helpers = {
     watchAuthState() {
         unwatchAuthState = onAuthStateChanged(auth, user => {
             if (!user) {
-                console.log('nononono')
                 Cookies.remove('authToken');
                 // router.push({name: 'home'})
             }

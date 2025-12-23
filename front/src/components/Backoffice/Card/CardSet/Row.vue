@@ -19,7 +19,8 @@
         needUpgrade     : number,
         isOversized     : number,
         setName         : string,
-        setLogo         : string
+        setLogo         : string,
+        isMolCard       : number
     }
 
     const props = defineProps<{
@@ -49,8 +50,18 @@
         helpers.updateCardDataInfo('isSpecial', value, item);
     }
 
+    function setIsMolCard(value: number, item: CardData) {
+        helpers.updateCardDataInfo('isMolCard', value, item);
+        className.value = helpers.setClassName('isMolCard', item.isMolCard, true);
+    }
+
     const initialize = () => {
-        className.value = helpers.setClassName('own', props.item.own, false);
+        if (props.item.isMolCard == 1){
+            className.value = helpers.setClassName('isMolCard', props.item.isMolCard, false);
+        } else {
+            className.value = helpers.setClassName('own', props.item.own, false);
+        }
+            
     };
 
     initialize();
@@ -67,6 +78,25 @@
         {{ props.item.cardName }}
     </td>
     <td :class=className :key="props.item.own">
+        <div class="mb10">
+            <span class="left text-center cardIcon">
+                <i class="fa-solid fa-chess-queen"></i>
+            </span>
+            <span class="left cardOption ml10 mr10">mol card: </span>
+            <RouterLink 
+                :to="{}" 
+                @click="setIsMolCard(1, props.item)"
+                :class="props.item.isMolCard==1 ? 'disable-link gold' : ''">
+                yes
+            </RouterLink>
+            <span class="ml5 mr5">|</span>
+            <RouterLink 
+                :to="{}" 
+                @click="setIsMolCard(0, props.item)"
+                :class="props.item.isMolCard==0 ? 'disable-link' : ''">
+                no
+            </RouterLink>
+        </div>
         <div class="mb10">
             <span class="left text-center cardIcon">
                 <i class="fa-solid fa-chess-queen"></i>

@@ -17,7 +17,8 @@ interface CardData {
     needUpgrade     : number,
     isOversized     : number,
     setName         : string,
-    setLogo         : string
+    setLogo         : string,
+    isMolCard       : number
 }   
 
 const helpers = {
@@ -28,6 +29,14 @@ const helpers = {
 
         if (isClick === false && value == 1 && key == 'own') {
             return 'complete';
+        }
+
+        if (isClick === true && value != 1 && key == 'isMolCard') {
+            return 'isMolCard';
+        }
+
+        if (isClick === false && value == 1 && key == 'isMolCard') {
+            return 'isMolCard';
         }
 
         return '';
@@ -68,6 +77,10 @@ const helpers = {
 
             if (key == 'isSpecial') {
                 item.special = value;
+            }
+
+            if (key == 'isMolCard') {
+                item.isMolCard = value;
             }
 
             // check for error response

@@ -1,18 +1,19 @@
 <script setup lang="ts">
     interface SetData {
-        id              : number,
-        setName         : string,
-        setReleaseDate  : string,
-        setTotalCards   : number,
-        ownedCards      : number,
-        setLogo         : string,
-        numCardsOnADeck : number,
-        numPendingCards : number,
-        complete        : boolean,
-        specialCards    : number,
-        backCards       : number,
-        oversizedCards  : number,
-        onlineSet       : number
+        id               : number,
+        setName          : string,
+        setReleaseDate   : string,
+        setTotalCards    : number,
+        ownedCards       : number,
+        setLogo          : string,
+        numCardsOnADeck  : number,
+        numPendingCards  : number,
+        complete         : boolean,
+        specialCards     : number,
+        backCards        : number,
+        oversizedCards   : number,
+        onlineSet        : number,
+        setTotalMolCards : number
     }
     
     import { useToast } from 'vue-toastification';
@@ -38,7 +39,6 @@
 
         fetch(url, requestOptions).then(async response => {
             const data = await response.json();
-            console.log(data)
 
             props.item.onlineSet = value;
             
@@ -77,10 +77,11 @@
     <p class="mb0"><strong>Num Special cards</strong>: <strong> {{ props.item.specialCards }} </strong></p>
     <p class="mb0"><strong>Num Back side cards</strong>: <strong> {{ props.item.backCards }} </strong></p>
     <p class="mb0"><strong>Num Oversized cards</strong>: <strong> {{ props.item.oversizedCards }} </strong></p>
+    <p class="mb0"><strong>Mol cards</strong>: <strong>{{ props.item.setTotalMolCards }}</strong></p>
     <p class="mb0"><strong>Num Waiting to arrive cards</strong>: <strong>{{ props.item.numPendingCards }}</strong></p>
     <p class="mb0"><strong>Num cards on Decks</strong>: <strong>{{ props.item.numCardsOnADeck }}</strong></p>
     <p><strong>Owned cards</strong>: <strong>{{ props.item.ownedCards }}</strong></p>
-
+    
     <p v-if="props.item.complete==true" class="completeSet">
         <strong>Complete set</strong>: <strong>YES</strong>
     </p>

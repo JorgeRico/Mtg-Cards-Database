@@ -15,27 +15,44 @@
     const props = defineProps<{
         item : SetInfo 
     }>()
+    
+    var className = '';
+
+    if (props.item.complete == 1 && props.item.setTotalCards == props.item.ownedCards) {
+        className = 'complete';
+    }
+
+    if (props.item.complete == 1 && props.item.setTotalCards != props.item.ownedCards) {
+        className = 'softcomplete';
+    }
+
+    if (props.item.complete != 1 && props.item.ownedCards > 0) { 
+        className = 'working';
+    }
 </script>
 
 <template>
-    <td>
+    <td :class=className>
         <div class="logo" v-html="props.item.setLogo"></div>
     </td>
-    <td>{{ props.item.setReleaseDate }}</td>
-    <td>{{ props.item.setAbrv }}</td>
-    <td>
+    <td :class=className>{{ props.item.setReleaseDate }}</td>
+    <td :class=className>{{ props.item.setAbrv }}</td>
+    <td :class=className>
         <RouterLink :to="{ name: 'setCards', params: { id: props.item.id }}">
             <span>{{ props.item.setName }}</span>
         </RouterLink>
     </td>
-    <td>{{ props.item.setTotalCards }}</td>
-    <td>{{ props.item.setTotalMolCards }}</td>
-    <td>
+    <td :class=className>{{ props.item.setTotalCards }}</td>
+    <td :class=className>{{ props.item.ownedCards }}</td>
+    <td :class=className>{{ props.item.setTotalCards - props.item.specialCards }}</td>
+    <td :class=className>{{ props.item.setTotalMolCards ?  props.item.setTotalMolCards : '-' }}</td>
+    <td :class=className>{{ props.item.specialCards }}</td>
+    <td :class=className>
         <RouterLink :to="{ name: 'setCards', params: { id: props.item.id }}">
             <span>edit</span>
         </RouterLink>
     </td>
-</template>
+</template> : '-' 
 
 <style lang="css" scoped>
     .logo {

@@ -17,6 +17,7 @@
                 <th>TOTAL SET CARDS</th>
                 <th>TOTAL OWNED CARDS</th>
                 <th>SET CARDS</th>
+                <th>MOL CARDS</th>
                 <th>SPECIAL CARDS</th>
                 <th>edit</th>
             </tr>

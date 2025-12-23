@@ -369,6 +369,18 @@ td.working{
     color: black;
 }
 
+.isMolCard {
+    background: gray !important;
+
+    & a {
+        color: black;
+    }
+}
+
+td.isMolCard{
+    color: black;
+}
+
 .disable-link {
     pointer-events: none;
     color: black !important;
