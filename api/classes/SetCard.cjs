@@ -11,12 +11,22 @@ module.exports = class SetCard {
 
     /* GET Cards function */
     async getMultipleSetCards(id, orderById, page = 1) {
-        let orderBy  = this.orderBy(orderById);
         const offset = this.db.getOffset(page, this.pagination);
-        const query  = queries.getMultipleSetCards(id, orderBy, this.pagination, offset);
-        
-        const data   = await this.db.doQuery(query);
-        const meta   = { page };
+        let orderBy  = "";
+        let query    = "";
+        let data     = [];
+
+        if (orderById == 'id' || orderById == 'name' || orderById == null) {
+            orderBy = this.orderBy(orderById);
+            query   = queries.getMultipleSetCards(id, orderBy, this.pagination, offset);
+            data    = await this.db.doQuery(query);
+        } else {
+            orderBy = this.showConditions(orderById);
+            query   = queries.getMultipleSetCardsWithCondition(id, orderBy, this.pagination, offset);
+            data    = await this.db.doQuery(query);
+        }
+
+        const meta  = { page };
 
         return {
             data,
@@ -184,6 +194,36 @@ module.exports = class SetCard {
         }
 
         return orderBy;
+    }
+
+    showConditions(option) {
+        let condition = "";
+
+        if (option === 'isMolCard') {
+            condition = "isMolCard = 1";
+        }
+
+        if (option === 'isSpecial') {
+            condition = "special = 1";
+        }
+
+        if (option === 'isOnADeck') {
+            condition = "isOnADeck = 1";
+        }
+
+        if (option === 'needUpgrade') {
+            condition = "needUpgrade = 1";
+        }
+
+        if (option === 'pendingToArrive') {
+            condition = "iendingToArrive = 1";
+        }
+
+        if (option === 'own') {
+            condition = "own = 0";
+        }
+
+        return condition;
     }
     
     async update(query){
