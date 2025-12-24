@@ -91,6 +91,24 @@
         });
     }
 
+    function handleCustomFilterMolCardsChange() {
+        getCards('isMolCard');
+    }
+    function handleCustomFilterSpecialCardsChange() {
+        getCards('isSpecial');
+    }
+    function handleCustomFilterCardsOnADeckChange() {
+        getCards('isOnADeck');
+    }
+    function handleCustomFilterCardsNeedUpgradeChange() {
+        getCards('needUpgrade');
+    }
+    function handleCustomFilterCardsPendingToArriveChange() {
+        getCards('pendingToArrive');
+    }
+    function handleCustomFilterCardsNotOwnedChange() {
+        getCards('own');
+    }
     function handleCustomFilterIdChange() {
         getCards('id');
     }
@@ -171,7 +189,14 @@
                 @custom-filter-name-change="handleCustomFilterNameChange"
                 @custom-filter-set-change="handleCustomFilterSetChange"
                 @custom-filter-all-cards-change="handleCustomFilterAllCardsChange"
-                @custom-filter-pending-cards-change="handleCustomFilterPendingCardsChange">
+                @custom-filter-pending-cards-change="handleCustomFilterPendingCardsChange"
+                @custom-filter-mol-cards-change="handleCustomFilterMolCardsChange"
+                @custom-filter-special-cards-change="handleCustomFilterSpecialCardsChange"
+                @custom-filter-cards-on-a-deck-change="handleCustomFilterCardsOnADeckChange"
+                @custom-filter-cards-need-upgrade-change="handleCustomFilterCardsNeedUpgradeChange"
+                @custom-filter-cards-pending-to-arrive-change="handleCustomFilterCardsPendingToArriveChange"
+                @custom-filter-cardsNotOwned-change="handleCustomFilterCardsNotOwnedChange"
+                >
             </Filters>
         </div>
         <Table

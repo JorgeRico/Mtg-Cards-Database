@@ -5,6 +5,12 @@
         (event: 'customFilterSetChange', option: number): number
         (event: 'customFilterAllCardsChange', option: number): number
         (event: 'customFilterPendingCardsChange', option: number): number
+        (event: 'customFilterMolCardsChange'): void
+        (event: 'customFilterSpecialCardsChange'): void
+        (event: 'customFilterCardsOnADeckChange'): void
+        (event: 'customFilterCardsNeedUpgradeChange'): void
+        (event: 'customFilterCardsPendingToArriveChange'): void
+        (event: 'customFilterCardsNotOwnedChange'): void
     }>()
 
     const orderById = () => {
@@ -13,6 +19,25 @@
     const orderByName = () => {
         emit('customFilterNameChange')
     }
+    const showMolCards = () => {
+        emit('customFilterMolCardsChange')
+    }
+    const showSpecialCards = () => {
+        emit('customFilterSpecialCardsChange')
+    }
+    const showCardsOnADeck = () => {
+        emit('customFilterCardsOnADeckChange')
+    }
+    const showCardsNeedUpgrade = () => {
+        emit('customFilterCardsNeedUpgradeChange')
+    }
+    const showCardsPendingToArrive = () => {
+        emit('customFilterCardsPendingToArriveChange')
+    }
+    const showNotOwnedCards = () => {
+        emit('customFilterCardsNotOwnedChange')
+    }
+
     const completeSet = (option: number) => {
         emit('customFilterSetChange', option)
     }
@@ -32,6 +57,13 @@
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" @click="orderById()">Order by DB Id</a></li>
             <li><a class="dropdown-item" @click="orderByName()">Order by Name</a></li>
+
+            <li><a class="dropdown-item" @click="showMolCards()">Show Mol cards</a></li>
+            <li><a class="dropdown-item" @click="showSpecialCards()">Show Special cards</a></li>
+            <li><a class="dropdown-item" @click="showCardsOnADeck()">Show cards on a deck</a></li>
+            <li><a class="dropdown-item" @click="showCardsNeedUpgrade()">Show cards need upgrade</a></li>
+            <li><a class="dropdown-item" @click="showCardsPendingToArrive()">Show cards pending to arrive</a></li>
+            <li><a class="dropdown-item" @click="showNotOwnedCards()">Show NOT owned cards</a></li>
         </ul>
     </div>
     <div class="right dropdown">
