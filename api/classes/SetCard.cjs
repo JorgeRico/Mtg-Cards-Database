@@ -56,19 +56,21 @@ module.exports = class SetCard {
     async updateOwnSetCard(id, own, idSet) {
         var message = await this.update(queries.updateOwnSetCard(id, own, idSet));
 
-        const totalOwnedCardsData = await this.db.doQuery(queriesSet.getSetTotalOwnedCards(idSet));
+        let totalOwnedCardsData = null;
+        totalOwnedCardsData     = await this.db.doQuery(queriesSet.getSetTotalOwnedCards(idSet));
+        if (totalOwnedCardsData) {
+            let totalCards = 0;
+            if (own == 1) {
+                totalCards = totalOwnedCardsData[0].setTotalOwnedCards + 1;
+            } else {
+                totalCards = totalOwnedCardsData[0].setTotalOwnedCards - 1;
+            }
 
-        let totalCards = 0;
-        if (own == 1) {
-            totalCards = totalOwnedCardsData[0].setTotalOwnedCards + 1;
-        } else {
-            totalCards = totalOwnedCardsData[0].setTotalOwnedCards - 1;
+            if (totalCards < 0) totalCards = 0;
+
+            await this.db.doQuery(queriesSet.updateSetOwnedCards(idSet, totalCards));
         }
-
-        if (totalCards < 0) totalCards = 0;
-
-        await this.db.doQuery(queriesSet.updateSetOwnedCards(idSet, totalCards));
-
+        
         return { message };
     }
 
@@ -116,18 +118,21 @@ module.exports = class SetCard {
     async updateIsMolCard(id, idSet, value) {
         var message = await this.update(queries.updateIsMolCard(id, idSet, value));
 
-        const totalMolCardsData = await this.db.doQuery(queriesSet.getSetTotalMolCards(idSet));
+        let totalMolCardsData = null;
+        totalMolCardsData     = await this.db.doQuery(queriesSet.getSetTotalMolCards(idSet));
 
-        let totalCards = 0;
-        if (value.isMolCard == 1) {
-            totalCards = totalMolCardsData[0].setTotalMolCards + 1;
-        } else {
-            totalCards = totalMolCardsData[0].setTotalMolCards - 1;
+        if (totalMolCardsData) {
+            let totalCards = 0;
+            if (value.isMolCard == 1) {
+                totalCards = totalMolCardsData[0].setTotalMolCards + 1;
+            } else {
+                totalCards = totalMolCardsData[0].setTotalMolCards - 1;
+            }
+
+            if (totalCards < 0) totalCards = 0;
+
+            await this.db.doQuery(queriesSet.updateSetMolCards(idSet, totalCards));
         }
-
-        if (totalCards < 0) totalCards = 0;
-
-        await this.db.doQuery(queriesSet.updateSetMolCards(idSet, totalCards));
         
         return { message };
     }
