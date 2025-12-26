@@ -47,6 +47,7 @@
 
         fetch(url, requestOptions).then(async response => {
             const data = await response.json();
+            console.log(data)
 
             props.item.onlineSet = value;
             

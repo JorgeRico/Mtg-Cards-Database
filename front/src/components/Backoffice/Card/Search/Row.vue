@@ -19,7 +19,8 @@
         needUpgrade     : number,
         isOversized     : number,
         setName         : string,
-        setLogo         : string
+        setLogo         : string,
+        isMolCard       : number
     }
 
     const props = defineProps<{
