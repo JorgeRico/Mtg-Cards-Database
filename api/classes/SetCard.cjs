@@ -221,7 +221,7 @@ module.exports = class SetCard {
         }
 
         if (option === 'pendingToArrive') {
-            condition = "iendingToArrive = 1";
+            condition = "pendingToArrive = 1";
         }
 
         if (option === 'own') {
