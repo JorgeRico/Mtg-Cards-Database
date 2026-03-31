@@ -1,8 +1,8 @@
 services:
   app-db:
     container_name: app-db
-    image: mysql:8.4.7
-    command: mysqld --sql_mode=STRICT_TRANS_TABLES
+    image: mysql:8.4
+    platform: linux/arm64 # m4 rules
     ports:
       - "3308:3306"
     networks:
