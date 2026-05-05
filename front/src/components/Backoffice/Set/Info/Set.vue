@@ -29,11 +29,8 @@
             </span>
         </div>
         <div class="bubble">
-            <span class="head">
-                <strong>Cards</strong>
-            </span>
-            <span class="left w100">
-                <span class="left">Total:</span>
+            <span class="left w100 head">
+                <span class="left"><strong>Cards</strong></span>
                 <span class="right">{{ props.data.numTotalCards }}</span>
             </span>
             <span class="left w100">

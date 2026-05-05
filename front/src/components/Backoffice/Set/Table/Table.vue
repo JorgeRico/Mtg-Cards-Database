@@ -12,8 +12,8 @@
             <tr>
                 <th>LOGO</th>
                 <th>RELEASE DATE</th>
+                <th>CODE</th>
                 <th>NAME</th>
-                <th>ABREV</th>
                 <th>TOTAL SET CARDS</th>
                 <th>TOTAL OWNED CARDS</th>
                 <th>SET CARDS</th>
