@@ -57,7 +57,17 @@
 <template>
     <BackofficeLayout>
         <h1>Cards to upgrade</h1>
-        <p class="mb40"><strong>num cards:</strong> {{ total }}</p>
+        <div class="left info d-flex justify-content-start gap-5 mt20 mb30">
+            <div class="bubble">
+                <span class="left w100 head">
+                    <strong>Cards</strong>
+                </span>
+                <span class="left w100">
+                    <span class="left">Num Total:</span>
+                    <span class="right">{{ total }}</span>
+                </span>
+            </div>
+        </div>
         <Table
             :key=setItems 
             :isPendingCard=false

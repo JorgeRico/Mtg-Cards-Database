@@ -183,7 +183,7 @@
             @custom-refresh="getSetData">
         </Info>
 
-        <div class="text-right mb40 right w100">
+        <div class="text-right mb10 right w100">
             <Filters
                 @custom-filter-id-change="handleCustomFilterIdChange"
                 @custom-filter-name-change="handleCustomFilterNameChange"

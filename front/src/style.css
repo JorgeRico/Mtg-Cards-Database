@@ -159,6 +159,10 @@ button:focus {
     margin-bottom: 20px;
 }
 
+.mb30 {
+    margin-bottom: 30px;
+}
+
 .mb40 {
     margin-bottom: 40px;
 }
@@ -499,4 +503,29 @@ select[id='month'] {
 
 select[id='month'] option:first-child {
     display: none;
+}
+
+.bubble {
+    border: 1px solid lightgray;
+    padding: 10px 20px;
+    background: rgba(229, 220, 220, 0.5);
+    width: 175px;
+    overflow: hidden;
+    border-radius: 10px;
+
+    & .head {
+        margin-bottom: 10px;
+    }
+    
+    & span {
+        width: auto;
+
+        & .left {
+            text-align: left;
+        }
+
+        & .right {
+            text-align: right;
+        }
+    }
 }

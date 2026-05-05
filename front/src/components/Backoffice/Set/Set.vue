@@ -126,12 +126,6 @@
         <Filters 
             @custom-filter-change="handleCustomFilterChange">
         </Filters>
-        <Pagination
-            :key=totalPages 
-            @custom-page-change="handleCustomChange"
-            :page=page 
-            :total=totalPages>
-        </Pagination>
         <Table 
             :key=setItems 
             :items=setItems>

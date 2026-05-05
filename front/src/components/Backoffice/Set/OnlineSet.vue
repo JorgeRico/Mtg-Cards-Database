@@ -96,12 +96,6 @@
             :key=setInfo
             :data=setInfo>
         </Info>
-        <Pagination
-            :key=totalPages 
-            @custom-page-change="handleCustomChange"
-            :page=page 
-            :total=totalPages>
-        </Pagination>
         <Table 
             :key=setItems 
             :items=setItems>

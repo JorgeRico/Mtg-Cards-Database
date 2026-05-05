@@ -15,8 +15,8 @@
 </script>
 
 <template>
-    <div class="left mt10 w100">
-        <nav aria-label="Page navigation example">
+    <div class="left w100 mt10">
+        <nav aria-label="Page navigation">
             <ul class="pagination justify-content-end">
                 <li v-if="props.page == 1" class="page-item disabled">
                     <a class="page-link">Previous</a>
