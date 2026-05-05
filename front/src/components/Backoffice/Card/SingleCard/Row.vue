@@ -73,26 +73,22 @@
         {{ props.index+1 }}
     </td>
     <td :class="`${className} cardImgTd`">
-        <img :src="props.item.cardImg.toLowerCase().trim()" class="cardImg"/>
+        <img :src="props.item.cardImg.toLowerCase().trim()" class="mt10 cardImg"/>
     </td>
-    <td :class=className>
+    <td :class="`${className} textCenter`">
         <span>
             {{ props.item.cardName }}
         </span>
     </td>
-    <td :class=className>
-        <span>
-            <RouterLink :to="{ name: 'setCards', params: { id: props.item.idSet }}">{{ props.item.setName }}</RouterLink>
-        </span>
+    <td :class="`${className} textCenter`">
+        <RouterLink :to="{ name: 'setCards', params: { id: props.item.idSet }}">{{ props.item.setName }}</RouterLink>
     </td>
-    <td :class=className>
-        <span>
-            <RouterLink :to="{}" @click="changeOptionValue(0)">
-                <span v-if="props.isPendingCard == true">Pending to arrive</span>
-                <span v-if="props.isOnADeck == true">Card on a deck</span>
-                <span v-if="props.isUpgrade == true">Card needs upgrade</span>
-            </RouterLink>
-        </span>
+    <td :class="`${className} textCenter`">
+        <RouterLink :to="{}" @click="changeOptionValue(0)">
+            <span v-if="props.isPendingCard == true">Pending to arrive</span>
+            <span v-if="props.isOnADeck == true">Card on a deck</span>
+            <span v-if="props.isUpgrade == true">Card needs upgrade</span>
+        </RouterLink>
     </td>
 </template>
 

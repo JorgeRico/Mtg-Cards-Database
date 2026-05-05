@@ -539,3 +539,19 @@ tbody {
         width: 20px;
     }
 }
+
+.textCenter {
+    text-align: center;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.m-auto {
+    margin: 0 auto;
+}
+
+.pagination {
+    margin-bottom: 0px;
+}

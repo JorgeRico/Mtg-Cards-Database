@@ -123,9 +123,21 @@
             :data=setInfo
             :hasFilters=hasFilters>
         </Info>
-        <Filters 
-            @custom-filter-change="handleCustomFilterChange">
-        </Filters>
+        <div class="left w100 mb20">
+            <div class="left w50">
+                <Filters 
+                    @custom-filter-change="handleCustomFilterChange">
+                </Filters>
+            </div>
+            <div class="right w50">
+                <Pagination   
+                    :key=totalPages 
+                    @custom-page-change="handleCustomChange"
+                    :page=page
+                    :total=totalPages>
+                </Pagination>
+            </div>
+        </div>
         <Table 
             :key=setItems 
             :items=setItems>

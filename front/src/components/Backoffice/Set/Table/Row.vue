@@ -35,21 +35,21 @@
     <td :class=className>
         <div class="logo" v-html="props.item.setLogo"></div>
     </td>
-    <td :class=className>{{ props.item.setReleaseDate }}</td>
-    <td :class=className>{{ props.item.setAbrv }}</td>
-    <td :class=className>
+    <td :class="`${className} textCenter`">{{ props.item.setReleaseDate }}</td>
+    <td :class="`${className} textCenter`">{{ props.item.setAbrv }}</td>
+    <td :class="`${className} textCenter`">
         <RouterLink :to="{ name: 'setCards', params: { id: props.item.id }}">
             <span>{{ props.item.setName }}</span>
         </RouterLink>
     </td>
-    <td :class=className>{{ props.item.setTotalCards }}</td>
-    <td :class=className>{{ props.item.ownedCards }}</td>
-    <td :class=className>{{ props.item.setTotalCards - props.item.specialCards }}</td>
-    <td :class=className>{{ props.item.setTotalMolCards ?  props.item.setTotalMolCards : '-' }}</td>
-    <td :class=className>{{ props.item.specialCards }}</td>
-    <td :class=className>
+    <td :class="`${className} textCenter`">{{ props.item.setTotalCards }}</td>
+    <td :class="`${className} textCenter`">{{ props.item.ownedCards }}</td>
+    <td :class="`${className} textCenter`">{{ props.item.setTotalCards - props.item.specialCards }}</td>
+    <td :class="`${className} textCenter`">{{ props.item.setTotalMolCards ?  props.item.setTotalMolCards : '-' }}</td>
+    <td :class="`${className} textCenter`">{{ props.item.specialCards }}</td>
+    <td :class="`${className} textCenter`">
         <RouterLink :to="{ name: 'setCards', params: { id: props.item.id }}">
-            <span>edit</span>
+            edit
         </RouterLink>
     </td>
 </template> : '-' 

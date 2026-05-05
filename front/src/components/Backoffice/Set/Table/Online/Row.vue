@@ -35,19 +35,31 @@
     <td :class=className>
         <div class="logo" v-html="props.item.setLogo"></div>
     </td>
-    <td :class=className>{{ props.item.setReleaseDate }}</td>
-    <td :class=className>{{ props.item.setAbrv }}</td>
     <td :class=className>
-        <RouterLink :to="{ name: 'setCards', params: { id: props.item.id }}">
-            <span>{{ props.item.setName }}</span>
-        </RouterLink>
+        <span>{{ props.item.setReleaseDate }}</span>
     </td>
-    <td :class=className>{{ props.item.setTotalCards }}</td>
-    <td :class=className>{{ props.item.setTotalMolCards }}</td>
     <td :class=className>
-        <RouterLink :to="{ name: 'setCards', params: { id: props.item.id }}">
-            <span>edit</span>
-        </RouterLink>
+        <span>{{ props.item.setAbrv }}</span>
+    </td>
+    <td :class=className>
+        <span>
+            <RouterLink :to="{ name: 'setCards', params: { id: props.item.id }}">
+                <span>{{ props.item.setName }}</span>
+            </RouterLink>
+        </span>
+    </td>
+    <td :class=className>
+        <span>{{ props.item.setTotalCards }}</span>
+    </td>
+    <td :class=className>
+        <span>{{ props.item.setTotalMolCards }}</span>
+    </td>
+    <td :class=className>
+        <span>
+            <RouterLink :to="{ name: 'setCards', params: { id: props.item.id }}">
+                edit
+            </RouterLink>
+        </span>
     </td>
 </template>
 
@@ -63,6 +75,8 @@
     }
 
     td {
-        padding: 10px;
+        background: lightgray;
+        padding: 20px 0 10px 0;
+        text-align: center;
     }
 </style>
