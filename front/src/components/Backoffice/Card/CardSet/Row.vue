@@ -71,7 +71,7 @@
     <td :class=className>
         {{ props.index+1 }}
     </td>
-    <td :class=className>
+    <td :class="`${className} cardImgTd`">
         <img :src="props.item.cardImg.toLowerCase().trim()" class="cardImg"/>
     </td>
     <td :class=className>
@@ -196,8 +196,9 @@
 </template>
 
 <style lang="css" scoped>
-    .cardImg {
+    .cardImg, .cardImgTd {
         width: 100px;
+        padding: 5px;
     }
 
     .cardImg:hover {
@@ -221,6 +222,10 @@
     td {
         background: lightgray;
         padding: 20px 0 10px 0;
+
+        & span {
+            margin-left: 10px;
+        }
     }
 
     td:first-child {

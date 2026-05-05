@@ -529,3 +529,13 @@ select[id='month'] option:first-child {
         }
     }
 }
+
+tbody {
+    tr:nth-child(even) {
+        --bs-table-bg: #f0f0f0;
+    }
+    
+    svg {
+        width: 20px;
+    }
+}

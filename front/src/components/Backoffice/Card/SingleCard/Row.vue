@@ -72,27 +72,34 @@
     <td :class=className>
         {{ props.index+1 }}
     </td>
-    <td :class=className>
+    <td :class="`${className} cardImgTd`">
         <img :src="props.item.cardImg.toLowerCase().trim()" class="cardImg"/>
     </td>
     <td :class=className>
-        {{ props.item.cardName }}
+        <span>
+            {{ props.item.cardName }}
+        </span>
     </td>
     <td :class=className>
-        <RouterLink :to="{ name: 'setCards', params: { id: props.item.idSet }}">{{ props.item.setName }}</RouterLink>
+        <span>
+            <RouterLink :to="{ name: 'setCards', params: { id: props.item.idSet }}">{{ props.item.setName }}</RouterLink>
+        </span>
     </td>
     <td :class=className>
-        <RouterLink :to="{}" @click="changeOptionValue(0)">
-            <span v-if="props.isPendingCard == true">Pending to arrive</span>
-            <span v-if="props.isOnADeck == true">Card on a deck</span>
-            <span v-if="props.isUpgrade == true">Card needs upgrade</span>
-        </RouterLink>
+        <span>
+            <RouterLink :to="{}" @click="changeOptionValue(0)">
+                <span v-if="props.isPendingCard == true">Pending to arrive</span>
+                <span v-if="props.isOnADeck == true">Card on a deck</span>
+                <span v-if="props.isUpgrade == true">Card needs upgrade</span>
+            </RouterLink>
+        </span>
     </td>
 </template>
 
 <style lang="css" scoped>
-    .cardImg {
+    .cardImg, .cardImgTd {
         width: 100px;
+        padding: 5px;
     }
 
     td:first-child {
@@ -102,5 +109,9 @@
 
     td {
         padding: 20px 0 10px 0;
+
+        & span {
+            margin-left: 10px;
+        }
     }
 </style>

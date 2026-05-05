@@ -25,8 +25,17 @@
 </template>
 
 <style lang="css" scoped>
+    table {
+        border-collapse: separate;
+        border-spacing: revert;
+    }
+
+    thead tr {
+        text-align: center;
+    }
+    
     th {
-        background: black;
-        color: white;
+        background: rgba(12, 79, 235, 0.1);
+        color: darkslategrey;
     }
 </style>
