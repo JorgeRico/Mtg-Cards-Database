@@ -64,7 +64,7 @@
     <BackofficeLayout>
         <h1>Search cards</h1>
 
-        <section class="search mb-3">
+        <section class="search mb-3 mt20">
             <input 
                 class="left"
                 placeholder="Search cards...."
@@ -76,22 +76,33 @@
                 <i class="fa-solid fa-search"></i>
             </span>
         </section>
-        
+        <p>Write a card name to search . . . </p>
+        <hr>
         <section v-if="total > 0">
-            <p><strong>Name</strong>: <strong>{{ result }}</strong></p>
-            <p><strong>Num cards</strong>: <strong>{{ total }}</strong></p>
+            <p>
+                <strong>Name</strong>: <strong>{{ result }}</strong>
+            </p>
+            <p>
+                <strong>Num cards</strong>: <strong>{{ total }}</strong>
+            </p>
             <Table
                 :key=setItems 
                 :items=setItems>
             </Table>
         </section>
+        <section v-else>No results found or anything is searched</section>
     </BackofficeLayout>
 </template>
 
 <style lang="css" scoped>
     .search {
-        width: 100%;
         overflow: hidden;
+        border: 1px solid grey;
+        width: 220px;
+        padding: 8px 7px 7px 6px;
+        background: rgba(47, 105, 210, 0.2);
+        border-radius: 3px;
+
         & input {
             padding: 4px 8px;
         }
