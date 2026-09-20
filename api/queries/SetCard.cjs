@@ -46,8 +46,8 @@ function updateOwnSetCard(id, own, idSet) {
 function updateAllOwnSetCard(own, idSet) {
     var query =
         `UPDATE mtgCard 
-        SET own = "${own}", pendingToArrive = 0
-        WHERE idSet = ${idSet} AND isMolCard = 0`;
+        SET own = ${own}, pendingToArrive = 0
+        WHERE idSet = ${idSet}`;
 
     return query;
 }

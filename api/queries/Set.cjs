@@ -91,7 +91,7 @@ function getSingleSet(id) {
 function updateSetComplete(id, value) {
     var query =
         `UPDATE mtgSet 
-        SET complete = "${value}"
+        SET complete = ${value}
         WHERE id = ${id}`;
 
     return query;
@@ -100,7 +100,7 @@ function updateSetComplete(id, value) {
 function updateSetOnlineSet(id, value) {
     var query =
         `UPDATE mtgSet 
-        SET onlineSet = "${value}"
+        SET onlineSet = ${value}
         WHERE id = ${id}`;
 
     return query;
@@ -109,7 +109,7 @@ function updateSetOnlineSet(id, value) {
 function updateSetOnlineSetCards(id, value) {
     var query =
         `UPDATE mtgCard 
-        SET isMolCard = "${value}"
+        SET isMolCard = ${value}
         WHERE idSet = ${id}`;
 
     return query;
@@ -118,7 +118,7 @@ function updateSetOnlineSetCards(id, value) {
 function updateSetMolCards(id, value) {
     var query =
         `UPDATE mtgSet
-        SET setTotalMolCards = "${value}"
+        SET setTotalMolCards = ${value}
         WHERE id = ${id}`;
 
     return query;
@@ -127,7 +127,7 @@ function updateSetMolCards(id, value) {
 function updateSetOwnedCards(id, value) {
     var query =
         `UPDATE mtgSet
-        SET setTotalOwnedCards = "${value}"
+        SET setTotalOwnedCards = ${value}
         WHERE id = ${id}`;
 
     return query;
@@ -136,7 +136,7 @@ function updateSetOwnedCards(id, value) {
 function updateSetSpecialCards(id, value) {
     var query =
         `UPDATE mtgSet
-        SET setTotalSpecialCards = "${value}"
+        SET setTotalSpecialCards = ${value}
         WHERE id = ${id}`;
 
     return query;
