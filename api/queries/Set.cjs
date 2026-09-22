@@ -163,11 +163,18 @@ function getSetTotalMolCards(id) {
 }
 
 function getSetTotalOwnedCards(id) {
+    // var query =
+    //     `SELECT 
+    //     s.setTotalOwnedCards 
+    //     FROM mtgSet s
+    //     WHERE s.id = ${id} `;
+    // better option to count - Some other functions use other values and need to be recalculated with counting cards
     var query =
         `SELECT 
-        s.setTotalOwnedCards 
-        FROM mtgSet s
-        WHERE s.id = ${id} `;
+        count(card.id) as total 
+        FROM mtgCard card 
+        WHERE card.idSet = ${id} 
+        AND card.own = 1`;
 
     return query;
 }
