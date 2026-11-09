@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: app-db
--- Tiempo de generación: 09-11-2026 a las 00:35:30
+-- Tiempo de generación: 09-11-2026 a las 00:41:01
 -- Versión del servidor: 8.4.11
 -- Versión de PHP: 8.3.26
 
@@ -114243,7 +114243,7 @@ INSERT INTO `mtgCard` (`id`, `cardName`, `cardJsonLink`, `cardUri`, `cardImg`, `
 (184501, 'Collective Inferno', 'e4239b32-6a34-4353-846a-0c6c1b1e9d35', 'https://api.scryfall.com/cards/e4239b32-6a34-4353-846a-0c6c1b1e9d35', 'https://cards.scryfall.io/normal/front/e/4/e4239b32-6a34-4353-846a-0c6c1b1e9d35.jpg?1769126021', 1068, 0, 0, 0, 0, 0, 0, 0, 0, '2026-01-24 14:15:04'),
 (184502, 'End-Blaze Epiphany', 'f35da1f8-f7e0-4a08-aa73-ba5ecd9af442', 'https://api.scryfall.com/cards/f35da1f8-f7e0-4a08-aa73-ba5ecd9af442', 'https://cards.scryfall.io/normal/front/f/3/f35da1f8-f7e0-4a08-aa73-ba5ecd9af442.jpg?1769125954', 1068, 0, 0, 0, 0, 0, 0, 0, 0, '2026-01-24 14:15:04'),
 (184503, 'Goliath Daydreamer', 'a7b62dab-df74-4739-857b-04c931b49d93', 'https://api.scryfall.com/cards/a7b62dab-df74-4739-857b-04c931b49d93', 'https://cards.scryfall.io/normal/front/a/7/a7b62dab-df74-4739-857b-04c931b49d93.jpg?1769126400', 1068, 0, 0, 0, 0, 0, 0, 0, 0, '2026-01-24 14:15:05'),
-(184504, 'Hexing Squelcher', '145f10ab-b41b-4213-b75f-522aafe940fb', 'https://api.scryfall.com/cards/145f10ab-b41b-4213-b75f-522aafe940fb', 'https://cards.scryfall.io/normal/front/1/4/145f10ab-b41b-4213-b75f-522aafe940fb.jpg?1769126263', 1068, 0, 0, 1, 0, 0, 0, 0, 0, '2026-01-24 14:15:05'),
+(184504, 'Hexing Squelcher', '145f10ab-b41b-4213-b75f-522aafe940fb', 'https://api.scryfall.com/cards/145f10ab-b41b-4213-b75f-522aafe940fb', 'https://cards.scryfall.io/normal/front/1/4/145f10ab-b41b-4213-b75f-522aafe940fb.jpg?1769126263', 1068, 0, 0, 1, 1, 0, 0, 0, 0, '2026-01-24 14:15:05'),
 (184505, 'Lavaleaper', 'b34cd684-b060-4d6c-99b8-34f4e54cdd01', 'https://api.scryfall.com/cards/b34cd684-b060-4d6c-99b8-34f4e54cdd01', 'https://cards.scryfall.io/normal/front/b/3/b34cd684-b060-4d6c-99b8-34f4e54cdd01.jpg?1769126380', 1068, 0, 0, 0, 0, 0, 0, 0, 0, '2026-01-24 14:15:05'),
 (184506, 'Meek Attack', 'e9ae8b09-4ca1-4024-a8c6-17cea69aab86', 'https://api.scryfall.com/cards/e9ae8b09-4ca1-4024-a8c6-17cea69aab86', 'https://cards.scryfall.io/normal/front/e/9/e9ae8b09-4ca1-4024-a8c6-17cea69aab86.jpg?1769126063', 1068, 0, 0, 0, 0, 0, 0, 0, 0, '2026-01-24 14:15:05'),
 (184507, 'Scuzzback Scrounger', 'd3e2439d-dd2a-44a0-993f-10d64b73e860', 'https://api.scryfall.com/cards/d3e2439d-dd2a-44a0-993f-10d64b73e860', 'https://cards.scryfall.io/normal/front/d/3/d3e2439d-dd2a-44a0-993f-10d64b73e860.jpg?1769125944', 1068, 0, 0, 0, 0, 0, 0, 0, 0, '2026-01-24 14:15:05'),
